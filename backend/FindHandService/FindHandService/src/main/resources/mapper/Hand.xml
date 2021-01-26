@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bangkoklab.findHandService.data.mapper.HandMapper">
+	<resultMap type="hand" id="handResult">
+		<result column="job_id" property="jobId"/>
+		<result column="job_user_uuid" property="jobUserUUid"/>
+		<result column="category_id" property="categoryId"/>
+		<result column="content" property="content"/>
+		<result column="job_regdate" property="jobRegdate"/>
+		<result column="working_hour" property="workingHour"/>
+		<result column="job_credit" property="jobCredit"/>
+		<result column="working_date" property="workingDate"/>
+		<result column="working_address" property="workingAddress"/>
+		<result column="status" property="status"/>
+	</resultMap>
+	<select id="findHands" resultMap="handResult">
+		SELECT 
+				*
+		FROM job j 
+		
+	</select>
+</mapper>
