@@ -46,4 +46,10 @@
 			#{status}
 		)
 	</insert>
+	
+	<delete id="deleteHand">
+		delete 
+		from job
+		where job_id = #{jobId}
+	</delete>
 </mapper>

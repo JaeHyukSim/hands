@@ -9,6 +9,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -54,4 +55,11 @@ public class HandController {
 	public ResponseEntity<List<Hand>> HandDeals() throws Exception{
 		return new ResponseEntity<List<Hand>>(service.findHands(),HttpStatus.OK);
 	}
+	
+	@DeleteMapping("deleteHand")
+	public ResponseEntity<List<Hand>> deleteHand(@RequestBody Hand hand) throws Exception{
+		service.deleteHand(hand);
+		return new ResponseEntity<List<Hand>>(service.findHands(),HttpStatus.OK);
+	}
+	
 }
