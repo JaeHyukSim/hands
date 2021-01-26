@@ -6,4 +6,5 @@ import com.bangkoklab.findHandService.data.dto.Hand;
 
 public interface HandMapper {
 	List<Hand> findHands() throws Exception;
+	void insertHand(Hand hand) throws Exception;
 }

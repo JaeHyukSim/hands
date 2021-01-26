@@ -19,6 +19,31 @@
 		SELECT 
 				*
 		FROM job j 
-		
 	</select>
+	
+	<insert id="insertHand" parameterType="hand">
+		insert into job(
+			job_id,
+			job_user_uuid,
+			category_id,
+			content,
+			job_regdate,
+			working_hour,
+			job_credit,
+			working_date,
+			working_address,
+			status
+		)values(
+			#{jobId},
+			#{jobUserUUid},
+			#{categoryId},
+			#{content},
+			#{jobRegdate},
+			#{workingHour},
+			#{jobCredit},
+			#{workingDate},
+			#{workingAddress},
+			#{status}
+		)
+	</insert>
 </mapper>

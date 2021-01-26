@@ -18,5 +18,10 @@ public class HandServiceImpl implements HandService{
 	public List<Hand> findHands() throws Exception {
 		return mapper.findHands();
 	}
+	
+	@Override
+	public void insertHand(Hand hand) throws Exception {
+		mapper.insertHand(hand);
+	}
 
 }

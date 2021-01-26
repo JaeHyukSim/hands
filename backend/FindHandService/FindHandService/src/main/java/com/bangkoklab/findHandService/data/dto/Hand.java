@@ -1,6 +1,6 @@
 package com.bangkoklab.findHandService.data.dto;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class Hand {
 	private String jobId;
