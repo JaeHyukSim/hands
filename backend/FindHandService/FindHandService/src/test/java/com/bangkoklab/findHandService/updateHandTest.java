@@ -25,7 +25,7 @@ public class updateHandTest extends ControllerTest {
 	private ObjectMapper objectMapper;
 	
 	@Test
-	@DisplayName("일거리 게시글 넣기")
+	@DisplayName("일거리 게시글 수정")
 	public void insertHandDealTest() throws Exception {
 		Hand hand = new Hand();
 		hand.setJobId("1234");

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bangkoklab.findHandService.data.dto.Category;
 import com.bangkoklab.findHandService.data.dto.Hand;
 import com.bangkoklab.findHandService.data.mapper.HandMapper;
 import com.bangkoklab.findHandService.service.HandService;
@@ -33,5 +34,12 @@ public class HandServiceImpl implements HandService{
 	public void updateHand(Hand hand) throws Exception {
 		mapper.updateHand(hand);
 	}
+
+	@Override
+	public List<Hand> findByCategoryHands(Category category) throws Exception {
+		return mapper.findByCategory(category);
+	}
+
+	
 
 }

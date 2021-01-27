@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bangkoklab.findHandService.data.dto.Category;
 import com.bangkoklab.findHandService.data.dto.Hand;
 import com.bangkoklab.findHandService.service.HandService;
 
@@ -58,6 +59,18 @@ public class HandController {
 		return new ResponseEntity<List<Hand>>(service.findHands(),HttpStatus.OK);
 	}
 	
+	// 카테고리 별 일거리 조회
+	@GetMapping("/findHandsByCategory")
+	public ResponseEntity<List<Hand>> findByCategory(@RequestBody Category category) throws Exception{
+		try {			
+			System.out.println(category.getCategoryName());
+			service.findByCategoryHands(category);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return new ResponseEntity<List<Hand>>(service.findByCategoryHands(category),HttpStatus.OK);
+	}
 	
 	//일거리 삭제
 	@DeleteMapping("deleteHand")
@@ -83,7 +96,6 @@ public class HandController {
 		HttpStatus status = null;
 		System.out.println(hand.getJobId());
 		try {
-			// 이부분 수정
 			service.updateHand(hand); 
 			resultMap.put("message", "success");
 			status = HttpStatus.OK;

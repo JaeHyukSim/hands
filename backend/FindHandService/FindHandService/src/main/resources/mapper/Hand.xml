@@ -16,13 +16,6 @@
 		<result column="status" property="status"/>
 	</resultMap>
 	
-	<select id="findHands" resultMap="handResult">
-		SELECT 
-				*
-		FROM 
-			job j 
-	</select>
-	
 	<insert id="insertHand" parameterType="hand">
 		INSERT into job(
 			job_id,
@@ -71,4 +64,27 @@
 		WHERE
 			job_id = #{jobId}
 	</update>
+	
+	<select id="findHands" resultMap="handResult">
+		SELECT 
+				*
+		FROM 
+			job j 
+	</select>
+	<!-- 카테고리 별 조회 -->
+	<!-- select category_id from category where category_name = " "; -->
+	<select id="findByCategory" parameterType="category" resultMap="handResult">
+	SELECT 
+		* 
+	FROM 
+		job
+	WHERE 
+		category_id IN  ( SELECT 
+							category_id 
+						  FROM 
+						  	category
+    					  WHERE 
+    					  	category_name = #{categoryName} );
+	</select>
+	
 </mapper>
