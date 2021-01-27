@@ -1,0 +1,30 @@
+# Servlet, Spring Settings..
+server:
+  port: 8080
+spring:
+  application:
+    name: hands-api-gateway
+
+#zuul Settings
+zuul:
+  routes:
+    hands-auth-service:
+      path: /auth/**
+      url: http://localhost:8081/
+      sensitiveHeaders: Cookie,Set-Cookie
+    hands-member-serivce:
+      path: /member/**
+      url: http://localhost:8082/
+      sensitiveHeaders: Cookie,Set-Cookie
+    admin-service:
+      path: /admin/**
+      url: http://localhost:8083/
+      sensitiveHeaders: Cookie,Set-Cookie
+
+# Eureka Client Settings
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://i4d101.p.ssafy.io:8761/eureka
