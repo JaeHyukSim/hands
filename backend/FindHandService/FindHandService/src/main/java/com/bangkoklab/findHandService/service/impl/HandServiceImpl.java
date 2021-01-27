@@ -29,4 +29,9 @@ public class HandServiceImpl implements HandService{
 		mapper.deleteHand(hand);
 	}
 
+	@Override
+	public void updateHand(Hand hand) throws Exception {
+		mapper.updateHand(hand);
+	}
+
 }

@@ -15,14 +15,16 @@
 		<result column="working_address" property="workingAddress"/>
 		<result column="status" property="status"/>
 	</resultMap>
+	
 	<select id="findHands" resultMap="handResult">
 		SELECT 
 				*
-		FROM job j 
+		FROM 
+			job j 
 	</select>
 	
 	<insert id="insertHand" parameterType="hand">
-		insert into job(
+		INSERT into job(
 			job_id,
 			job_user_uuid,
 			category_id,
@@ -52,4 +54,21 @@
 		from job
 		where job_id = #{jobId}
 	</delete>
+	
+	<update id="updateHand">
+		UPDATE 
+			job 
+		SET
+			job_user_uuid = #{jobUserUUid},
+			category_id = #{categoryId},
+			content = #{content},
+			job_regdate = #{jobRegdate},
+			working_hour = #{workingHour},
+			job_credit = #{jobCredit},
+			working_date = #{workingDate},
+			working_address = #{workingAddress},
+			status = #{status}
+		WHERE
+			job_id = #{jobId}
+	</update>
 </mapper>

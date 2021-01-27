@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,6 +34,7 @@ public class HandController {
 //		return new ResponseEntity<List<Hand>>(service.findHands(),HttpStatus.OK);
 //	}
 
+	// 일거리 게시
 	// 기본키 중복 예외
 	@PostMapping("/insertHand")
 	public ResponseEntity<Map<String, Object>> insertHand(@RequestBody Hand hand){
@@ -50,16 +52,47 @@ public class HandController {
 		return  new ResponseEntity<Map<String, Object>>(resultMap,status);
 	}
 	
-	
+	// 일거리 조회
 	@GetMapping("/findHands")
 	public ResponseEntity<List<Hand>> HandDeals() throws Exception{
 		return new ResponseEntity<List<Hand>>(service.findHands(),HttpStatus.OK);
 	}
 	
+	
+	//일거리 삭제
 	@DeleteMapping("deleteHand")
-	public ResponseEntity<List<Hand>> deleteHand(@RequestBody Hand hand) throws Exception{
-		service.deleteHand(hand);
-		return new ResponseEntity<List<Hand>>(service.findHands(),HttpStatus.OK);
+	public ResponseEntity<Map<String, Object>> deleteHand(@RequestBody Hand hand) throws Exception{
+		Map<String, Object> resultMap = new HashMap<>();
+		HttpStatus status = null;
+		
+		try {
+			service.deleteHand(hand);
+			resultMap.put("message", "success");
+			status = HttpStatus.OK;
+		} catch (Exception e) {
+			resultMap.put("message", "fail");
+			status = HttpStatus.ACCEPTED;
+		}
+		return  new ResponseEntity<Map<String, Object>>(resultMap,status);
+	}
+	
+	//일거리 수정
+	@PutMapping("/updateHand")
+	public ResponseEntity<Map<String, Object>> UpdateHand(@RequestBody Hand hand){
+		Map<String, Object> resultMap = new HashMap<>();
+		HttpStatus status = null;
+		System.out.println(hand.getJobId());
+		try {
+			// 이부분 수정
+			service.updateHand(hand); 
+			resultMap.put("message", "success");
+			status = HttpStatus.OK;
+		} catch (Exception e) {
+			e.printStackTrace();
+			resultMap.put("message", "fail");
+			status = HttpStatus.ACCEPTED;
+		}
+		return  new ResponseEntity<Map<String, Object>>(resultMap,status);
 	}
 	
 }
