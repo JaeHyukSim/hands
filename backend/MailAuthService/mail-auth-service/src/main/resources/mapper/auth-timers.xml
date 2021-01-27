@@ -5,26 +5,36 @@
 <mapper
 	namespace="com.bangkoklab.data.repository.mapper.AuthTimerMapper">
 
-	<select id="isExistedTimer" resultType="int" parameterType="String">
+	<select id="isExistedTimer" resultType="int"
+		parameterType="String">
 		SELECT COUNT(*) as "count"
 		FROM auth_timers
-		WHERE email= #{email}
+		WHERE email=
+		#{email}
 	</select>
-	
+
 	<update id="updateTimerByEmail" parameterType="String">
 		UPDATE auth_timers
 		SET start_timer = now()
 		WHERE email=#{email}
 	</update>
-	
+
 	<insert id="addTimerByEmail" parameterType="String">
-		INSERT INTO auth_timers (
-									email,
-									start_timer
-								) VALUES (
-									#{email},
-									now()
-								)	
+		INSERT INTO
+		auth_timers (
+		email,
+		start_timer
+		) VALUES (
+		#{email},
+		now()
+		)
 	</insert>
+
+	<select id="getDiffTime" parameterType="String"
+		resultType="int">
+		SELECT TIMESTAMPDIFF(MINUTE, start_timer, now())
+		FROM auth_timers
+		WHERE email=#{email}
+	</select>
 
 </mapper>

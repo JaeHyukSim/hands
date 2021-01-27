@@ -11,4 +11,11 @@
 		WHERE email= #{email}
 	</select>
 
+	<insert id="insertAuthenticatedUsersByEmail" parameterType="String">
+		INSERT INTO authenticated_users(
+											email
+										) VALUES (
+											#{email}
+										)
+	</insert>
 </mapper>

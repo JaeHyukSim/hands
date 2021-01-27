@@ -17,7 +17,11 @@ public class AuthenticationCheckServiceImpl implements AuthenticationCheckServic
 	 * 
 	 * @throws Exception
 	 */
-	public boolean isAuthenticated(String email) throws Exception {
-		return (authCheckMapper.isCheckedByEmail(email) == 1);
+	public int isAuthenticated(String email) throws Exception {
+		return authCheckMapper.isCheckedByEmail(email);
+	}
+	
+	public int insertAuthenticatedUsersByEmail(String email) throws Exception{
+		return authCheckMapper.insertAuthenticatedUsersByEmail(email);
 	}
 }

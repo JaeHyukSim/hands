@@ -8,6 +8,10 @@
 
 package com.bangkoklab.service.impl;
 
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.Calendar;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +29,7 @@ public class AuthenticationTimerServiceImpl implements AuthenticationTimerServic
 		 * 존재하는 경우
 		 */
 		try {
-			if (authTimerMapper.isExistedTimer(email) == 1) {
+			if (isExistedTimer(email) == 1) {
 				/**
 				 * 갱신
 				 */
@@ -41,5 +45,15 @@ public class AuthenticationTimerServiceImpl implements AuthenticationTimerServic
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public int getDiffMinuteByEmail(String email) throws Exception {
+		
+		return authTimerMapper.getDiffTime(email);
+		
+	}
+	
+	public int isExistedTimer(String email) throws Exception {
+		return authTimerMapper.isExistedTimer(email);
 	}
 }

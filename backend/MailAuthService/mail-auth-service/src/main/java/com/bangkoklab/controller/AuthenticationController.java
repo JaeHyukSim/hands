@@ -16,15 +16,17 @@
 
 package com.bangkoklab.controller;
 
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bangkoklab.data.vo.AuthRequestMessage;
 import com.bangkoklab.service.AuthRequestProgressService;
+import com.bangkoklab.service.AuthResponseProgressService;
 import com.bangkoklab.service.AuthenticationCheckService;
+import com.bangkoklab.service.AuthenticationEmailService;
 import com.bangkoklab.service.AuthenticationTimerService;
 
 
@@ -34,16 +36,25 @@ public class AuthenticationController {
 	
 	@Autowired
 	private AuthRequestProgressService authRequestProgressService;
+	@Autowired
+	private AuthResponseProgressService authResponseProgressService;
 	
-//	public Map<String, Integer> getAuthRequestAPI(String email) {
-//		return new HashMap<String, Integer>();
-//	}
+	@GetMapping("/auth-start-progress")
+	public AuthRequestMessage getAuthRequestAPI(String email) {
+		return authRequestProgressService.getAuthProgress(email);
+	}
+	
+	@GetMapping("/auth-end-progress")
+	public AuthRequestMessage getAuthResponseAPI(String email) {
+		return authResponseProgressService.getAuthProgress(email);
+	}
+	
 	
 	@Autowired
 	private AuthenticationCheckService authenticationCheckService;
 	
 	@GetMapping("/test")
-	public boolean getTest(String email) throws Exception{
+	public int getTest(String email) throws Exception {
 		return authenticationCheckService.isAuthenticated(email);
 	}
 	
@@ -51,7 +62,15 @@ public class AuthenticationController {
 	private AuthenticationTimerService authenticationTimerService;
 	
 	@GetMapping("/test-timer")
-	public void getTimerTest(String email) throws Exception{
+	public void getTimerTest(String email) throws Exception {
 		authenticationTimerService.getTimerProgress(email);
+	}
+	
+	@Autowired
+	private AuthenticationEmailService authenticationEmailService;
+	
+	@GetMapping("/test-email")
+	public void getEmailTest(String email) throws Exception {
+		authenticationEmailService.sendEmail(email);
 	}
 }
