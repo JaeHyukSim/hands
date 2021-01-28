@@ -2,6 +2,7 @@ package com.bangkoklab.findHandService.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,7 +26,7 @@ import com.bangkoklab.findHandService.service.HandService;
 @RestController
 @RequestMapping("/hands")
 public class HandController {
-	
+
 	@Autowired
 	HandService service;
 
@@ -39,10 +40,10 @@ public class HandController {
 	// 일거리 게시
 	// 기본키 중복 예외
 	@PostMapping("/insertHand")
-	public ResponseEntity<Map<String, Object>> insertHand(@RequestBody Hand hand){
+	public ResponseEntity<Map<String, Object>> insertHand(@RequestBody Hand hand) {
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status = null;
-		
+
 		try {
 			service.insertHand(hand);
 			resultMap.put("message", "success");
@@ -51,46 +52,59 @@ public class HandController {
 			resultMap.put("message", "fail");
 			status = HttpStatus.ACCEPTED;
 		}
-		return  new ResponseEntity<Map<String, Object>>(resultMap,status);
+		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}
-	
+
 	// 일거리 조회
 	@GetMapping("/findHands")
-	public ResponseEntity<List<Hand>> HandDeals() throws Exception{
-		return new ResponseEntity<List<Hand>>(service.findHands(),HttpStatus.OK);
+	public ResponseEntity<List<Hand>> HandDeals() throws Exception {
+		return new ResponseEntity<List<Hand>>(service.findHands(), HttpStatus.OK);
 	}
-	
+
 	// 카테고리 별 일거리 조회
 	@GetMapping("/findHandsByCategory")
-	public ResponseEntity<List<Hand>> findByCategory(@RequestBody Category category) throws Exception{
-		try {			
+	public ResponseEntity<List<Hand>> findByCategory(@RequestBody Category category) throws Exception {
+		try {
 			System.out.println(category.getCategoryName());
 			service.findByCategoryHands(category);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		return new ResponseEntity<List<Hand>>(service.findByCategoryHands(category),HttpStatus.OK);
+
+		return new ResponseEntity<List<Hand>>(service.findByCategoryHands(category), HttpStatus.OK);
 	}
-	
+
 	// 동별 일거리 조회
 	@GetMapping("/findHandsByDong")
-	public ResponseEntity<List<Hand>> findByCategory(@RequestParam String dong) throws Exception{
-		try {			
+	public ResponseEntity<List<Hand>> findByCategory(@RequestParam String dong) throws Exception {
+		try {
 			service.findByDong(dong);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		return new ResponseEntity<List<Hand>>(service.findByDong(dong),HttpStatus.OK);
+
+		return new ResponseEntity<List<Hand>>(service.findByDong(dong), HttpStatus.OK);
 	}
-	
-	//일거리 삭제
+
+	// 크레딧 기준 정렬
+	@GetMapping("/SortByCredit")
+	public ResponseEntity<List<Hand>> downCredit(@RequestParam String order) throws Exception {
+		List<Hand> list = new ArrayList<Hand>();
+		if(order.equals("down")) {
+			list = service.downCredit();			
+		}else if(order.equals("up")){			
+			list = service.upCredit();
+		}
+		return new ResponseEntity<List<Hand>>(list, HttpStatus.OK);
+
+	}
+
+	// 일거리 삭제
 	@DeleteMapping("deleteHand")
-	public ResponseEntity<Map<String, Object>> deleteHand(@RequestBody Hand hand) throws Exception{
+	public ResponseEntity<Map<String, Object>> deleteHand(@RequestBody Hand hand) throws Exception {
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status = null;
-		
+
 		try {
 			service.deleteHand(hand);
 			resultMap.put("message", "success");
@@ -99,17 +113,17 @@ public class HandController {
 			resultMap.put("message", "fail");
 			status = HttpStatus.ACCEPTED;
 		}
-		return  new ResponseEntity<Map<String, Object>>(resultMap,status);
+		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}
-	
-	//일거리 수정
+
+	// 일거리 수정
 	@PutMapping("/updateHand")
-	public ResponseEntity<Map<String, Object>> UpdateHand(@RequestBody Hand hand){
+	public ResponseEntity<Map<String, Object>> UpdateHand(@RequestBody Hand hand) {
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status = null;
 		System.out.println(hand.getJobId());
 		try {
-			service.updateHand(hand); 
+			service.updateHand(hand);
 			resultMap.put("message", "success");
 			status = HttpStatus.OK;
 		} catch (Exception e) {
@@ -117,7 +131,7 @@ public class HandController {
 			resultMap.put("message", "fail");
 			status = HttpStatus.ACCEPTED;
 		}
-		return  new ResponseEntity<Map<String, Object>>(resultMap,status);
+		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}
-	
+
 }

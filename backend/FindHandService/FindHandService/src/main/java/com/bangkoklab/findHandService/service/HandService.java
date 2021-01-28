@@ -12,4 +12,6 @@ public interface HandService {
 	List<Hand> findHands() throws Exception;
 	List<Hand> findByCategoryHands(Category category) throws Exception;
 	List<Hand> findByDong(String dong) throws Exception;
+	List<Hand> downCredit() throws Exception;
+	List<Hand> upCredit() throws Exception;
 }

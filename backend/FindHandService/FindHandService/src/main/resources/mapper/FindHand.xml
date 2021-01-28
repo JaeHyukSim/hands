@@ -39,6 +39,7 @@
     					  	category_name = #{categoryName} );
 	</select>
 	
+	<!-- 동별검색  -->
 	<select id="findByDong" resultMap="handResult">
 		SELECT 
 				*
@@ -46,5 +47,13 @@
 			job j 
 		WHERE 
 			working_address like CONCAT('%',#{dong},'%')
+	</select>
+	
+	<select id="downCredit" resultMap="handResult">
+		SELECT * FROM job order by job_credit desc;
+	</select>
+	
+	<select id="upCredit" resultMap="handResult">
+		SELECT * FROM job order by job_credit asc;
 	</select>
 </mapper>

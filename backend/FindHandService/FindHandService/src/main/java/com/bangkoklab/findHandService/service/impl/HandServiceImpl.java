@@ -49,6 +49,17 @@ public class HandServiceImpl implements HandService{
 		return Findmapper.findByDong(dong);
 	}
 
+	@Override
+	public List<Hand> downCredit() throws Exception {
+		return Findmapper.downCredit();
+	}
+
+	@Override
+	public List<Hand> upCredit() throws Exception {
+		// TODO Auto-generated method stub
+		return Findmapper.upCredit();
+	}
+
 	
 
 }
