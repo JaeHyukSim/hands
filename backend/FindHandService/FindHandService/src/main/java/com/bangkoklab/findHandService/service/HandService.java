@@ -11,4 +11,5 @@ public interface HandService {
 	void updateHand(Hand hand) throws Exception;
 	List<Hand> findHands() throws Exception;
 	List<Hand> findByCategoryHands(Category category) throws Exception;
+	List<Hand> findByDong(String dong) throws Exception;
 }

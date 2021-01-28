@@ -39,4 +39,12 @@
     					  	category_name = #{categoryName} );
 	</select>
 	
+	<select id="findByDong" resultMap="handResult">
+		SELECT 
+				*
+		FROM 
+			job j 
+		WHERE 
+			working_address like CONCAT('%',#{dong},'%')
+	</select>
 </mapper>

@@ -8,4 +8,6 @@ import com.bangkoklab.findHandService.data.dto.Hand;
 public interface FindHandMapper {
 	List<Hand> findHands() throws Exception;
 	List<Hand> findByCategory(Category category) throws Exception;
+	List<Hand> findByDong(String dong) throws Exception;
+	
 }

@@ -44,6 +44,11 @@ public class HandServiceImpl implements HandService{
 		return Findmapper.findByCategory(category);
 	}
 
+	@Override
+	public List<Hand> findByDong(String dong) throws Exception {
+		return Findmapper.findByDong(dong);
+	}
+
 	
 
 }

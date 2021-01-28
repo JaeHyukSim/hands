@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bangkoklab.findHandService.data.dto.Category;
@@ -70,6 +71,18 @@ public class HandController {
 		}
 		
 		return new ResponseEntity<List<Hand>>(service.findByCategoryHands(category),HttpStatus.OK);
+	}
+	
+	// 동별 일거리 조회
+	@GetMapping("/findHandsByDong")
+	public ResponseEntity<List<Hand>> findByCategory(@RequestParam String dong) throws Exception{
+		try {			
+			service.findByDong(dong);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return new ResponseEntity<List<Hand>>(service.findByDong(dong),HttpStatus.OK);
 	}
 	
 	//일거리 삭제
