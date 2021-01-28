@@ -40,7 +40,7 @@ public class updateHandTest extends ControllerTest {
 		hand.setWorkingHour("15");
 		hand.setJobCredit("3000");
 		hand.setWorkingDate("2021-01-25");
-		hand.setWorkingAddress("진장길");
+		hand.setWorkingAddress("언양 진장길");
 		hand.setStatus("거래중");
 		String content = objectMapper.writeValueAsString(hand);
 		

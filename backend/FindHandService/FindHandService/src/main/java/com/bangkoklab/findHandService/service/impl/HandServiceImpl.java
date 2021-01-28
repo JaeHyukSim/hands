@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.bangkoklab.findHandService.data.dto.Category;
 import com.bangkoklab.findHandService.data.dto.Hand;
+import com.bangkoklab.findHandService.data.mapper.FindHandMapper;
 import com.bangkoklab.findHandService.data.mapper.HandMapper;
 import com.bangkoklab.findHandService.service.HandService;
 
@@ -15,10 +16,8 @@ public class HandServiceImpl implements HandService{
 
 	@Autowired
 	HandMapper mapper;
-	@Override
-	public List<Hand> findHands() throws Exception {
-		return mapper.findHands();
-	}
+	@Autowired
+	FindHandMapper Findmapper;
 	
 	@Override
 	public void insertHand(Hand hand) throws Exception {
@@ -36,8 +35,13 @@ public class HandServiceImpl implements HandService{
 	}
 
 	@Override
+	public List<Hand> findHands() throws Exception {
+		return Findmapper.findHands();
+	}
+	
+	@Override
 	public List<Hand> findByCategoryHands(Category category) throws Exception {
-		return mapper.findByCategory(category);
+		return Findmapper.findByCategory(category);
 	}
 
 	
