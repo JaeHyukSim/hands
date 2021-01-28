@@ -13,6 +13,7 @@ import org.springframework.http.MediaType;
 
 import com.bangkoklab.findHandService.controller.HandController;
 import com.bangkoklab.findHandService.data.dto.Category;
+import com.bangkoklab.findHandService.data.dto.Credit;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
@@ -23,12 +24,19 @@ public class findByCreditTest extends ControllerTest{
 
 	@Autowired
 	private HandController handController;
+	@Autowired
+	private ObjectMapper objectMapper;
 	@Test
-	@DisplayName("크레딧 별 정렬")
+	@DisplayName("크레딧 범위 조회")
 	public void simple() throws Exception {
+		Credit credit = new Credit();
+		credit.setMinCredit("3000");
+		credit.setMaxCredit("4500");
+		String content = objectMapper.writeValueAsString(credit);
 		mockMvc.perform(
-				get("/hands/SortByCredit")
-				.param("order","up")
+				get("/hands/findHandsByCredit")
+				.content(content)
+				.contentType(MediaType.APPLICATION_JSON)
 				).andDo(print())
 				.andExpect(status().isOk());
 		// assertTrue("H".equals(handController.HandDeals()));

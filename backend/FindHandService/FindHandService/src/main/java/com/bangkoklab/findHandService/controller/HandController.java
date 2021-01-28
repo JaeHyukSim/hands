@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bangkoklab.findHandService.data.dto.Category;
 import com.bangkoklab.findHandService.data.dto.Hand;
+import com.bangkoklab.findHandService.data.dto.Credit;
 import com.bangkoklab.findHandService.service.HandService;
 
 @RestController
@@ -76,7 +77,7 @@ public class HandController {
 
 	// 동별 일거리 조회
 	@GetMapping("/findHandsByDong")
-	public ResponseEntity<List<Hand>> findByCategory(@RequestParam String dong) throws Exception {
+	public ResponseEntity<List<Hand>> findByDong(@RequestParam String dong) throws Exception {
 		try {
 			service.findByDong(dong);
 		} catch (Exception e) {
@@ -90,13 +91,38 @@ public class HandController {
 	@GetMapping("/SortByCredit")
 	public ResponseEntity<List<Hand>> downCredit(@RequestParam String order) throws Exception {
 		List<Hand> list = new ArrayList<Hand>();
-		if(order.equals("down")) {
-			list = service.downCredit();			
-		}else if(order.equals("up")){			
+		if (order.equals("down")) {
+			list = service.downCredit();
+		} else if (order.equals("up")) {
 			list = service.upCredit();
 		}
 		return new ResponseEntity<List<Hand>>(list, HttpStatus.OK);
+	}
 
+	// 크레딧 기준 정렬
+	// 수정 필요
+	@GetMapping("/findHandsByCredit")
+	public ResponseEntity<List<Hand>> findHandsByCredit(@RequestBody Credit credit) throws Exception {
+	
+		System.out.println(credit.getMaxCredit());
+		List<Hand> list = new ArrayList<Hand>();
+		List<Hand> temp = service.findHands();
+		int min = Integer.parseInt(credit.getMinCredit());
+		int max = Integer.parseInt(credit.getMaxCredit());
+		for(Hand s : temp) {
+			int cur = Integer.parseInt(s.getJobCredit());
+			if(cur >= min && cur < max) {
+				list.add(s);
+			}
+		}
+		
+//		try {
+//			List<Hand> h = service.findByCreditHands(credit);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+
+		return new ResponseEntity<List<Hand>>(list, HttpStatus.OK);
 	}
 
 	// 일거리 삭제

@@ -36,7 +36,7 @@
 						  FROM 
 						  	category
     					  WHERE 
-    					  	category_name = #{categoryName} );
+    					  	category_name = #{categoryName} )
 	</select>
 	
 	<!-- 동별검색  -->
@@ -49,11 +49,25 @@
 			working_address like CONCAT('%',#{dong},'%')
 	</select>
 	
+	<select id="findByCredit" parameterType="Credit" resultMap="handResult">
+		SELECT
+		 * 
+		FROM 
+		 	job 
+		WHERE 
+			job_credit &gt; #{minCredit} <!-- AND job_credit  &lt; #{maxCredit} -->
+	</select>
+	
+	<!-- 크레딧 기준 정렬 -->
 	<select id="downCredit" resultMap="handResult">
-		SELECT * FROM job order by job_credit desc;
+		SELECT * FROM job order by job_credit desc
 	</select>
 	
 	<select id="upCredit" resultMap="handResult">
-		SELECT * FROM job order by job_credit asc;
+		SELECT * FROM job order by job_credit asc
 	</select>
+	
+	
+
+	
 </mapper>

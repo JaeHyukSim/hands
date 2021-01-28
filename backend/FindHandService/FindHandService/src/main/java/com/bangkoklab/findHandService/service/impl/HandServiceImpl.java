@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.bangkoklab.findHandService.data.dto.Category;
 import com.bangkoklab.findHandService.data.dto.Hand;
+import com.bangkoklab.findHandService.data.dto.Credit;
 import com.bangkoklab.findHandService.data.mapper.FindHandMapper;
 import com.bangkoklab.findHandService.data.mapper.HandMapper;
 import com.bangkoklab.findHandService.service.HandService;
@@ -58,6 +59,11 @@ public class HandServiceImpl implements HandService{
 	public List<Hand> upCredit() throws Exception {
 		// TODO Auto-generated method stub
 		return Findmapper.upCredit();
+	}
+
+	@Override
+	public List<Hand> findByCreditHands(Credit credit) throws Exception {
+		return Findmapper.findByCredit(credit);
 	}
 
 	
