@@ -16,4 +16,5 @@ public interface HandService {
 	List<Hand> downCredit() throws Exception;
 	List<Hand> upCredit() throws Exception;
 	List<Hand> findByCreditHands(Credit credit) throws Exception;
+	List<Hand> findByTimeHand(int day) throws Exception;
 }

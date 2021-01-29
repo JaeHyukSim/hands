@@ -13,5 +13,6 @@ public interface FindHandMapper {
 	List<Hand> downCredit() throws Exception;
 	List<Hand> upCredit() throws Exception;
 	List<Hand> findByCredit(Credit credit) throws Exception;
+	List<Hand> findByTimeHand(int day) throws Exception;
 	
 }

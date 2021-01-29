@@ -66,6 +66,11 @@ public class HandServiceImpl implements HandService{
 		return Findmapper.findByCredit(credit);
 	}
 
+	@Override
+	public List<Hand> findByTimeHand(int day) throws Exception {
+		return Findmapper.findByTimeHand(day);
+	}
+
 	
 
 }

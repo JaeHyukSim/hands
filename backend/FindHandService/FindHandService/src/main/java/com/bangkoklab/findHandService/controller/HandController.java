@@ -124,9 +124,14 @@ public class HandController {
 
 		return new ResponseEntity<List<Hand>>(list, HttpStatus.OK);
 	}
+	
+	@GetMapping("/findByTimeHand")
+	public ResponseEntity<List<Hand>> findByTimeHand(int day) throws Exception{
+		return new ResponseEntity<List<Hand>>(service.findByTimeHand(day), HttpStatus.OK);
+	}
 
 	// 일거리 삭제
-	@DeleteMapping("deleteHand")
+	@DeleteMapping("/deleteHand")
 	public ResponseEntity<Map<String, Object>> deleteHand(@RequestBody Hand hand) throws Exception {
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status = null;

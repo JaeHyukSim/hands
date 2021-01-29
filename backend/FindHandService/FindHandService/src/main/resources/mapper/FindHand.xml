@@ -67,7 +67,9 @@
 		SELECT * FROM job order by job_credit asc
 	</select>
 	
-	
-
+	<!-- 남은 일별 조회 -->
+	<select id="findByTimeHand" parameterType="Int" resultMap="handResult">
+		select * from job where #{day} &gt; TIMESTAMPDIFF(DAY, working_date, CURDATE());
+	</select>
 	
 </mapper>

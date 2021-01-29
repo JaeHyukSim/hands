@@ -27,7 +27,7 @@ public class insertHandTest extends ControllerTest {
 	@DisplayName("일거리 게시글 넣기")
 	public void insertHandDealTest() throws Exception {
 		Hand hand = new Hand();
-		hand.setJobId("12345");
+		hand.setJobId("111");
 		hand.setJobUserUUid("1248657498sdgadsag");
 		hand.setCategoryId("맡기기");
 		hand.setContent("택배 수령해서 내장고에 보관해주세요");
@@ -38,7 +38,7 @@ public class insertHandTest extends ControllerTest {
 		hand.setJobRegdate(time);
 		hand.setWorkingHour("5");
 		hand.setJobCredit("3000");
-		hand.setWorkingDate("2021-01-25");
+		hand.setWorkingDate("2021-01-28");
 		hand.setWorkingAddress("진장길");
 		hand.setStatus("거래중");
 		String content = objectMapper.writeValueAsString(hand);
