@@ -9,4 +9,5 @@ public interface HandMapper {
 	void insertHand(Hand hand) throws Exception;
 	void deleteHand(Hand hand) throws Exception;
 	void updateHand(Hand hand) throws Exception;
+	void deletOverDayeHand() throws Exception;
 }

@@ -10,6 +10,7 @@ public interface HandService {
 	void insertHand(Hand hand) throws Exception;
 	void deleteHand(Hand hand) throws Exception;
 	void updateHand(Hand hand) throws Exception;
+	void deletOverDayeHand() throws Exception;
 	List<Hand> findHands() throws Exception;
 	List<Hand> findByCategoryHands(Category category) throws Exception;
 	List<Hand> findByDong(String dong) throws Exception;

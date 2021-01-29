@@ -71,6 +71,11 @@ public class HandServiceImpl implements HandService{
 		return Findmapper.findByTimeHand(day);
 	}
 
+	@Override
+	public void deletOverDayeHand() throws Exception {
+		mapper.deletOverDayeHand();
+	}
+
 	
 
 }

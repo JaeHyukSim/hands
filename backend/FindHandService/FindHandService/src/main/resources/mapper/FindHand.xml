@@ -55,7 +55,7 @@
 		FROM 
 		 	job 
 		WHERE 
-			job_credit &gt; #{minCredit} <!-- AND job_credit  &lt; #{maxCredit} -->
+			job_credit &gt;= #{minCredit} AND job_credit  &lt; #{maxCredit}
 	</select>
 	
 	<!-- 크레딧 기준 정렬 -->

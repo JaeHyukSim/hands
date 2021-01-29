@@ -48,6 +48,12 @@
 		where job_id = #{jobId}
 	</delete>
 	
+	<delete id="deletOverDayeHand">
+		delete 
+		from job
+		where 0  &gt; DATEDIFF(working_date, CURDATE());
+	</delete>
+	
 	<update id="updateHand">
 		UPDATE 
 			job 

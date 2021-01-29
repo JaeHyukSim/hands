@@ -50,6 +50,7 @@ public class HandController {
 			resultMap.put("message", "success");
 			status = HttpStatus.OK;
 		} catch (Exception e) {
+			e.printStackTrace();
 			resultMap.put("message", "fail");
 			status = HttpStatus.ACCEPTED;
 		}
@@ -91,9 +92,9 @@ public class HandController {
 	@GetMapping("/SortByCredit")
 	public ResponseEntity<List<Hand>> downCredit(@RequestParam String order) throws Exception {
 		List<Hand> list = new ArrayList<Hand>();
-		if (order.equals("down")) {
+		if (order.equals("Down")) {
 			list = service.downCredit();
-		} else if (order.equals("up")) {
+		} else if (order.equals("Up")) {
 			list = service.upCredit();
 		}
 		return new ResponseEntity<List<Hand>>(list, HttpStatus.OK);
@@ -147,6 +148,22 @@ public class HandController {
 		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}
 
+	// 날짜 지난 일거리 삭제
+	@DeleteMapping("/deletOverDayeHand")
+	public ResponseEntity<Map<String, Object>> deletOverDayeHand() throws Exception {
+		Map<String, Object> resultMap = new HashMap<>();
+		HttpStatus status = null;
+
+		try {
+			service.deletOverDayeHand();
+			resultMap.put("message", "success");
+			status = HttpStatus.OK;
+		} catch (Exception e) {
+			resultMap.put("message", "fail");
+			status = HttpStatus.ACCEPTED;
+		}
+		return new ResponseEntity<Map<String, Object>>(resultMap, status);
+	}
 	// 일거리 수정
 	@PutMapping("/updateHand")
 	public ResponseEntity<Map<String, Object>> UpdateHand(@RequestBody Hand hand) {
