@@ -23,11 +23,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bangkoklab.data.vo.AuthRequestMessage;
+import com.bangkoklab.data.vo.AuthResponseMessage;
 import com.bangkoklab.service.AuthRequestProgressService;
 import com.bangkoklab.service.AuthResponseProgressService;
 import com.bangkoklab.service.AuthenticationCheckService;
 import com.bangkoklab.service.AuthenticationEmailService;
 import com.bangkoklab.service.AuthenticationTimerService;
+import com.bangkoklab.util.Key;
+import com.bangkoklab.util.SHA256;
 
 
 @RestController
@@ -40,13 +43,13 @@ public class AuthenticationController {
 	private AuthResponseProgressService authResponseProgressService;
 	
 	@GetMapping("/auth-start-progress")
-	public AuthRequestMessage getAuthRequestAPI(String email) {
-		return authRequestProgressService.getAuthProgress(email);
+	public AuthResponseMessage getAuthRequestAPI(AuthRequestMessage authRequestMessage) {
+		return authRequestProgressService.getAuthProgress(authRequestMessage);
 	}
 	
 	@GetMapping("/auth-end-progress")
-	public AuthRequestMessage getAuthResponseAPI(String email) {
-		return authResponseProgressService.getAuthProgress(email);
+	public AuthResponseMessage getAuthResponseAPI(AuthRequestMessage authRequestMessage) {
+		return authResponseProgressService.getAuthProgress(authRequestMessage);
 	}
 	
 	
@@ -71,6 +74,6 @@ public class AuthenticationController {
 	
 	@GetMapping("/test-email")
 	public void getEmailTest(String email) throws Exception {
-		authenticationEmailService.sendEmail(email);
+		authenticationEmailService.sendEmail(email, SHA256.getSHA256(email, Key.key));
 	}
 }

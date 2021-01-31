@@ -7,15 +7,15 @@
 
 	<select id="isCheckedByEmail" resultType="int" parameterType="String">
 		SELECT COUNT(*) as "count"
-		FROM authenticated_users
-		WHERE email= #{email}
+		FROM auth_users
+		WHERE encrypted_email= #{encrypted_email}
 	</select>
 
 	<insert id="insertAuthenticatedUsersByEmail" parameterType="String">
-		INSERT INTO authenticated_users(
-											email
+		INSERT INTO auth_users(
+											encrypted_email
 										) VALUES (
-											#{email}
+											#{encrypted_email}
 										)
 	</insert>
 </mapper>

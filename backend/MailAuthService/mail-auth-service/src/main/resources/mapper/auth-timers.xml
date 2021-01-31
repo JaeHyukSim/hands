@@ -9,32 +9,32 @@
 		parameterType="String">
 		SELECT COUNT(*) as "count"
 		FROM auth_timers
-		WHERE email=
-		#{email}
+		WHERE encrypted_email=
+		#{encrypted_email}
 	</select>
 
 	<update id="updateTimerByEmail" parameterType="String">
 		UPDATE auth_timers
-		SET start_timer = now()
-		WHERE email=#{email}
+		SET start_time = now()
+		WHERE encrypted_email=#{encrypted_email}
 	</update>
 
 	<insert id="addTimerByEmail" parameterType="String">
 		INSERT INTO
 		auth_timers (
-		email,
-		start_timer
+		encrypted_email,
+		start_time
 		) VALUES (
-		#{email},
+		#{encrypted_email},
 		now()
 		)
 	</insert>
 
 	<select id="getDiffTime" parameterType="String"
 		resultType="int">
-		SELECT TIMESTAMPDIFF(MINUTE, start_timer, now())
+		SELECT TIMESTAMPDIFF(MINUTE, start_time, now())
 		FROM auth_timers
-		WHERE email=#{email}
+		WHERE encrypted_email=#{encrypted_email}
 	</select>
 
 </mapper>

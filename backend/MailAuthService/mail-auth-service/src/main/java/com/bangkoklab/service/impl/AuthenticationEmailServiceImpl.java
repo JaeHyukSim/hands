@@ -25,7 +25,7 @@ import com.bangkoklab.util.Gmail;
 
 @Service
 public class AuthenticationEmailServiceImpl implements AuthenticationEmailService {
-	public void sendEmail(String email) throws Exception {
+	public void sendEmail(String email, String encryptedEmail) throws Exception {
 		
 		
 		Properties properties = new Properties();
@@ -49,17 +49,18 @@ public class AuthenticationEmailServiceImpl implements AuthenticationEmailServic
 		});
 		
 		
-		Message message = prepareMessage(email, session, myAccountEmail, email);
+		Message message = prepareMessage(email, session, myAccountEmail, email, encryptedEmail);
 		
 		Transport.send(message);
 		
 		
 	}
-	private Message prepareMessage(String email, Session session, String myAccountEmail, String recepient) {
+	private Message prepareMessage(String email, Session session, String myAccountEmail, String recepient, String encryptedEmail) {
 		String host = "http://localhost:8000";
 		String contextPath = "/mail-auth";
 		String url = "/mail-auth/auth-end-progress";
-		String param = "?email=" + email;
+		String param = "?encryptedEmail=" + encryptedEmail;
+		System.out.println("encryptedEmail : " + encryptedEmail);
 		
 		String totalUrl = host + contextPath + url + param;
 		

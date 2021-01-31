@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bangkoklab.data.vo.AuthRequestMessage;
+import com.bangkoklab.data.vo.AuthResponseMessage;
 import com.bangkoklab.service.AuthResponseProgressService;
 import com.bangkoklab.service.AuthenticationCheckService;
 import com.bangkoklab.service.AuthenticationTimerService;
@@ -20,16 +21,17 @@ public class AuthResponseProgressServiceImpl implements AuthResponseProgressServ
 	
 	private static int timerMinuteLimit = 30;
 
-	public AuthRequestMessage getAuthProgress(String email) {
+	public AuthResponseMessage getAuthProgress(AuthRequestMessage authRequestMessage) {
 
-		AuthRequestMessage msg = new AuthRequestMessage();
-
+		AuthResponseMessage msg = new AuthResponseMessage();
+		String encryptedEmail = authRequestMessage.getEncryptedEmail();
+		System.out.println(encryptedEmail);
 		try {
 			/**
 			 * 인증이 이미 되었는지 검사합니다 != 0 : 이미 인증이 되었으므로 false를 리턴합니다 1 : 인증이 되지 않은 상태이므로 계속
 			 * 진행합니다.
 			 */
-			if (authenticationCheckService.isAuthenticated(email) != 0) {
+			if (authenticationCheckService.isAuthenticated(encryptedEmail) != 0) {
 				msg.setAnswer("already authenticated ....");
 				return msg;
 			}
@@ -37,11 +39,11 @@ public class AuthResponseProgressServiceImpl implements AuthResponseProgressServ
 			/**
 			 * 타이머를 체크한다
 			 */
-			if(authenticationTimerService.isExistedTimer(email) == 0) {
+			if(authenticationTimerService.isExistedTimer(encryptedEmail) == 0) {
 				msg.setAnswer("타이머가 없다... ? ");
 				return msg;
 			}
-			int endTimer = authenticationTimerService.getDiffMinuteByEmail(email);
+			int endTimer = authenticationTimerService.getDiffMinuteByEmail(encryptedEmail);
 			if(timerMinuteLimit <= endTimer) {
 				msg.setAnswer("타이머 만료됨... : timer 시간 = " + endTimer);
 				return msg;
@@ -49,7 +51,7 @@ public class AuthResponseProgressServiceImpl implements AuthResponseProgressServ
 			/**
 			 * db에 인증정보를 저장한다.
 			 */
-			authenticationCheckService.insertAuthenticatedUsersByEmail(email);
+			authenticationCheckService.insertAuthenticatedUsersByEmail(encryptedEmail);
 			/**
 			 * 메시지를 전송한다
 			 */

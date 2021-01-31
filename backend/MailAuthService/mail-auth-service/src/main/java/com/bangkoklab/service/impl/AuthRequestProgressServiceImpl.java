@@ -15,10 +15,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bangkoklab.data.vo.AuthRequestMessage;
+import com.bangkoklab.data.vo.AuthResponseMessage;
 import com.bangkoklab.service.AuthRequestProgressService;
 import com.bangkoklab.service.AuthenticationCheckService;
 import com.bangkoklab.service.AuthenticationEmailService;
 import com.bangkoklab.service.AuthenticationTimerService;
+import com.bangkoklab.util.Key;
+import com.bangkoklab.util.SHA256;
 
 @Service
 public class AuthRequestProgressServiceImpl implements AuthRequestProgressService {
@@ -33,17 +36,23 @@ public class AuthRequestProgressServiceImpl implements AuthRequestProgressServic
 	@Autowired
 	private AuthenticationEmailService authenticationEmailService;
 	
-	public AuthRequestMessage getAuthProgress(String email) {
+	public AuthResponseMessage getAuthProgress(AuthRequestMessage authRequestMessage) {
 		
-		AuthRequestMessage msg = new AuthRequestMessage();
-		
+		AuthResponseMessage msg = new AuthResponseMessage();
+		String email = authRequestMessage.getEmail();
 		try {
+			/**
+			 * 받은 email을 암호화합니다.
+			 */
+			
+			String encryptedEmail = SHA256.getSHA256(email, Key.key);
+			
 			/**
 			 * 인증이 이미 되었는지 검사합니다
 			 * 	!= 0 : 이미 인증이 되었으므로 false를 리턴합니다
 			 *    1  : 인증이 되지 않은 상태이므로 계속 진행합니다.
 			 */
-			if(authenticationCheckService.isAuthenticated(email) != 0) {
+			if(authenticationCheckService.isAuthenticated(encryptedEmail) != 0) {
 				msg.setAnswer("already authenticated ....");
 				return msg;
 			}
@@ -51,12 +60,12 @@ public class AuthRequestProgressServiceImpl implements AuthRequestProgressServic
 			/**
 			 * 클라이언트에게 인증메일을 전송합니다.
 			 */
-			authenticationEmailService.sendEmail(email);
+			authenticationEmailService.sendEmail(email, encryptedEmail);
 			
 			/**
 			 * 타이머를 작동시킵니다.
 			 */
-			authenticationTimerService.getTimerProgress(email);
+			authenticationTimerService.getTimerProgress(encryptedEmail);
 			
 			msg.setAnswer("Message sent successfuly");
 			return msg;

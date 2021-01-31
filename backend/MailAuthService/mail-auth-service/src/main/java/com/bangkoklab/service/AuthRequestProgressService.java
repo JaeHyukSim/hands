@@ -1,7 +1,8 @@
 package com.bangkoklab.service;
 
 import com.bangkoklab.data.vo.AuthRequestMessage;
+import com.bangkoklab.data.vo.AuthResponseMessage;
 
 public interface AuthRequestProgressService {
-	AuthRequestMessage getAuthProgress(String email);
+	AuthResponseMessage getAuthProgress(AuthRequestMessage authRequestMessage);
 }

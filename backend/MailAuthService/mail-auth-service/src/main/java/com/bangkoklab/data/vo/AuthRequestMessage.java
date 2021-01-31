@@ -1,19 +1,23 @@
-/**
- * content : 인증 코드를 클라이언트에게 제공할 때 return하는 vo입니다. 
- */
-
-
 package com.bangkoklab.data.vo;
 
 public class AuthRequestMessage {
-	private String answer;
+	private String email;
+	private String encryptedEmail;
 
-	public String getAnswer() {
-		return answer;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setAnswer(String answer) {
-		this.answer = answer;
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getEncryptedEmail() {
+		return encryptedEmail;
+	}
+
+	public void setEncryptedEmail(String encryptedEmail) {
+		this.encryptedEmail = encryptedEmail;
 	}
 
 	public AuthRequestMessage() {
@@ -21,9 +25,15 @@ public class AuthRequestMessage {
 		// TODO Auto-generated constructor stub
 	}
 
+	public AuthRequestMessage(String email, String encryptedEmail) {
+		super();
+		this.email = email;
+		this.encryptedEmail = encryptedEmail;
+	}
+
 	@Override
 	public String toString() {
-		return "AuthRequestMessage [answer=" + answer + "]";
+		return "AuthRequestMessage [email=" + email + ", encryptedEmail=" + encryptedEmail + "]";
 	}
 
 }

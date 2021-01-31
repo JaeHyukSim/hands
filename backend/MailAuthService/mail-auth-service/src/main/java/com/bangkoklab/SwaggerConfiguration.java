@@ -29,7 +29,7 @@ public class SwaggerConfiguration {
 //	http://localhost:8000/guestbook/v2/api-docs?group=V1
 //	Swagger-UI 확인
 //	http://localhost:8080/{your-app-root}/swagger-ui.html
-//	http://localhost:8000/guestbook/swagger-ui.html
+//	http://localhost:8000/mail-auth/swagger-ui.html
 
 	private String version = "V1";
 	private String title = "SSAFY GuestBook API " + version;

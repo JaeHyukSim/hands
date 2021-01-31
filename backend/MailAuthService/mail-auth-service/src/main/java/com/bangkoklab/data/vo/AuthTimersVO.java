@@ -3,39 +3,39 @@ package com.bangkoklab.data.vo;
 import java.sql.Timestamp;
 
 public class AuthTimersVO {
-	private String email;
-	private Timestamp startTimer;
+	private String encryptedEmail;
+	private String startTime;
 
-	public String getEmail() {
-		return email;
+	public String getEncryptedEmail() {
+		return encryptedEmail;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setEncryptedEmail(String encryptedEmail) {
+		this.encryptedEmail = encryptedEmail;
 	}
 
-	public Timestamp getStartTimer() {
-		return startTimer;
+	public String getStartTime() {
+		return startTime;
 	}
 
-	public void setStartTimer(Timestamp startTimer) {
-		this.startTimer = startTimer;
-	}
-
-	public AuthTimersVO(String email, Timestamp startTimer) {
-		super();
-		this.email = email;
-		this.startTimer = startTimer;
+	public void setStartTime(String startTime) {
+		this.startTime = startTime;
 	}
 
 	@Override
 	public String toString() {
-		return "AuthTimersVO [email=" + email + ", startTimer=" + startTimer + "]";
+		return "AuthTimersVO [encryptedEmail=" + encryptedEmail + ", startTime=" + startTime + "]";
 	}
 
 	public AuthTimersVO() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+
+	public AuthTimersVO(String encryptedEmail, String startTime) {
+		super();
+		this.encryptedEmail = encryptedEmail;
+		this.startTime = startTime;
 	}
 
 }
