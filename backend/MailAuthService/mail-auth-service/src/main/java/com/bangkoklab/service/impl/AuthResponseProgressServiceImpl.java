@@ -51,7 +51,7 @@ public class AuthResponseProgressServiceImpl implements AuthResponseProgressServ
 			/**
 			 * db에 인증정보를 저장한다.
 			 */
-			authenticationCheckService.insertAuthenticatedUsersByEmail(encryptedEmail);
+			authenticationCheckService.insertAuthenticatedUsersByEncryptedEmail(encryptedEmail);
 			/**
 			 * 메시지를 전송한다
 			 */

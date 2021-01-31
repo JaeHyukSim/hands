@@ -5,17 +5,38 @@
 <mapper
 	namespace="com.bangkoklab.data.repository.mapper.AuthCheckMapper">
 
-	<select id="isCheckedByEmail" resultType="int" parameterType="String">
-		SELECT COUNT(*) as "count"
+	<select id="isCheckedByEncryptedEmail" resultType="String" parameterType="String">
+		SELECT is_authenticated
 		FROM auth_users
 		WHERE encrypted_email= #{encrypted_email}
 	</select>
 
-	<insert id="insertAuthenticatedUsersByEmail" parameterType="String">
+	<insert id="insertAuthenticatedUsersByEncryptedEmail" parameterType="String">
 		INSERT INTO auth_users(
 											encrypted_email
 										) VALUES (
 											#{encrypted_email}
 										)
 	</insert>
+	
+	<update id="updateNotCheckedByEncryptedEmail" parameterType="String">
+		UPDATE auth_users
+		SET is_authenticated = "false"
+		WHERE encrypted_email = #{encrypted_email}
+	</update>
+	
+	<update id="updateCheckedByEncryptedEmail" parameterType="String">
+		UPDATE auth_users
+		SET is_authenticated = "true"
+		WHERE encrypted_email = #{encrypted_email}
+	</update>
+	
+	<delete id="deleteByEncryptedEmail" parameterType="String">
+		DELETE FROM auth_users
+		WHERE encrypted_email = #{encrypted_email}
+	</delete>
+	
+	<delete id="deleteAll">
+		DELETE FROM auth_users
+	</delete>
 </mapper>
