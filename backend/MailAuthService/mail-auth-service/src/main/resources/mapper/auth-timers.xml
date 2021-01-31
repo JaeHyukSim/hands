@@ -42,5 +42,16 @@
 		FROM auth_timers
 		WHERE encrypted_email = #{encrypted_email}
 	</select>
-
+	
+	<delete id="deleteTimerByEncryptedEmail" parameterType="String">
+		DELETE FROM auth_timers
+		WHERE encrypted_email = #{encrypted_email}
+	</delete>
+	<delete id="deleteAllByExpiredEmail" parameterType="int">
+		DELETE FROM auth_timers
+		WHERE TIMESTAMPDIFF(MINUTE, start_time, now()) >= #{time}
+	</delete>
+	<delete id="deleteAll">
+		DELETE FROM auth_timers
+	</delete>
 </mapper>

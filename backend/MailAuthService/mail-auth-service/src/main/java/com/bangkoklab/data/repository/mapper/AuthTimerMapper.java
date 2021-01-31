@@ -9,4 +9,7 @@ public interface AuthTimerMapper {
 	int addTimerByEncryptedEmail(String encryptedEmail) throws Exception;
 	int getDiffTimeByEncryptedEmail(String encryptedEmail) throws Exception;
 	String getStartTimeByEncryptedEmail(String encryptedEmail) throws Exception;
+	int deleteTimerByEncryptedEmail(String encryptedEmail) throws Exception;
+	int deleteAllByExpiredEmail(int time) throws Exception;
+	int deleteAll() throws Exception;
 }

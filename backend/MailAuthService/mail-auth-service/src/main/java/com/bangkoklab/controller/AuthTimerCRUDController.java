@@ -1,7 +1,10 @@
 package com.bangkoklab.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -63,6 +66,51 @@ public class AuthTimerCRUDController {
 	public AuthResponseMessage isExpiredByEmail(AuthRequestMessage authRequestMessage) {
 		AuthResponseMessage authResponseMessage = new AuthResponseMessage();
 		authResponseMessage.setAnswer(String.valueOf(authenticationTimerService.isExpiredByEncryptedEmail(authRequestMessage.getEmail())));
+		return authResponseMessage;
+	}
+	/**
+	 * 현재 email의 타이머를 초기화합니다
+	 */
+	@PutMapping("/init-by-email")
+	public AuthResponseMessage initByEmail(AuthRequestMessage authRequestMessage) {
+		AuthResponseMessage authResponseMessage = new AuthResponseMessage();
+		authResponseMessage.setAnswer(String.valueOf(authenticationTimerService.updateTimerByEncryptedEmail(authRequestMessage.getEmail())));
+		return authResponseMessage;
+	}
+	/**
+	 * 현재 email의 타이머를 삭제합니다
+	 */
+	@DeleteMapping("/delete-by-email")
+	public AuthResponseMessage deleteByEmail(AuthRequestMessage authRequestMessage) {
+		AuthResponseMessage authResponseMessage = new AuthResponseMessage();
+		authResponseMessage.setAnswer(String.valueOf(authenticationTimerService.deleteTimerByEncryptedEmail(authRequestMessage.getEmail())));
+		return authResponseMessage;
+	}
+	/**
+	 * 만료된 email의 타이머를 삭제합니다
+	 */
+	@DeleteMapping("/delete-expired")
+	public AuthResponseMessage deleteExpired() {
+		AuthResponseMessage authResponseMessage = new AuthResponseMessage();
+		authResponseMessage.setAnswer(String.valueOf(authenticationTimerService.deleteAllByExpiredEmail()));
+		return authResponseMessage;
+	}
+	/**
+	 * 모든 타이머를 삭제합니다
+	 */
+	@DeleteMapping("/delete-all")
+	public AuthResponseMessage deletaAll() {
+		AuthResponseMessage authResponseMessage = new AuthResponseMessage();
+		authResponseMessage.setAnswer(String.valueOf(authenticationTimerService.deleteAll()));
+		return authResponseMessage;
+	}
+	/**
+	 * 해당 email의 타이머를 추가합니다
+	 */
+	@PutMapping("/insert-by-email")
+	public AuthResponseMessage insertByEmail(AuthRequestMessage authRequestMessage) {
+		AuthResponseMessage authResponseMessage = new AuthResponseMessage();
+		authResponseMessage.setAnswer(String.valueOf(authenticationTimerService.addTimerByEncryptedEmail(authRequestMessage.getEmail())));
 		return authResponseMessage;
 	}
 }

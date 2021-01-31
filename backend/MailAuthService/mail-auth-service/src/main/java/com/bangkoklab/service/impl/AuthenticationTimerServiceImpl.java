@@ -106,4 +106,64 @@ public class AuthenticationTimerServiceImpl implements AuthenticationTimerServic
 		}
 		return 0;
 	}
+	
+	/**
+	 * 현재의 encrypted-email의 타이머를 초기화합니다
+	 */
+	public int updateTimerByEncryptedEmail(String email) {
+		try {
+			String encryptedEmail = SHA256.getSHA256(email, Key.key);
+			return authTimerMapper.updateTimerByEncryptedEmail(encryptedEmail);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	
+	/**
+	 * 현재의 encrypted-email의 timer를 삭제합니다
+	 */
+	public int deleteTimerByEncryptedEmail(String email) {
+		try {
+			String encryptedEmail = SHA256.getSHA256(email, Key.key);
+			return authTimerMapper.deleteTimerByEncryptedEmail(encryptedEmail);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	/**
+	 * 만료된 encrypted-email의 timer를 삭제합니다
+	 */
+	public int deleteAllByExpiredEmail() {
+		try {
+			return authTimerMapper.deleteAllByExpiredEmail(Configuration.timerMinuteLimit);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	/**
+	 * 모든 timer를 삭제합니다
+	 */
+	public int deleteAll() {
+		try {
+			return authTimerMapper.deleteAll();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	/**
+	 * 해당 email의 타이머를 추가합니다
+	 */
+	public int addTimerByEncryptedEmail(String email) {
+		try {
+			String encryptedEmail = SHA256.getSHA256(email, Key.key);
+			return authTimerMapper.addTimerByEncryptedEmail(encryptedEmail);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
 }
