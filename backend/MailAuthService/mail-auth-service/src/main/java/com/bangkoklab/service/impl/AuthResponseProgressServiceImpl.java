@@ -3,6 +3,7 @@ package com.bangkoklab.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bangkoklab.data.config.Configuration;
 import com.bangkoklab.data.vo.AuthRequestMessage;
 import com.bangkoklab.data.vo.AuthResponseMessage;
 import com.bangkoklab.service.AuthResponseProgressService;
@@ -19,8 +20,6 @@ public class AuthResponseProgressServiceImpl implements AuthResponseProgressServ
 	@Autowired
 	private AuthenticationTimerService authenticationTimerService;
 	
-	private static int timerMinuteLimit = 30;
-
 	public AuthResponseMessage getAuthProgress(AuthRequestMessage authRequestMessage) {
 
 		AuthResponseMessage msg = new AuthResponseMessage();
@@ -39,12 +38,12 @@ public class AuthResponseProgressServiceImpl implements AuthResponseProgressServ
 			/**
 			 * 타이머를 체크한다
 			 */
-			if(authenticationTimerService.isExistedTimer(encryptedEmail) == 0) {
+			if(authenticationTimerService.isExistedTimerByEncryptedEmail(encryptedEmail) == 0) {
 				msg.setAnswer("타이머가 없다... ? ");
 				return msg;
 			}
 			int endTimer = authenticationTimerService.getDiffMinuteByEmail(encryptedEmail);
-			if(timerMinuteLimit <= endTimer) {
+			if(Configuration.timerMinuteLimit <= endTimer) {
 				msg.setAnswer("타이머 만료됨... : timer 시간 = " + endTimer);
 				return msg;
 			}

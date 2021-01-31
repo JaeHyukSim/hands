@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 
 public class AuthTimersVO {
 	private String encryptedEmail;
-	private String startTime;
+	private Timestamp startTime;
 
 	public String getEncryptedEmail() {
 		return encryptedEmail;
@@ -14,28 +14,27 @@ public class AuthTimersVO {
 		this.encryptedEmail = encryptedEmail;
 	}
 
-	public String getStartTime() {
+	public Timestamp getStartTime() {
 		return startTime;
 	}
 
-	public void setStartTime(String startTime) {
+	public void setStartTime(Timestamp startTime) {
+		this.startTime = startTime;
+	}
+
+	public AuthTimersVO() {
+		super();
+	}
+
+	public AuthTimersVO(String encryptedEmail, Timestamp startTime) {
+		super();
+		this.encryptedEmail = encryptedEmail;
 		this.startTime = startTime;
 	}
 
 	@Override
 	public String toString() {
 		return "AuthTimersVO [encryptedEmail=" + encryptedEmail + ", startTime=" + startTime + "]";
-	}
-
-	public AuthTimersVO() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	public AuthTimersVO(String encryptedEmail, String startTime) {
-		super();
-		this.encryptedEmail = encryptedEmail;
-		this.startTime = startTime;
 	}
 
 }

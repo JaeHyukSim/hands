@@ -1,6 +1,6 @@
 package com.bangkoklab.controller;
 /**
- * title : auth-user db에 대한 crud를 제공하는 컨트롤러입니다.
+ * title : auth-users db에 대한 crud를 제공하는 컨트롤러입니다.
  * 
  * content : 
  * 1. 조회 

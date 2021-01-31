@@ -10,7 +10,6 @@ import java.util.logging.Logger;
 
 import javax.mail.Authenticator;
 import javax.mail.Message;
-import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
@@ -21,7 +20,6 @@ import org.springframework.stereotype.Service;
 
 import com.bangkoklab.data.config.HandsGmailData;
 import com.bangkoklab.service.AuthenticationEmailService;
-import com.bangkoklab.util.Gmail;
 
 @Service
 public class AuthenticationEmailServiceImpl implements AuthenticationEmailService {
