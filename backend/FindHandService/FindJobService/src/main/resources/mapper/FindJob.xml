@@ -25,18 +25,13 @@
 	
 	<!-- 카테고리 별 조회 -->
 	<!-- select category_id from category where category_name = " "; -->
-	<select id="findByCategory" parameterType="category" resultMap="jobResult">
+	<select id="findByCategory" parameterType="String" resultMap="jobResult">
 	SELECT 
 		* 
 	FROM 
 		job
 	WHERE 
-		category_id IN  ( SELECT 
-							category_id 
-						  FROM 
-						  	category
-    					  WHERE 
-    					  	category_name = #{categoryName} )
+		category_id  = #{category} 
 	</select>
 	
 	<!-- 동별검색  -->

@@ -4,8 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.bangkoklab.findJobService.data.dto.Category;
 import com.bangkoklab.findJobService.data.dto.Credit;
 import com.bangkoklab.findJobService.data.dto.Job;
 import com.bangkoklab.findJobService.data.mapper.FindJobMapper;
@@ -41,7 +39,7 @@ public class JobServiceImpl implements JobService{
 	}
 	
 	@Override
-	public List<Job> findByCategoryJobs(Category category) throws Exception {
+	public List<Job> findByCategoryJobs(String category) throws Exception {
 		return Findmapper.findByCategory(category);
 	}
 

@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bangkoklab.findJobService.data.dto.Category;
 import com.bangkoklab.findJobService.data.dto.Credit;
 import com.bangkoklab.findJobService.data.dto.Job;
 import com.bangkoklab.findJobService.service.JobService;
@@ -63,9 +62,8 @@ public class JobController {
 
 	// 카테고리 별 일거리 조회
 	@GetMapping("/findJobsByCategory")
-	public ResponseEntity<List<Job>> findByCategory(@RequestBody Category category) throws Exception {
+	public ResponseEntity<List<Job>> findByCategory(@RequestParam String category) throws Exception {
 		try {
-			System.out.println(category.getCategoryName());
 			service.findByCategoryJobs(category);
 		} catch (Exception e) {
 			e.printStackTrace();

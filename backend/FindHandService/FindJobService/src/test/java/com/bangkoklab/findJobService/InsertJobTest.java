@@ -28,7 +28,7 @@ public class InsertJobTest extends ControllerTest {
 	public void insertHandDealTest() throws Exception {
 		Job hand = new Job();
 		hand.setJobId("777");
-		hand.setJobUserUUid("1248657498sdgadsag");
+		hand.setJobUserUUid("b652e96d8adf4575aa28cc1d873d532c");
 		hand.setCategoryId("맡기기");
 		hand.setContent("택배 수령해서 내장고에 보관해주세요");
 		SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy-MM-dd HH:mm:ss");

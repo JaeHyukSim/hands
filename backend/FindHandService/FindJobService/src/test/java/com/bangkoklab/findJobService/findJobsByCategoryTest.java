@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 
 import com.bangkoklab.findJobService.controller.JobController;
-import com.bangkoklab.findJobService.data.dto.Category;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
@@ -27,14 +26,10 @@ public class findJobsByCategoryTest extends ControllerTest{
 	@Test
 	@DisplayName("카테고리 별 일거리 게시글 가져옿기")
 	public void simple() throws Exception {
-		Category category = new Category();
-		category.setCategoryName("배달");
-		String content = objectMapper.writeValueAsString(category);
 		
 		mockMvc.perform(
 				get("/Jobs/findJobsByCategory")
-				.content(content)
-				.contentType(MediaType.APPLICATION_JSON)
+				.param("category","맡기기")
 				).andDo(print())
 				.andExpect(status().isOk());
 		// assertTrue("H".equals(handController.HandDeals()));
