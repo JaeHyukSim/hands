@@ -18,3 +18,24 @@ review table CRUD
 	3. 모든 리뷰를 삭제할 수 있다.
 4. 추가
 	1. 특정 사용자와 특정 거래에 대해 댓글을 작성할 수 있다.
+
+review request message
+사용자가 서버로 제공하는 데이터를 모아둔 객체
+1. email
+2. encrypted_email
+3. user_uuid
+
+review response message
+서버에서 사용자로 제공하는 데이터를 모아둔 객체
+1. user_uuid
+2. email
+3. encrypted_email
+4. target_uuid
+5. target_email
+6. review_regdate
+7. contract_id
+8. review_regdate
+9. review_content
+10. score
+11. list of img
+12. list of url
