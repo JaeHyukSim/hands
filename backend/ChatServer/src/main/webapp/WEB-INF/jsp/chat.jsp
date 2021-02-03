@@ -64,6 +64,7 @@
 		ws.onmessage = function(data) {
 			//메시지를 받으면 동작
 			var msg = data.data;
+			console.log(msg    );
 			if(msg != null && msg.trim() != ''){
 				var d = JSON.parse(msg);
 				if(d.type == "getId"){
