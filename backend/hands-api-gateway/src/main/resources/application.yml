@@ -12,13 +12,21 @@ zuul:
       path: /auth/**
       url: http://localhost:8081/
       sensitiveHeaders: Cookie,Set-Cookie
-    hands-member-serivce:
-      path: /member/**
-      url: http://localhost:8082/
+    hands-chat-service:
+      path: /chat/**
+      url: http://localhost:8050/
       sensitiveHeaders: Cookie,Set-Cookie
-    admin-service:
-      path: /admin/**
-      url: http://localhost:8083/
+    hands-job-service:
+      path: /job/**
+      url: http://localhost:8051/
+      sensitiveHeaders: Cookie,Set-Cookie
+    hands-mail-auth-service:
+      path: /mail/**
+      url: http://localhost:8000/mail-auth
+      sensitiveHeaders: Cookie,Set-Cookie
+    hands-review-service:
+      path: /review/**
+      url: http://localhost:8001/review
       sensitiveHeaders: Cookie,Set-Cookie
 
 # Eureka Client Settings
