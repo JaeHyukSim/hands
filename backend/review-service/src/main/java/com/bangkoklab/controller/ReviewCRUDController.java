@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 /**
  * title : Review 테이블을 CRUD하는 컨트롤러입니다
  */
@@ -24,5 +26,13 @@ public class ReviewCRUDController {
 	@GetMapping("/get-reviews")
 	public List<ReviewResponseMessage> getReviews(ReviewRequestMessage reviewRequestMessage) {
 		return reviewService.getReviewProgress(reviewRequestMessage);
+	}
+	
+	/**
+	 * review를 insert하는 컨트롤러입니다
+	 */
+	@PostMapping("/insert-review")
+	public void insertReview(ReviewRequestMessage reviewRequestMessage) {
+		reviewService.insertReviewProcess(reviewRequestMessage);
 	}
 }
