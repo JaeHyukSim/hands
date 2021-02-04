@@ -60,7 +60,47 @@ public class AuthRequestProgressServiceImpl implements AuthRequestProgressServic
 			/**
 			 * 클라이언트에게 인증메일을 전송합니다.
 			 */
-			authenticationEmailService.sendEmail(email, encryptedEmail);
+			String host = "http://localhost:8000";
+			String contextPath = "/mail-auth";
+			String url = "/mail-auth/auth-end-progress";
+			String param = "?encryptedEmail=" + encryptedEmail;
+
+			String totalUrl = host + contextPath + url + param;
+			String content = "안녕하세요 hands입니다. 인증을 진행하기 위해 <a href=" + totalUrl + ">여기</a>를 클릭하세요";
+			String subject = "hands 인증 메일입니다.";
+			authenticationEmailService.sendEmail(email, encryptedEmail, content, subject);
+			
+			/**
+			 * 타이머를 작동시킵니다.
+			 */
+			authenticationTimerService.getTimerProgress(encryptedEmail);
+			
+			msg.setAnswer("Message sent successfuly");
+			return msg;
+		} catch (Exception e) {
+			e.printStackTrace();
+			msg.setAnswer("Fail to transfer message...");
+			return msg;
+		}
+	}
+	
+	public AuthResponseMessage sendPassword(AuthRequestMessage authRequestMessage) {
+		AuthResponseMessage msg = new AuthResponseMessage();
+		String email = authRequestMessage.getEmail();
+		String password = authRequestMessage.getPassword();
+		try {
+			/**
+			 * 받은 email을 암호화합니다.
+			 */
+			
+			String encryptedEmail = SHA256.getSHA256(email, Key.key);
+			
+			/**
+			 * 클라이언트에게 인증메일을 전송합니다.
+			 */
+			String content = "안녕하세요 hands입니다. 임시 비밀번호는 [<span style='color:red'>" + password + "</span> ] 입니다";
+			String subject = "hands 임시 비밀번호입니다.";
+			authenticationEmailService.sendEmail(email, encryptedEmail, content, subject);
 			
 			/**
 			 * 타이머를 작동시킵니다.

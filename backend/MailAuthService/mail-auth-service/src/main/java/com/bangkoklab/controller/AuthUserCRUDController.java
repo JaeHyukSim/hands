@@ -91,4 +91,5 @@ public class AuthUserCRUDController {
 		authResponseMessage.setAnswer(String.valueOf(authenticationCheckService.insertByEncryptedEmail(authRequestMessage.getEmail())));
 		return authResponseMessage;
 	}
+	
 }

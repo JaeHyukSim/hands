@@ -51,6 +51,14 @@ public class AuthenticationController {
 		return authResponseProgressService.getAuthProgress(authRequestMessage);
 	}
 	
+	/**
+	 * 특정 email과 password를 입력받아서 해당 email에게 password를 전달합니다
+	 * 
+	 */
+	@GetMapping("/get-password")
+	public AuthResponseMessage getPassword(AuthRequestMessage authRequestMessage) {
+		return authRequestProgressService.sendPassword(authRequestMessage);
+	}
 	
 	@Autowired
 	private AuthenticationCheckService authenticationCheckService;
@@ -73,6 +81,6 @@ public class AuthenticationController {
 	
 	@GetMapping("/test-email")
 	public void getEmailTest(String email) throws Exception {
-		authenticationEmailService.sendEmail(email, SHA256.getSHA256(email, Key.key));
+		authenticationEmailService.sendEmail(email, SHA256.getSHA256(email, Key.key),"1","2");
 	}
 }
