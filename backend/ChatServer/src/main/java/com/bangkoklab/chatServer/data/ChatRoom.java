@@ -1,6 +1,10 @@
 package com.bangkoklab.chatServer.data;
 
-public class ChatRoom {
+import java.io.Serializable;
+import java.util.UUID;
+
+public class ChatRoom implements Serializable {
+	
     private String roomId;
     private String roomName;
 
@@ -20,5 +24,10 @@ public class ChatRoom {
 		this.roomName = roomName;
 	}
 
-	
+	public static ChatRoom create(String roomName) {
+		ChatRoom chatRoom = new ChatRoom();
+		chatRoom.setRoomId(UUID.randomUUID().toString());
+		chatRoom.setRoomName(roomName);
+		return chatRoom;
+	}
 }

@@ -60,10 +60,18 @@
                 this.roomId = localStorage.getItem('wschat.roomId');
                 this.sender = localStorage.getItem('wschat.sender');
                 this.findRoom();
+                this.getMessage();
             },
             methods: {
+            	getMessage: function() {
+            	console.log("Call"+this.roomId);
+                    axios.get('/chat/room/message/'+this.roomId).then(response => { 
+                    		alert("call");
+                    		this.messages = response.data; 
+                    	}).catch(response => {alert("fail")});
+                },
                 findRoom: function() {
-                    axios.get('/chat/room/'+this.roomId).then(response => { this.room = response.data; });
+                    axios.get('/chat/room/'+this.roomId).then(response => { this.room = response.data;});
                 },
                 sendMessage: function() {
                     ws.send("/pub/chat/message", {}, JSON.stringify({type:'TALK', roomId:this.roomId, sender:this.sender, message:this.message}));

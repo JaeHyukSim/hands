@@ -1,17 +1,19 @@
 package com.bangkoklab.chatServer.data;
 
+import java.io.Serializable;
+
 import lombok.Getter;
 import lombok.Setter;
 
-public class ChatMessage {
-    // ¸Ş½ÃÁö Å¸ÀÔ : ÀÔÀå, Ã¤ÆÃ
+public class ChatMessage implements Serializable{
+    // ï¿½Ş½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½ : ï¿½ï¿½ï¿½ï¿½, Ã¤ï¿½ï¿½
     public enum MessageType {
         ENTER, TALK
     }
-    private MessageType type; // ¸Ş½ÃÁö Å¸ÀÔ
-    private String roomId; // ¹æ¹øÈ£
-    private String sender; // ¸Ş½ÃÁö º¸³½»ç¶÷
-    private String message; // ¸Ş½ÃÁö
+    private MessageType type; // ï¿½Ş½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½
+    private String roomId; // ï¿½ï¿½ï¿½È£
+    private String sender; // ï¿½Ş½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    private String message; // ï¿½Ş½ï¿½ï¿½ï¿½
 	
     public MessageType getType() {
 		return type;
