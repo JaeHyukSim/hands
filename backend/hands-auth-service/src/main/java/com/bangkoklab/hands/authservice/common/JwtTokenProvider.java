@@ -10,8 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -39,8 +37,8 @@ public class JwtTokenProvider {
     }
 
     // JWT 토큰 생성
-    public String createToken(String userPk, Collection<? extends GrantedAuthority> authorities) {
-        Claims claims = Jwts.claims().setSubject(userPk); // userPk = userId
+    public String createToken(String userUuid, Collection<? extends GrantedAuthority> authorities) {
+        Claims claims = Jwts.claims().setSubject(userUuid); // userPk = userUuid
         List<String> authoritiesSirializer=new ArrayList<String>();
         for (GrantedAuthority s : authorities) { // 직렬화
             authoritiesSirializer.add(s.getAuthority());
@@ -57,11 +55,11 @@ public class JwtTokenProvider {
 
     // JWT 토큰에서 인증 정보 조회
     public Authentication getAuthentication(String token) {
-        com.bangkoklab.hands.authservice.data.entity.Authentication authentication = authService.findByUserId(this.getUserPk(token));
+        com.bangkoklab.hands.authservice.data.entity.Authentication authentication = authService.findUserByUserUuid(this.getUserPk(token));
         return new UsernamePasswordAuthenticationToken(authentication, "", authentication.getAuthorities());
     }
 
-    // 토큰에서 회원 정보 추출
+    // 토큰에서 회원 이름 추출
     public String getUserPk(String token) {
         return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
     }
