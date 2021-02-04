@@ -9,13 +9,14 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
 * @packageName com.bangkoklab.hands.authservice.data.vo
 * @fileName User
 * @author parkjaehyun
-* @description 인증 유저를 식별하기위한 Variable Object class
+* @description 인증 유저를 식별하기위한 엔티티 클래스
 * @See org.springframework.security.core.userdetails.UserDetails
 **/
 @Entity
@@ -35,6 +36,9 @@ public class Authentication implements UserDetails {
             joinColumns = @JoinColumn(name = "user_uuid"))
     private List<String> authorities;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "profile_id")
+    private UserProfile userProfile;
 
     public Authentication() {
         this.userUuid=null;
@@ -92,4 +96,5 @@ public class Authentication implements UserDetails {
                 ", authorities=" + authorities.toString() +
                 '}';
     }
+
 }
