@@ -1,0 +1,22 @@
+server :
+  port : 8050
+  
+spring:
+  devtools:
+    livereload:
+      enabled: true
+    restart:
+      enabled: false
+  freemarker:
+    template-loader-path: classpath:/templates/
+    suffix: .ftl
+    content-type: text/html;
+    charset: UTF-8
+    cache: false
+  profiles:
+    active: local
+  redis:  
+    host: i4d101.p.ssafy.io
+    port: 6379
+    
+    
