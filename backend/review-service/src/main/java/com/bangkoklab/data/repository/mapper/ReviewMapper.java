@@ -8,5 +8,6 @@ import com.bangkoklab.data.vo.ReviewVO;
 
 @Mapper
 public interface ReviewMapper {
-	public ArrayList<ReviewVO> getReviewByUserUuid(String userUuid);
+	ArrayList<ReviewVO> getReviewByUserUuid(String userUuid);
+	int insertReview(ReviewVO reviewVO);
 }

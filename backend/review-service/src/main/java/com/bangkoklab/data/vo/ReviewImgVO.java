@@ -1,28 +1,27 @@
 package com.bangkoklab.data.vo;
 
 public class ReviewImgVO {
-	private String userUuid;
-	private String jobId;
+	private String fileUuid;
+	private String reviewId;
 	private String path;
 	private String fname;
-	private String fsize;
+	private long fsize;
 	private String ftype;
-	private String fileUuid;
 
-	public String getUserUuid() {
-		return userUuid;
+	public String getFileUuid() {
+		return fileUuid;
 	}
 
-	public void setUserUuid(String userUuid) {
-		this.userUuid = userUuid;
+	public void setFileUuid(String fileUuid) {
+		this.fileUuid = fileUuid;
 	}
 
-	public String getJobId() {
-		return jobId;
+	public String getReviewId() {
+		return reviewId;
 	}
 
-	public void setJobId(String jobId) {
-		this.jobId = jobId;
+	public void setReviewId(String reviewId) {
+		this.reviewId = reviewId;
 	}
 
 	public String getPath() {
@@ -41,11 +40,11 @@ public class ReviewImgVO {
 		this.fname = fname;
 	}
 
-	public String getFsize() {
+	public long getFsize() {
 		return fsize;
 	}
 
-	public void setFsize(String fsize) {
+	public void setFsize(long fsize) {
 		this.fsize = fsize;
 	}
 
@@ -57,35 +56,25 @@ public class ReviewImgVO {
 		this.ftype = ftype;
 	}
 
-	public String getFileUuid() {
-		return fileUuid;
-	}
-
-	public void setFileUuid(String fileUuid) {
-		this.fileUuid = fileUuid;
-	}
-
 	public ReviewImgVO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public ReviewImgVO(String userUuid, String jobId, String path, String fname, String fsize, String ftype,
-			String fileUuid) {
+	public ReviewImgVO(String fileUuid, String reviewId, String path, String fname, long fsize, String ftype) {
 		super();
-		this.userUuid = userUuid;
-		this.jobId = jobId;
+		this.fileUuid = fileUuid;
+		this.reviewId = reviewId;
 		this.path = path;
 		this.fname = fname;
 		this.fsize = fsize;
 		this.ftype = ftype;
-		this.fileUuid = fileUuid;
 	}
 
 	@Override
 	public String toString() {
-		return "ReviewImgVO [userUuid=" + userUuid + ", jobId=" + jobId + ", path=" + path + ", fname=" + fname
-				+ ", fsize=" + fsize + ", ftype=" + ftype + ", fileUuid=" + fileUuid + "]";
+		return "ReviewImgVO [fileUuid=" + fileUuid + ", reviewId=" + reviewId + ", path=" + path + ", fname=" + fname
+				+ ", fsize=" + fsize + ", ftype=" + ftype + "]";
 	}
 
 }

@@ -16,4 +16,24 @@
 		FROM review
 		WHERE user_uuid = #{user_uuid}
 	</select>
+	
+	<insert id="insertReview" parameterType="ReviewVO">
+		INSERT INTO review (
+								review_id,
+								user_uuid,
+								contract_id,
+								target_uuid,
+								review_regdate,
+								review_content,
+								score
+							) VALUES (
+								#{reviewId},
+								#{userUuid},
+								#{contractId},
+								#{targetUuid},
+								#{reviewRegdate},
+								#{reviewContent},
+								#{score}
+							)
+	</insert>
 </mapper>

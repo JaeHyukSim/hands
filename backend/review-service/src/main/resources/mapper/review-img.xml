@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+	namespace="com.bangkoklab.data.repository.mapper.ReviewImgMapper">
+	
+	<insert id="insertReviewImg" parameterType="ReviewImgVO">
+		INSERT INTO review_img (
+								file_uuid,
+								review_id,
+								path,
+								fname,
+								fsize,
+								ftype
+							) VALUES (
+								#{fileUuid},
+								#{reviewId},
+								#{path},
+								#{fname},
+								#{fsize},
+								#{ftype}
+							)
+	</insert>
+</mapper>

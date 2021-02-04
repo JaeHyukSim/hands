@@ -1,11 +1,15 @@
 package com.bangkoklab.service.impl;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.bangkoklab.data.repository.mapper.ContractMapper;
 import com.bangkoklab.data.repository.mapper.ReviewMapper;
 import com.bangkoklab.data.repository.mapper.ReviewUrlMapper;
 import com.bangkoklab.data.vo.ReviewRequestMessage;
@@ -20,6 +24,8 @@ public class ReviewServiceImpl implements ReviewService {
 	private ReviewMapper reviewMapper;
 	@Autowired
 	private ReviewUrlMapper reviewUrlMapper;
+	@Autowired
+	private ContractMapper contractMapper;
 	/**
 	 * title : 리뷰 리스트를 출력하는 프로그래스 서비스
 	 * @param reviewRequestMessage
@@ -55,7 +61,53 @@ public class ReviewServiceImpl implements ReviewService {
 	public List<ReviewVO> selectReview(String userUuid) {
 		return reviewMapper.getReviewByUserUuid(userUuid);
 	}
+	
 	public List<ReviewUrlVO> selectReviewUrl(String reviewId) {
 		return reviewUrlMapper.getReviewUrlByReviewid(reviewId);
+	}
+	
+	/**
+	 * 받아온 데이터들을 콘솔에 출력합니다
+	 */
+	public void getReviewToConsole(ReviewRequestMessage reviewRequestMessage) {
+		System.out.println("uuid : " + reviewRequestMessage.getUserUuid());
+		System.out.println("content : " + reviewRequestMessage.getReviewContent());
+		System.out.println("score : " + reviewRequestMessage.getScore());
+		System.out.println("contract id : " + reviewRequestMessage.getContractId());
+		for(MultipartFile img : reviewRequestMessage.getImgs()) {
+			String originName = img.getOriginalFilename();
+			String type = img.getContentType();
+			long size = img.getSize();
+			System.out.println("origin name : " + originName);
+			System.out.println("type : " + type);
+			System.out.println("size : " + size);
+		}
+		int i = 1;
+		for(String url : reviewRequestMessage.getUrls()) {
+			System.out.println("url " + i++ + ": " + url);
+		}
+	}
+	
+	/**
+	 * contract로부터 target uuid를 받아옵니다
+	 */
+	public String getTargetUuid(String contractId) {
+		return contractMapper.getHandyByContractId(contractId);
+	}
+	
+	/**
+	 * review table에 값들을 저장한다
+	 */
+	public int insertReview(ReviewRequestMessage reviewRequestMessage, String targetUuid) throws Exception{
+		ReviewVO review = new ReviewVO();
+		review.setReviewId(UUID.randomUUID().toString());
+		review.setUserUuid(reviewRequestMessage.getUserUuid());
+		review.setContractId(reviewRequestMessage.getContractId());
+		review.setTargetUuid(targetUuid);
+		review.setReviewRegdate(new Timestamp(System.currentTimeMillis()));
+		review.setReviewContent(reviewRequestMessage.getReviewContent());
+		review.setScore(reviewRequestMessage.getScore());
+		
+		return reviewMapper.insertReview(review);
 	}
 }
