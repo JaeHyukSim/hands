@@ -36,15 +36,15 @@ public class JwtTokenAuthenticationFilter extends OncePerRequestFilter {
                         .setSigningKey(secret.getBytes(StandardCharsets.UTF_8))
                         .parseClaimsJws(token)
                         .getBody();
-                String username = claims.getSubject();
+                String userUuid = claims.getSubject();
                 List<String> authorities=claims.get("authorities", List.class);
                 List<SimpleGrantedAuthority> userRole=new ArrayList<>();
                 for (String authority : authorities) {
                     userRole.add(new SimpleGrantedAuthority(authority));
                 }
-                if (username != null) {
+                if (userUuid != null) {
                     UsernamePasswordAuthenticationToken auth
-                            = new UsernamePasswordAuthenticationToken(username, null, userRole);
+                            = new UsernamePasswordAuthenticationToken(userUuid, null, userRole);
                     SecurityContextHolder.getContext().setAuthentication(auth);
                 }
             } catch ( Exception e) {

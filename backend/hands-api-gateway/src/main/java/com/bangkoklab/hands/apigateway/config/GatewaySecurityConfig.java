@@ -35,9 +35,13 @@ public class GatewaySecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .addFilterAfter(new JwtTokenAuthenticationFilter(),
                         UsernamePasswordAuthenticationFilter.class)
-                .authorizeRequests()
+                .authorizeRequests().
+                antMatchers("/**").permitAll()
+                .antMatchers("/auth/user/**").hasRole("USER")
                 .antMatchers("/auth/**").permitAll()
-                .antMatchers("/member/**").hasRole("USER")
-                .antMatchers("/admin/**").hasRole("ADMIN");
+                .antMatchers("/auth/profile/").hasRole("USER")
+                .antMatchers("/auth/profile/me").hasRole("USER")
+                .antMatchers("/auth/validate/**").permitAll()
+                .antMatchers("/chat/**").permitAll();
     }
 }
