@@ -15,8 +15,8 @@ spring:
     cache: false
   profiles:
     active: local
-  redis:
-    host: localhost
+  redis:  
+    host: i4d101.p.ssafy.io
     port: 6379
     
     
