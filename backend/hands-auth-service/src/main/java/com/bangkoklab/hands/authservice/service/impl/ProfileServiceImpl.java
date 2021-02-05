@@ -37,6 +37,17 @@ public class ProfileServiceImpl implements ProfileService {
     }
 
     /**
+    * @methodName selectProfileIdByNameAndPhone
+    * @author parkjaehyun
+    * @return com.bangkoklab.hands.authservice.data.entity.UserProfile
+    * @description 이름과 휴대폰 번호로 프로필 아이디 조회
+    **/
+    @Override
+    public UserProfile selectProfileIdByNameAndPhone(String name, String phone) {
+        return profileRepository.findByNameAndPhone(name,phone);
+    }
+
+    /**
     * @methodName updateProfileByProfileId
     * @author parkjaehyun
     * @return com.bangkoklab.hands.authservice.data.entity.Authentication
