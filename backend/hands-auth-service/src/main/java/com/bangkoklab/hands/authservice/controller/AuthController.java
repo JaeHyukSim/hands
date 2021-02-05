@@ -37,7 +37,7 @@ public class AuthController {
     /**
      * @methodName join
      * @author parkjaehyun
-     * @param Map<String, String> join시 필요한 params map
+     * @param 필요한 params map
      * @return org.springframework.http.ResponseEntity<?>
      * @description 회원가입시 기본 profile과 함께 유저 등록
      **/
@@ -90,10 +90,17 @@ public class AuthController {
     }
 
     @PostMapping("/forgot/id")
+    /**
+    * @methodName forgotId
+    * @author parkjaehyun
+    * @return org.springframework.http.ResponseEntity<?>
+    * @description 아이디 찾기
+    **/
     public ResponseEntity<?> forgotId(@RequestBody Map<String,String> params){
         MultiValueMap<String, String> header = new LinkedMultiValueMap<>();
         Map<String, String> body = new HashMap<>();
-        String maskingEmail=authService.findUserNameByNameAndPhone(params.get("name"),params.get("phone"));
+        //String maskingEmail=authService.findUserNameByNameAndPhone(params.get("name"),params.get("phone"));
+        String maskingEmail=null;
         if(maskingEmail==null) {
             header.add("message","해당 정보의 계정이 없습니다.");
             return new ResponseEntity<>(header, HttpStatus.BAD_REQUEST);
