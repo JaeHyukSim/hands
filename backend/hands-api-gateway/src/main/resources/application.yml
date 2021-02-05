@@ -18,7 +18,7 @@ zuul:
       sensitiveHeaders: Cookie,Set-Cookie
     hands-job-service:
       path: /job/**
-      url: http://localhost:8051/
+      url: http://localhost:8051/Jobs
       sensitiveHeaders: Cookie,Set-Cookie
     hands-mail-auth-service:
       path: /mail/**
