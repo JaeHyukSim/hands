@@ -16,4 +16,56 @@
 		FROM review
 		WHERE user_uuid = #{user_uuid}
 	</select>
+	
+	<select id="getReviewByTargetUuid" parameterType="String" resultType="ReviewVO">
+		SELECT review_id,
+			   user_uuid,
+			   contract_id,
+			   target_uuid,
+			   review_regdate,
+			   review_content,
+			   score
+		FROM review
+		WHERE target_uuid = #{targetUuid}
+	</select>
+	
+	<insert id="insertReview" parameterType="ReviewVO">
+		INSERT INTO review (
+								review_id,
+								user_uuid,
+								contract_id,
+								target_uuid,
+								review_regdate,
+								review_content,
+								score
+							) VALUES (
+								#{reviewId},
+								#{userUuid},
+								#{contractId},
+								#{targetUuid},
+								#{reviewRegdate},
+								#{reviewContent},
+								#{score}
+							)
+	</insert>
+	
+	<select id="isReviewDuplicated" parameterType="ReviewVO" resultType="int">
+		SELECT COUNT(*) 
+		FROM review
+		WHERE user_uuid = #{userUuid} AND contract_id = #{contractId}
+	</select>
+	
+	<select id="getAllReview" resultType="ReviewVO">
+		SELECT review_id,
+			   user_uuid,
+			   contract_id,
+			   target_uuid,
+			   review_regdate,
+			   review_content,
+			   score
+		FROM review
+	</select>
+	
+	
+	
 </mapper>
