@@ -20,12 +20,11 @@ import java.util.Map;
 import java.util.UUID;
 
 /**
-* @packageName com.bangkoklab.hands.authservice.controller
-* @fileName AuthController
-* @author parkjaehyun
-* @description
- * 인증 관련 작업 요청을 받고 response 하는 인증 주체 컨트롤러
-**/
+ * @author parkjaehyun
+ * @packageName com.bangkoklab.hands.authservice.controller
+ * @fileName AuthController
+ * @description 인증 관련 작업 요청을 받고 response 하는 인증 주체 컨트롤러
+ **/
 @RestController
 public class AuthController {
     @Autowired
@@ -38,105 +37,106 @@ public class AuthController {
     private JwtTokenProvider jwtTokenProvider;
 
     /**
-     * @methodName join
-     * @author parkjaehyun
      * @param 필요한 params map
      * @return org.springframework.http.ResponseEntity<?>
+     * @methodName join
+     * @author parkjaehyun
      * @description 회원가입시 기본 profile과 함께 유저 등록
      **/
     @PostMapping("/join")
     public ResponseEntity<?> join(@RequestBody Map<String, String> param) {
-        Authentication auth=new Authentication();
+        Authentication auth = new Authentication();
         MultiValueMap<String, String> header = new LinkedMultiValueMap<>();
-        UserProfile profile=new UserProfile();
+        UserProfile profile = new UserProfile();
         profile.setProfileByParams(param);
         auth.setUserId(param.get("userId"));
         auth.setPassword(passwordEncoder.encode(param.get("password")));
-        auth.setUserUuid(UUID.randomUUID().toString().replace("-",""));
+        auth.setUserUuid(UUID.randomUUID().toString().replace("-", ""));
         auth.addAuthorities("ROLE_USER");
         auth.setUserProfile(profile);
-        if(null!=authService.join(auth)){
-            header.add("message","회원가입성공");
+        if (null != authService.join(auth)) {
+            header.add("message", "회원가입성공");
             return new ResponseEntity<>(header, HttpStatus.OK);
-        }else {
+        } else {
             header.add("message", "회원가입 실패");
             return new ResponseEntity<>(header, HttpStatus.BAD_REQUEST);
         }
     }
 
     /**
-     * @methodName login
-     * @author parkjaehyun
      * @param
      * @return org.springframework.http.ResponseEntity<?>
+     * @methodName login
+     * @author parkjaehyun
      * @description 로그인 성공시 response header에 토큰과 body에 userUuid,profileId를 반환함
      **/
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody Map<String,String> params){
+    public ResponseEntity<?> login(@RequestBody Map<String, String> params) {
         MultiValueMap<String, String> header = new LinkedMultiValueMap<>();
         Map<String, String> body = new HashMap<>();
         Authentication authentication = authService.findUserByUserId(params.get("userId"));
-        if(authentication==null) {
-            header.add("message","없는 계정입니다.");
+        if (authentication == null) {
+            header.add("message", "없는 계정입니다.");
             return new ResponseEntity<>(header, HttpStatus.NOT_FOUND);
         }
         if (!passwordEncoder.matches(params.get("password"), authentication.getPassword())) {
-            header.add("message","잘못된 비밀번호입니다.");
+            header.add("message", "잘못된 비밀번호입니다.");
             return new ResponseEntity<>(header, HttpStatus.BAD_REQUEST);
         }
         header.add("message", "good");
-        String token=jwtTokenProvider.createToken(authentication.getUserUuid(), authentication.getAuthorities());
-        header.add("X-AUTH-TOKEN",token);
-        body.put("profileId",authentication.getUserProfile().getProfileId().toString());
+        String token = jwtTokenProvider.createToken(authentication.getUserUuid(), authentication.getAuthorities());
+        header.add("X-AUTH-TOKEN", token);
+        body.put("profileId", authentication.getUserProfile().getProfileId().toString());
 
-        return new ResponseEntity<>(body,header,HttpStatus.OK);
+        return new ResponseEntity<>(body, header, HttpStatus.OK);
     }
 
     @PostMapping("/forgot/id")
     /**
-    * @methodName forgotId
-    * @author parkjaehyun
-    * @return org.springframework.http.ResponseEntity<?>
-    * @description 아이디 찾기
-    **/
-    public ResponseEntity<?> forgotId(@RequestBody Map<String,String> params){
+     * @methodName forgotId
+     * @author parkjaehyun
+     * @return org.springframework.http.ResponseEntity<?>
+     * @description 아이디 찾기
+     **/
+    public ResponseEntity<?> forgotId(@RequestBody Map<String, String> params) {
         MultiValueMap<String, String> header = new LinkedMultiValueMap<>();
         Map<String, String> body = new HashMap<>();
-        UserProfile targetProfile= profileService.selectProfileIdByNameAndPhone(params.get("name"),params.get("phone"));
-        if(targetProfile==null){ // 해당하는 계정이 없다면
-            header.add("message","해당 정보의 계정이 없습니다.");
-            return new ResponseEntity<>(header, HttpStatus.BAD_REQUEST);
-        }
-        String maskingEmail= authService.findUserByProfileId(targetProfile.getProfileId().toString());;
-        if(maskingEmail==null) {
-            header.add("message","해당 정보의 계정이 없습니다.");
+        String maskingEmail=null;
+        try {
+            maskingEmail = authService.findUserIdByNameAndPhone(params.get("name"), params.get("phone"));
+            if (maskingEmail == null) {
+                header.add("message", "해당 정보의 계정이 없습니다.");
+                return new ResponseEntity<>(header, HttpStatus.BAD_REQUEST);
+            }
+        } catch (Exception e) {
+            header.add("message", "해당 정보의 계정이 없습니다.");
             return new ResponseEntity<>(header, HttpStatus.BAD_REQUEST);
         }
         header.add("message", "good");
-        body.put("profileId",maskingEmail);
-        return new ResponseEntity<>(body,header,HttpStatus.OK);
+        body.put("userId", maskingEmail);
+        return new ResponseEntity<>(body, header, HttpStatus.OK);
     }
 
     /**
+     * @return org.springframework.http.ResponseEntity<?>
      * @methodName forgotPassword
      * @author parkjaehyun
-     * @return org.springframework.http.ResponseEntity<?>
      * @description 비밀번호 찾기 요청
      **/
     @PostMapping("/forgot/password")
-    public ResponseEntity<?> forgotPassword(@RequestBody Map<String,String> params){
+    public ResponseEntity<?> forgotPassword(@RequestBody Map<String, String> params) {
         MultiValueMap<String, String> header = new LinkedMultiValueMap<>();
         Map<String, String> body = new HashMap<>();
-        String userId=params.get("userId");
-        if(userId==null) {
-            header.add("message","해당 정보의 계정이 없습니다.");
+        String userId = params.get("userId");
+        if (userId == null) {
+            header.add("message", "해당 정보의 계정이 없습니다.");
             return new ResponseEntity<>(header, HttpStatus.BAD_REQUEST);
         }
         /*
         메일서버 요청 로직 삽입 예정
          */
         header.add("message", "good");
-        return new ResponseEntity<>(body,header,HttpStatus.OK);
+        return new ResponseEntity<>(body, header, HttpStatus.OK);
     }
 
 

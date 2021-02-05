@@ -1,7 +1,10 @@
 package com.bangkoklab.hands.authservice.service.impl;
 
 import com.bangkoklab.hands.authservice.data.entity.Authentication;
+import com.bangkoklab.hands.authservice.data.entity.UserProfile;
 import com.bangkoklab.hands.authservice.data.repository.AuthenticationRepository;
+import com.bangkoklab.hands.authservice.data.repository.ProfileRepository;
+import com.netflix.discovery.converters.Auto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,6 +24,8 @@ public class AuthServiceImpl implements UserDetailsService {
     private static final String EMAIL_PATTERN = "([\\w.])(?:[\\w.]*)(@.*)";
     @Autowired
     private AuthenticationRepository authenticationRepository;
+    @Autowired
+    private ProfileRepository profileRepository;
     /**
      * @methodName join
      * @author parkjaehyun
@@ -72,9 +77,17 @@ public class AuthServiceImpl implements UserDetailsService {
         return authenticationRepository.findByUserUuid(userUuid);
     }
 
-    public String findUserByProfileId(String profileId){
-        Authentication findAuth=authenticationRepository.findByProfileId(profileId);
-        return findAuth.getUserId().replaceAll(EMAIL_PATTERN,"$1****$2");
+    /**
+     * @methodName findUserIdByNameAndPhone
+     * @author parkjaehyun
+     * @return java.lang.String
+     * @description 이름과 폰번호로 마스킹된 유저 아이디를 반환
+     **/
+    public String findUserIdByNameAndPhone(String name,String phone) throws Exception{
+        UserProfile targetProfile=profileRepository.findByNameAndPhone(name,phone);
+        System.out.println(targetProfile);
+        return authenticationRepository.findByUserProfile(targetProfile).getUserId().replaceAll("(?<=.{5}).(?=.*@)", "*");
+
     }
 
 }

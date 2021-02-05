@@ -1,6 +1,7 @@
 package com.bangkoklab.hands.authservice.data.repository;
 
 import com.bangkoklab.hands.authservice.data.entity.Authentication;
+import com.bangkoklab.hands.authservice.data.entity.UserProfile;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -12,5 +13,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface AuthenticationRepository extends JpaRepository<Authentication,Long> {
     Authentication findByUserUuid(String userUuid);
     Authentication findByUserId(String userId);
-    Authentication findByProfileId(String profileId);
+    Authentication findByUserProfile(UserProfile userProfile);
 }
