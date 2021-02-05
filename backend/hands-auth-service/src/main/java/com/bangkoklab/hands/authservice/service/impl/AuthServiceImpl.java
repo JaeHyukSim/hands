@@ -72,10 +72,9 @@ public class AuthServiceImpl implements UserDetailsService {
         return authenticationRepository.findByUserUuid(userUuid);
     }
 
-    public String findUserNameByNameAndPhone(String name,String phone){
-        //Authentication findAuth=authenticationRepository.findByNameAndPhone(name,phone);
-        //findAuth.getUserId().replaceAll(EMAIL_PATTERN,"$1****$2");
-        return null;
+    public String findUserByProfileId(String profileId){
+        Authentication findAuth=authenticationRepository.findByProfileId(profileId);
+        return findAuth.getUserId().replaceAll(EMAIL_PATTERN,"$1****$2");
     }
 
 }

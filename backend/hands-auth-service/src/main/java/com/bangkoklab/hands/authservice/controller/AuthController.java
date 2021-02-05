@@ -3,6 +3,7 @@ package com.bangkoklab.hands.authservice.controller;
 import com.bangkoklab.hands.authservice.common.JwtTokenProvider;
 import com.bangkoklab.hands.authservice.data.entity.Authentication;
 import com.bangkoklab.hands.authservice.data.entity.UserProfile;
+import com.bangkoklab.hands.authservice.service.ProfileService;
 import com.bangkoklab.hands.authservice.service.impl.AuthServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,6 +30,8 @@ import java.util.UUID;
 public class AuthController {
     @Autowired
     private AuthServiceImpl authService;
+    @Autowired
+    private ProfileService profileService;
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired
@@ -99,8 +102,12 @@ public class AuthController {
     public ResponseEntity<?> forgotId(@RequestBody Map<String,String> params){
         MultiValueMap<String, String> header = new LinkedMultiValueMap<>();
         Map<String, String> body = new HashMap<>();
-        //String maskingEmail=authService.findUserNameByNameAndPhone(params.get("name"),params.get("phone"));
-        String maskingEmail=null;
+        UserProfile targetProfile= profileService.selectProfileIdByNameAndPhone(params.get("name"),params.get("phone"));
+        if(targetProfile==null){ // 해당하는 계정이 없다면
+            header.add("message","해당 정보의 계정이 없습니다.");
+            return new ResponseEntity<>(header, HttpStatus.BAD_REQUEST);
+        }
+        String maskingEmail= authService.findUserByProfileId(targetProfile.getProfileId().toString());;
         if(maskingEmail==null) {
             header.add("message","해당 정보의 계정이 없습니다.");
             return new ResponseEntity<>(header, HttpStatus.BAD_REQUEST);
@@ -110,6 +117,12 @@ public class AuthController {
         return new ResponseEntity<>(body,header,HttpStatus.OK);
     }
 
+    /**
+     * @methodName forgotPassword
+     * @author parkjaehyun
+     * @return org.springframework.http.ResponseEntity<?>
+     * @description 비밀번호 찾기 요청
+     **/
     @PostMapping("/forgot/password")
     public ResponseEntity<?> forgotPassword(@RequestBody Map<String,String> params){
         MultiValueMap<String, String> header = new LinkedMultiValueMap<>();
@@ -119,6 +132,9 @@ public class AuthController {
             header.add("message","해당 정보의 계정이 없습니다.");
             return new ResponseEntity<>(header, HttpStatus.BAD_REQUEST);
         }
+        /*
+        메일서버 요청 로직 삽입 예정
+         */
         header.add("message", "good");
         return new ResponseEntity<>(body,header,HttpStatus.OK);
     }

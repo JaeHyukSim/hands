@@ -12,5 +12,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface AuthenticationRepository extends JpaRepository<Authentication,Long> {
     Authentication findByUserUuid(String userUuid);
     Authentication findByUserId(String userId);
-    //Authentication findByNameAndPhone(String name,String phone);
+    Authentication findByProfileId(String profileId);
 }
