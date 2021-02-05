@@ -18,7 +18,6 @@ import javax.mail.internet.MimeMessage;
 
 import org.springframework.stereotype.Service;
 
-import com.bangkoklab.data.config.HandsGmailData;
 import com.bangkoklab.service.AuthenticationEmailService;
 
 @Service
@@ -32,9 +31,8 @@ public class AuthenticationEmailServiceImpl implements AuthenticationEmailServic
 		properties.put("mail.smtp.host", "smtp.gmail.com");
 		properties.put("mail.smtp.port", "587");
 
-		HandsGmailData handsGmailData = new HandsGmailData();
-		String myAccountEmail = handsGmailData.getEmail();
-		String password = handsGmailData.getPassword();
+		String myAccountEmail = "everyhandsday@gmail.com";
+		String password = "hands4179";
 
 		Session session = Session.getInstance(properties, new Authenticator() {
 
