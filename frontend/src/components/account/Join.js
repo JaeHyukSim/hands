@@ -1,11 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import JoinAccount from './JoinAccount'
 
 import { Route } from 'react-router-dom';
 import login_img from '../../img/login_img.png';
 
 class Join extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: null,
+    };
+  };
   render() {
+
     return (
       <div className="container" 
       style={{

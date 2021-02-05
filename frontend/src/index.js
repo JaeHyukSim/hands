@@ -1,14 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Root from './client/Root'
+import { Provider } from "react-redux";
 import reportWebVitals from './reportWebVitals';
+import { applyMiddleware, createStore } from "redux";
 import './index.css';
+import reducer from './reducers'
 
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 ReactDOM.render(
-  <Root/>,
+  <React.StrictMode>
+    <Provider
+    store={createStore(
+      reducer,
+    )}>
+
+      <Root/>
+
+    </Provider>
+  </React.StrictMode>,
   document.getElementById('root')
 );
 
