@@ -66,6 +66,14 @@
 		FROM review
 	</select>
 	
+	<delete id="deleteReviewByContractId" parameterType="String">
+		DELETE FROM review
+		WHERE contract_id = #{contract_id}
+		LIMIT 1
+	</delete>
 	
+	<delete id="deleteReviewAll">
+		DELETE FROM review;
+	</delete>
 	
 </mapper>

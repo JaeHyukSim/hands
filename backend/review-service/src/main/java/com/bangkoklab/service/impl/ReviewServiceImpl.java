@@ -197,4 +197,16 @@ public class ReviewServiceImpl implements ReviewService {
 		return res;
 	}
 	
+	/**
+	 * 거래 id로 리뷰를 제거합니다.
+	 */
+	public int deleteReviewByContractId(String contractId) {
+		return reviewMapper.deleteReviewByContractId(contractId);
+	}
+	/**
+	 * 모든 리뷰를 삭제합니다
+	 */
+	public int deleteReviewAll() {
+		return reviewMapper.deleteReviewAll();
+	}
 }

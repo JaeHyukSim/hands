@@ -14,4 +14,6 @@ public interface ReviewMapper {
 	int isReviewDuplicated(ReviewVO reviewVO);
 	List<ReviewVO> getAllReview();
 	List<ReviewVO> getReviewByTargetUuid(String targetUuid);
+	int deleteReviewByContractId(String contractId);
+	int deleteReviewAll();
 }

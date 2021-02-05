@@ -3,6 +3,7 @@ package com.bangkoklab.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -132,5 +133,19 @@ public class ReviewTestController {
 	@GetMapping("get-mass-review")
 	public List<ReviewMass> getMassReview() {
 		return reviewService.getAllReviewWithImgAndUrl();
+	}
+	/**
+	 * contract_id로 제거하는 것을 테스트
+	 */
+	@DeleteMapping("delete-review-by-contract-id")
+	public int deleteReviewByContractId(String contractId) {
+		return reviewService.deleteReviewByContractId(contractId);
+	}
+	/**
+	 * 모든 리뷰 제거
+	 */
+	@DeleteMapping("delete-review-all")
+	public int deleteReviewAll() {
+		return reviewService.deleteReviewAll();
 	}
 }

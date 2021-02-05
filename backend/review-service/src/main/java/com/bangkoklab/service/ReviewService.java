@@ -21,4 +21,6 @@ public interface ReviewService {
 	int isReviewDuplicated(ReviewRequestMessage reviewRequestMessage);
 	List<ReviewVO> getAllReview();
 	List<ReviewMass> getAllReviewWithImgAndUrl();
+	int deleteReviewByContractId(String contractId);
+	int deleteReviewAll();
 }
