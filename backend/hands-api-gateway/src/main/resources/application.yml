@@ -10,23 +10,23 @@ zuul:
   routes:
     hands-auth-service:
       path: /auth/**
-      url: http://localhost:8081/
+      url: http://i4d101.p.ssafy.io:8081/
       sensitiveHeaders: Cookie,Set-Cookie
     hands-chat-service:
       path: /chat/**
-      url: http://localhost:8050/
+      url: http://i4d101.p.ssafy.io:8050/
       sensitiveHeaders: Cookie,Set-Cookie
     hands-job-service:
       path: /job/**
-      url: http://localhost:8051/Jobs
+      url: http://i4d101.p.ssafy.io:8051/Jobs
       sensitiveHeaders: Cookie,Set-Cookie
     hands-mail-auth-service:
       path: /mail/**
-      url: http://localhost:8000/mail-auth
+      url: http://i4d101.p.ssafy.io:8000/mail-auth
       sensitiveHeaders: Cookie,Set-Cookie
     hands-review-service:
       path: /review/**
-      url: http://localhost:8001/review
+      url: http://i4d101.p.ssafy.io:8001/review
       sensitiveHeaders: Cookie,Set-Cookie
 
 # Eureka Client Settings
