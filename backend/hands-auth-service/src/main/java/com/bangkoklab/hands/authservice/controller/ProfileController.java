@@ -38,7 +38,7 @@ public class ProfileController {
      * @return org.springframework.http.ResponseEntity<?>
      * @description 자기 자신의 프로필 조회
      **/
-    @GetMapping("/me")
+    @GetMapping
     public ResponseEntity<?> getProfile(HttpServletRequest request) {
         Authentication auth=new Authentication();
         MultiValueMap<String, String> header = new LinkedMultiValueMap<>();
@@ -80,7 +80,7 @@ public class ProfileController {
     * @return org.springframework.http.ResponseEntity<?>
     * @description 프로필 수정(pk jwt 토큰 자동)
     **/
-    @PutMapping()
+    @PutMapping
     public ResponseEntity<?> updateProfile(HttpServletRequest request, @RequestBody Map<String,String> params) {
         MultiValueMap<String, String> header = new LinkedMultiValueMap<>();
         String userUuid=jwtTokenProvider.getUserPk(jwtTokenProvider.resolveToken(request));
