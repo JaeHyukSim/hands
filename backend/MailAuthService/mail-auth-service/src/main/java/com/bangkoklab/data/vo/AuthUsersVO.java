@@ -1,5 +1,11 @@
 package com.bangkoklab.data.vo;
 
+/**
+* @packageName com.bangkoklab.data.vo
+* @fileName AuthUsersVO
+* @author shimjaehyuk
+* @description 유저의 인증 여부 체크를 위한 엔티티 클래스
+**/
 public class AuthUsersVO {
 	private String encryptedEmail;
 	private String isAuthenticated;

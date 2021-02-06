@@ -1,7 +1,3 @@
-/**
- * title : 클라이언트에게 메일을 보내는 기능을 관장하는 클래스입니다.
- */
-
 package com.bangkoklab.service.impl;
 
 import java.util.Properties;
@@ -18,10 +14,25 @@ import javax.mail.internet.MimeMessage;
 
 import org.springframework.stereotype.Service;
 
-import com.bangkoklab.service.AuthenticationEmailService;
+import com.bangkoklab.service.EmailService;
 
+/**
+* @packageName com.bangkoklab.service.impl
+* @fileName EmailServiceImpl
+* @author shimjaehyuk
+* @description smtp 이메일 인증 서비스
+* @See EmailService
+**/
 @Service
-public class AuthenticationEmailServiceImpl implements AuthenticationEmailService {
+public class EmailServiceImpl implements EmailService {
+	
+	/**
+     * @methodName sendEmail
+     * @author shimjaehyuk
+     * @param String email, String encryptedEmail, String content, String subject
+     * @return void
+     * @description 인증 요청을 smtp로 전송
+     **/
 	public void sendEmail(String email, String encryptedEmail, String content, String subject) throws Exception {
 
 		Properties properties = new Properties();
@@ -48,6 +59,13 @@ public class AuthenticationEmailServiceImpl implements AuthenticationEmailServic
 
 	}
 
+	/**
+     * @methodName prepareMessage
+     * @author shimjaehyuk
+     * @param String email, javax.mail.Session session, String myAccountEmail, String encryptedEmail, String inputContent, String inputSubject
+     * @return javax.mail.Message
+     * @description 전송할 메시지 정보 설정
+     **/
 	private Message prepareMessage(String email, Session session, String myAccountEmail, String encryptedEmail, String inputContent, String inputSubject) {
 		
 		String content = inputContent;
@@ -61,7 +79,7 @@ public class AuthenticationEmailServiceImpl implements AuthenticationEmailServic
 
 			return message;
 		} catch (Exception e) {
-			Logger.getLogger(AuthenticationEmailServiceImpl.class.getName()).log(Level.SEVERE, null, e);
+			Logger.getLogger(EmailServiceImpl.class.getName()).log(Level.SEVERE, null, e);
 		}
 		return null;
 	}

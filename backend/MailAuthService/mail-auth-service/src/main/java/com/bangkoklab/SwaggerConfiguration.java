@@ -1,8 +1,5 @@
 package com.bangkoklab;
 
-import static com.google.common.base.Predicates.or;
-import static springfox.documentation.builders.PathSelectors.regex;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,19 +14,12 @@ import springfox.documentation.schema.ModelRef;
 import springfox.documentation.service.*;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
-import springfox.documentation.swagger.web.UiConfiguration;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration
 @EnableSwagger2
 public class SwaggerConfiguration {
-
-//	Swagger 설정 확인
-//	http://localhost:8000/{your-app-root}/v2/api-docs
-//	http://localhost:8000/guestbook/v2/api-docs?group=V1
-//	Swagger-UI 확인
-//	http://localhost:8080/{your-app-root}/swagger-ui.html
-//	http://localhost:8000/mail-auth/swagger-ui.html
+// 접속 url :	   http://localhost:8000/mail-auth/swagger-ui.html
 
 	private String version = "V1";
 	private String title = "SSAFY GuestBook API " + version;
@@ -49,8 +39,6 @@ public class SwaggerConfiguration {
 	
 	private Predicate<String> postPaths() {
 		return PathSelectors.any();
-//		return or(regex("/admin/.*"), regex("/user/.*"));
-//		return regex("/admin/.*");
 	}
 
 	private ApiInfo apiInfo() {
