@@ -30,7 +30,7 @@ public class JwtTokenAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest req, HttpServletResponse rsp, FilterChain filterChain)
             throws ServletException, IOException {
         String token = req.getHeader("X-AUTH-TOKEN");
-        if (token != null) {
+        if (token != null || token.equals("")) {
             try {
                 Claims claims = Jwts.parser()
                         .setSigningKey(secret.getBytes(StandardCharsets.UTF_8))
@@ -55,6 +55,7 @@ public class JwtTokenAuthenticationFilter extends OncePerRequestFilter {
         }else{ // 토큰이 없다면
             String reqUrl=req.getRequestURI();
             if(reqUrl.equals("/auth/login") || reqUrl.equals("/auth/join")){ // log
+                System.out.println("토큰이 없습니다");
                 filterChain.doFilter(req, rsp);
             }
         }
