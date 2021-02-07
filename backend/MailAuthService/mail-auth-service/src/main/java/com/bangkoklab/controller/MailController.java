@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bangkoklab.service.ConfirmationService;
@@ -41,10 +40,10 @@ public class MailController {
 
 		switch (authRequestProgressService.sendPassword(params)) {
 		case 200:
-			header.add("message", "임시 pw 메일 전송 성공");
+			header.add("message", "pw transfer successed");
 			return new ResponseEntity<>(header, HttpStatus.OK);
 		default:
-			header.add("message", "임시 pw 메일 전송 실패");
+			header.add("message", "pw transfer failed");
 			return new ResponseEntity<>(header, HttpStatus.BAD_REQUEST);
 		}
 	}
