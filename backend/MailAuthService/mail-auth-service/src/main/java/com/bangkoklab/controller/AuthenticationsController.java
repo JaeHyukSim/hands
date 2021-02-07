@@ -35,16 +35,17 @@ public class AuthenticationsController {
 	public ResponseEntity<?> getAuthRequestAPI(String email) {
 
 		MultiValueMap<String, String> header = new LinkedMultiValueMap<>();
-
+		header.add("Content-Type", "text/html; charset=utf-8");
+		
 		switch (authRequestProgressService.getAuthProgress(email)) {
 		case 200:
-			header.add("message", "인증 요청 성공");
+			header.add("message", "auth confirmation successed");
 			return new ResponseEntity<>(header, HttpStatus.OK);
 		case 409:
-			header.add("message", "이미 인증됨");
+			header.add("message", "auth is already existed");
 			return new ResponseEntity<>(header, HttpStatus.CONFLICT);
 		default:
-			header.add("message", "인증 요청 실패");
+			header.add("message", "auth confirmation failed");
 			return new ResponseEntity<>(header, HttpStatus.BAD_REQUEST);
 		}
 	}
@@ -59,19 +60,20 @@ public class AuthenticationsController {
 	public ResponseEntity<?> getAuthResponseAPI(String encryptedEmail) {
 
 		MultiValueMap<String, String> header = new LinkedMultiValueMap<String, String>();
-
+		header.add("Content-Type", "text/html; charset=utf-8");
+		
 		switch (authResponseProgressService.getAuthProgress(encryptedEmail)) {
 		case 200:
-			header.add("message", "인증 완료");
+			header.add("message", "verify OK");
 			return new ResponseEntity<>(header, HttpStatus.OK);
 		case 4002:
-			header.add("message", "인증 요청이 안됨");
+			header.add("message", "can not verify");
 			return new ResponseEntity<>(header, HttpStatus.BAD_REQUEST);
 		case 4001:
-			header.add("message", "만료됨");
+			header.add("message", "expired");
 			return new ResponseEntity<>(header, HttpStatus.BAD_REQUEST);
 		default:
-			header.add("message", "인증 실패");
+			header.add("message", "verify failed");
 			return new ResponseEntity<>(header, HttpStatus.BAD_REQUEST);
 		}
 	}

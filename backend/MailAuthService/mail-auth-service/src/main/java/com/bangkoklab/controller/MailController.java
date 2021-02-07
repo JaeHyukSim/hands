@@ -1,5 +1,6 @@
 package com.bangkoklab.controller;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,9 +32,12 @@ public class MailController {
 	 * @description email로 password 전송
 	 */
 	@GetMapping("/mail")
-	public ResponseEntity<?> getPassword(@RequestBody Map<String, String> params) {
+	public ResponseEntity<?> getPassword(String email, String password) {
 
 		MultiValueMap<String, String> header = new LinkedMultiValueMap<String, String>();
+		Map<String, String> params = new HashMap<>();
+		params.put("email", email);
+		params.put("password", password);
 
 		switch (authRequestProgressService.sendPassword(params)) {
 		case 200:
