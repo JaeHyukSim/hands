@@ -5,10 +5,19 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.bangkoklab.data.vo.ImgOfOutput;
-import com.bangkoklab.data.vo.ReviewRequestMessage;
 
+/**
+ * @packageName com.bangkoklab.service
+ * @fileName ImgService
+ * @author shimjaehyuk
+ * @description 이미지 서비스
+ **/
 public interface ImgService {
-	int saveToServer(ReviewRequestMessage reviewRequestMessage, List<MultipartFile> imgs, String reviewId);
-	int insertImgs(ReviewRequestMessage reviewRequestMessage, String fileUuid, String path, MultipartFile img, String reviewId) throws Exception;
 	List<ImgOfOutput> getImgByReviewId(String reviewId);
+	
+	int insertImgs(String name, String path, MultipartFile img, String reviewId) throws Exception;
+	
+	int saveToServer(List<MultipartFile> imgs, String reviewId);
+	
+	int deleteImg(String reviewId) throws Exception;
 }

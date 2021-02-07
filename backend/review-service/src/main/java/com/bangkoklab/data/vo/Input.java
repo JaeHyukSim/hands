@@ -1,35 +1,19 @@
 package com.bangkoklab.data.vo;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
-public class ReviewRequestMessage {
-	private String email;
-	private String encryptedEmail;
+import lombok.Getter;
+import lombok.Setter;
+
+public class Input {
 	private String userUuid;
 	private String reviewContent;
 	private int score;
 	private String contractId;
 	private List<String> urls;
 	private List<MultipartFile> imgs;
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getEncryptedEmail() {
-		return encryptedEmail;
-	}
-
-	public void setEncryptedEmail(String encryptedEmail) {
-		this.encryptedEmail = encryptedEmail;
-	}
 
 	public String getUserUuid() {
 		return userUuid;
@@ -79,16 +63,14 @@ public class ReviewRequestMessage {
 		this.imgs = imgs;
 	}
 
-	public ReviewRequestMessage() {
+	public Input() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public ReviewRequestMessage(String email, String encryptedEmail, String userUuid, String reviewContent, int score,
-			String contractId, List<String> urls, List<MultipartFile> imgs) {
+	public Input(String userUuid, String reviewContent, int score, String contractId, List<String> urls,
+			List<MultipartFile> imgs) {
 		super();
-		this.email = email;
-		this.encryptedEmail = encryptedEmail;
 		this.userUuid = userUuid;
 		this.reviewContent = reviewContent;
 		this.score = score;
@@ -99,9 +81,8 @@ public class ReviewRequestMessage {
 
 	@Override
 	public String toString() {
-		return "ReviewRequestMessage [email=" + email + ", encryptedEmail=" + encryptedEmail + ", userUuid=" + userUuid
-				+ ", reviewContent=" + reviewContent + ", score=" + score + ", contractId=" + contractId + ", urls="
-				+ urls + ", imgs=" + imgs + "]";
+		return "Input [userUuid=" + userUuid + ", reviewContent=" + reviewContent + ", score=" + score + ", contractId="
+				+ contractId + ", urls=" + urls + ", imgs=" + imgs + "]";
 	}
 
 }
