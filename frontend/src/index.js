@@ -14,9 +14,8 @@ ReactDOM.render(
   <React.StrictMode>
     <Provider
     store={createStore(
-      reducer,
+      reducer
     )}>
-
       <Root/>
 
     </Provider>
