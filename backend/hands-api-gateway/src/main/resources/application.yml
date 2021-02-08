@@ -12,6 +12,10 @@ zuul:
       path: /auth/**
       url: http://i4d101.p.ssafy.io:8081/
       sensitiveHeaders: Cookie,Set-Cookie
+    hands-credit-service:
+      path: /credit/**
+      url: http://i4d101.p.ssafy.io:8082/
+      sensitiveHeaders: Cookie,Set-Cookie
     hands-chat-service:
       path: /chat/**
       url: http://i4d101.p.ssafy.io:8050/
@@ -19,6 +23,10 @@ zuul:
     hands-job-service:
       path: /job/**
       url: http://i4d101.p.ssafy.io:8051/Jobs
+      sensitiveHeaders: Cookie,Set-Cookie
+    hands-social-service:
+      path: /social/**
+      url: http://i4d101.p.ssafy.io:8052/
       sensitiveHeaders: Cookie,Set-Cookie
     hands-mail-auth-service:
       path: /mail/**
