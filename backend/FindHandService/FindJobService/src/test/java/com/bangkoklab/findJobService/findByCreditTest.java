@@ -32,8 +32,8 @@ public class findByCreditTest extends ControllerTest{
 		String content = objectMapper.writeValueAsString(credit);
 		mockMvc.perform(
 				get("/Jobs/findJobsByCredit")
-				.content(content)
-				.contentType(MediaType.APPLICATION_JSON)
+				.param("minValue","3000")
+				.param("maxValue","4500")
 				).andDo(print())
 				.andExpect(status().isOk());
 		// assertTrue("H".equals(handController.HandDeals()));

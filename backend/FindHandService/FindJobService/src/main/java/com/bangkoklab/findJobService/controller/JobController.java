@@ -106,13 +106,12 @@ public class JobController {
 	// 크레딧 기준 정렬
 	// 수정 필요
 	@GetMapping("/findJobsByCredit")
-	public ResponseEntity<List<Job>> findJobsByCredit(@RequestBody Credit credit) throws Exception {
+	public ResponseEntity<List<Job>> findJobsByCredit(@RequestParam String minValue,@RequestParam String maxValue) throws Exception {
 	
-		System.out.println(credit.getMaxCredit());
 		List<Job> list = new ArrayList<Job>();
 		List<Job> temp = service.findJobs();
-		int min = Integer.parseInt(credit.getMinCredit());
-		int max = Integer.parseInt(credit.getMaxCredit());
+		int min = Integer.parseInt(minValue);
+		int max = Integer.parseInt(maxValue);
 		for(Job s : temp) {
 			int cur = Integer.parseInt(s.getJobCredit());
 			if(cur >= min && cur < max) {
