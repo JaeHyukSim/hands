@@ -23,7 +23,7 @@ import java.util.UUID;
 * @packageName com.bangkoklab.hands.authservice.controller
 * @fileName ProfileController
 * @author parkjaehyun
-* @description 프로필 컨트롤러
+* @description 멤버 컨트롤러
 **/
 @RestController
 @RequestMapping("/user")
