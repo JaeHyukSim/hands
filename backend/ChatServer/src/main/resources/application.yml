@@ -2,6 +2,8 @@ server :
   port : 8050
   
 spring:
+  application:
+    name: ChatServer
   devtools:
     livereload:
       enabled: true
@@ -19,4 +21,12 @@ spring:
     host: i4d101.p.ssafy.io
     port: 6379
     
-    
+
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://i4d101.p.ssafy.io:8761/eureka
+

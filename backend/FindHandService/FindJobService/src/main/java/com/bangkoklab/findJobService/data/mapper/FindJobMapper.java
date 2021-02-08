@@ -13,5 +13,5 @@ public interface FindJobMapper {
 	List<Job> upCredit() throws Exception;
 	List<Job> findByCredit(Credit credit) throws Exception;
 	List<Job> findByTimeJob(int day) throws Exception;
-	
+	Job findJobsById(String jobId) throws Exception;
 }

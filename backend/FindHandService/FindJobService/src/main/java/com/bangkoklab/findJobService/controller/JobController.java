@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -43,6 +44,7 @@ public class JobController {
 		HttpStatus status = null;
 
 		try {
+			job.setJobId(UUID.randomUUID().toString());
 			service.insertJob(job);
 			resultMap.put("message", "success");
 			status = HttpStatus.OK;
@@ -52,6 +54,11 @@ public class JobController {
 			status = HttpStatus.ACCEPTED;
 		}
 		return new ResponseEntity<Map<String, Object>>(resultMap, status);
+	}
+	
+	@GetMapping("/jobInfo")
+	public ResponseEntity<Job> jobInfo(@RequestParam String jobId) throws Exception{
+		return new ResponseEntity<Job>(service.findJobsById(jobId), HttpStatus.OK);
 	}
 
 	// 일거리 조회

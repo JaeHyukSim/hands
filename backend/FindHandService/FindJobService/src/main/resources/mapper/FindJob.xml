@@ -23,6 +23,14 @@
 			job j 
 	</select>
 	
+	
+	<select id="findJobsById"  parameterType="String" resultMap="jobResult">
+		SELECT 
+				*
+		FROM 
+			job j
+		WHERE job_id = #{jobId}
+	</select>
 	<!-- 카테고리 별 조회 -->
 	<!-- select category_id from category where category_name = " "; -->
 	<select id="findByCategory" parameterType="String" resultMap="jobResult">

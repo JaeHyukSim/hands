@@ -16,4 +16,5 @@ public interface JobService {
 	List<Job> upCredit() throws Exception;
 	List<Job> findByCreditJobs(Credit credit) throws Exception;
 	List<Job> findByTimeJob(int day) throws Exception;
+	Job findJobsById(String jobId) throws Exception;
 }
