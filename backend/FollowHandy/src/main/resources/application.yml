@@ -4,7 +4,7 @@ server :
   
 spring:
   application:
-    name: ChatServer
+    name: HANDS-FOLLOW-SERVICE
   devtools:
     livereload:
       enabled: true
