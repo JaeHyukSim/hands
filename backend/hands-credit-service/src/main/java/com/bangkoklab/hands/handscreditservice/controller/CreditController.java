@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.ws.rs.GET;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -45,10 +46,9 @@ public class CreditController {
      * @author parkjaehyun
      * @description 유저의 크레딧을 조회합니다
      **/
-    @GetMapping
-    public ResponseEntity<?> getCredit(@RequestBody Map<String, String> params) throws Exception {
+    @GetMapping("/{userUuid}")
+    public ResponseEntity<?> getCredit(@PathVariable String userUuid) throws Exception {
         Map<String, String> body = new LinkedHashMap<>();
-        String userUuid = params.get("userUuid");
         if (userUuid == null) {
             throw new ParamsNotFoundException("유저 아이디가 존재하지 않습니다");
         }
