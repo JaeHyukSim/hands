@@ -8,6 +8,9 @@ import com.bangkoklab.data.vo.ReviewImgVO;
 
 @Mapper
 public interface ReviewImgMapper {
-	int insertReviewImg(ReviewImgVO reviewImgVO);
 	List<ReviewImgVO> getImgByReviewId(String reviewId);
+	
+	int insertReviewImg(ReviewImgVO reviewImgVO);
+	
+	int deleteImg(String reviewId) throws Exception;
 }

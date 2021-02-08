@@ -5,14 +5,6 @@
 <mapper
 	namespace="com.bangkoklab.data.repository.mapper.ReviewUrlMapper">
 	
-	<select id="getReviewUrlByReviewid" parameterType="String" resultType="ReviewUrlVO">
-		SELECT url_id,
-			   review_id,
-			   url
-		FROM review_url
-		WHERE review_id = #{review_id}
-	</select>
-	
 	<insert id="insertReviewUrl" parameterType="ReviewUrlVO">
 		INSERT INTO review_url (
 									url_id,
@@ -32,5 +24,10 @@
 		FROM review_url
 		WHERE review_id = #{reviewId}
 	</select>
+	
+	<delete id="deleteUrl" parameterType="String">
+		DELETE FROM review_url
+		WHERE review_id = #{reviewId}
+	</delete>
 	
 </mapper>

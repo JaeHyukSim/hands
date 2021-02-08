@@ -13,34 +13,36 @@ import org.springframework.stereotype.Service;
 
 import com.bangkoklab.data.config.Configuration;
 import com.bangkoklab.data.repository.mapper.AuthTimerMapper;
-import com.bangkoklab.service.AuthenticationTimerService;
+import com.bangkoklab.service.TimerService;
 import com.bangkoklab.util.Key;
 import com.bangkoklab.util.SHA256;
 
+/**
+ * @packageName com.bangkoklab.service.impl
+ * @fileName TimerServiceImpl
+ * @author shimjaehyuk
+ * @description 만료 타이머 제공 서비스
+ * @See TimerService
+ **/
 @Service
-public class AuthenticationTimerServiceImpl implements AuthenticationTimerService {
+public class TimerServiceImpl implements TimerService {
 
 	@Autowired
 	AuthTimerMapper authTimerMapper;
 
 	/**
-	 * 타이머의 동작 프로세스 메서드입니다.
-	 */
+	 * @methodName getTimerProgress
+	 * @author shimjaehyuk
+	 * @param String encryptedEmail
+	 * @return void
+	 * @description 타이머 동작 프로세스
+	 **/
 	public void getTimerProgress(String encryptedEmail) {
-		/**
-		 * 존재하는 경우
-		 */
 		try {
 			if (isExistedTimerByEncryptedEmail(encryptedEmail) == 1) {
-				/**
-				 * 갱신
-				 */
 				authTimerMapper.updateTimerByEncryptedEmail(encryptedEmail);
 
 			} else {
-				/**
-				 * 추가
-				 */
 				authTimerMapper.addTimerByEncryptedEmail(encryptedEmail);
 
 			}
@@ -50,8 +52,12 @@ public class AuthenticationTimerServiceImpl implements AuthenticationTimerServic
 	}
 
 	/**
-	 * 타이머가 몇분 동작했는지 알려줍니다
-	 */
+	 * @methodName getDiffMinuteByEmail
+	 * @author shimjaehyuk
+	 * @param String email
+	 * @return int
+	 * @description 타이머 동작 시간 제공
+	 **/
 	public int getDiffMinuteByEmail(String email) throws Exception {
 
 		return authTimerMapper.getDiffTimeByEncryptedEmail(email);
@@ -59,14 +65,23 @@ public class AuthenticationTimerServiceImpl implements AuthenticationTimerServic
 	}
 
 	/**
-	 * 해당 email의 타이머가 존재하는지 확인합니다.(by encryptedEmail)
-	 */
+	 * @methodName isExistedTimerByEncryptedEmail
+	 * @author shimjaehyuk
+	 * @param String encryptedEmail
+	 * @return int
+	 * @description 타이머 존재 여부 확인
+	 **/
 	public int isExistedTimerByEncryptedEmail(String encryptedEmail) throws Exception {
 		return authTimerMapper.isExistedTimerByEncryptedEmail(encryptedEmail);
 	}
+
 	/**
-	 * 해당 email의 타이머가 존재하는지 확인합니다.(by email)
-	 */
+	 * @methodName sendEmail
+	 * @author shimjaehyuk
+	 * @param String email
+	 * @return int
+	 * @description 타이머 존재 여부 확인
+	 **/
 	public int isExistedTimerByEmail(String email) {
 		try {
 			String encryptedEmail = SHA256.getSHA256(email, Key.key);
@@ -78,8 +93,12 @@ public class AuthenticationTimerServiceImpl implements AuthenticationTimerServic
 	}
 
 	/**
-	 * 현재 encrypted-email의 start_time이 언제인지 조회합니다
-	 */
+	 * @methodName getStartTimeByEncryptedEmail
+	 * @author shimjaehyuk
+	 * @param String email
+	 * @return String
+	 * @description 타이머 동작 시간 조회
+	 **/
 	public String getStartTimeByEncryptedEmail(String email) {
 		try {
 			String encryptedEmail = SHA256.getSHA256(email, Key.key);
@@ -91,14 +110,19 @@ public class AuthenticationTimerServiceImpl implements AuthenticationTimerServic
 	}
 
 	/**
-	 * 현재 encrypted-email의 만료 여부를 조회합니다
-	 */
+	 * @methodName isExpiredByEncryptedEmail
+	 * @author shimjaehyuk
+	 * @param String email
+	 * @return int
+	 * @description 타이머 만료 여부 조회
+	 **/
 	public int isExpiredByEncryptedEmail(String email) {
 		try {
-			if(isExistedTimerByEmail(email) == 0) return 1; 
+			if (isExistedTimerByEmail(email) == 0)
+				return 1;
 			String encryptedEmail = SHA256.getSHA256(email, Key.key);
 			int endTimer = getDiffMinuteByEmail(encryptedEmail);
-			if(Configuration.timerMinuteLimit <= endTimer) {
+			if (Configuration.timerMinuteLimit <= endTimer) {
 				return 1;
 			}
 		} catch (Exception e) {
@@ -106,10 +130,14 @@ public class AuthenticationTimerServiceImpl implements AuthenticationTimerServic
 		}
 		return 0;
 	}
-	
+
 	/**
-	 * 현재의 encrypted-email의 타이머를 초기화합니다
-	 */
+	 * @methodName updateTimerByEncryptedEmail
+	 * @author shimjaehyuk
+	 * @param String email
+	 * @return int
+	 * @description 타이머 초기화
+	 **/
 	public int updateTimerByEncryptedEmail(String email) {
 		try {
 			String encryptedEmail = SHA256.getSHA256(email, Key.key);
@@ -119,10 +147,14 @@ public class AuthenticationTimerServiceImpl implements AuthenticationTimerServic
 		}
 		return 0;
 	}
-	
+
 	/**
-	 * 현재의 encrypted-email의 timer를 삭제합니다
-	 */
+	 * @methodName deleteTimerByEncryptedEmail
+	 * @author shimjaehyuk
+	 * @param String email
+	 * @return int
+	 * @description 타이머 삭제
+	 **/
 	public int deleteTimerByEncryptedEmail(String email) {
 		try {
 			String encryptedEmail = SHA256.getSHA256(email, Key.key);
@@ -132,9 +164,13 @@ public class AuthenticationTimerServiceImpl implements AuthenticationTimerServic
 		}
 		return 0;
 	}
+
 	/**
-	 * 만료된 encrypted-email의 timer를 삭제합니다
-	 */
+	 * @methodName deleteAllByExpiredEmail
+	 * @author shimjaehyuk
+	 * @return int
+	 * @description 만료된 타이머 삭제
+	 **/
 	public int deleteAllByExpiredEmail() {
 		try {
 			return authTimerMapper.deleteAllByExpiredEmail(Configuration.timerMinuteLimit);
@@ -143,9 +179,13 @@ public class AuthenticationTimerServiceImpl implements AuthenticationTimerServic
 		}
 		return 0;
 	}
+
 	/**
-	 * 모든 timer를 삭제합니다
-	 */
+	 * @methodName deleteAll
+	 * @author shimjaehyuk
+	 * @return int
+	 * @description 모든 타이머 삭제
+	 **/
 	public int deleteAll() {
 		try {
 			return authTimerMapper.deleteAll();
@@ -154,9 +194,14 @@ public class AuthenticationTimerServiceImpl implements AuthenticationTimerServic
 		}
 		return 0;
 	}
+
 	/**
-	 * 해당 email의 타이머를 추가합니다
-	 */
+	 * @methodName addTimerByEncryptedEmail
+	 * @author shimjaehyuk
+	 * @param String email
+	 * @return int
+	 * @description 타이머 추가
+	 **/
 	public int addTimerByEncryptedEmail(String email) {
 		try {
 			String encryptedEmail = SHA256.getSHA256(email, Key.key);

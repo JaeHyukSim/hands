@@ -2,6 +2,12 @@ package com.bangkoklab.util;
 
 import java.security.MessageDigest;
 
+/**
+ * @packageName com.bangkoklab.util
+ * @fileName SHA256
+ * @author shimjaehyuk
+ * @description SHA256 암호화 
+ **/
 public class SHA256 {
 	public static String getSHA256(String input, String key) {
 		StringBuffer result = new StringBuffer();

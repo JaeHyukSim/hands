@@ -1,7 +1,12 @@
 package com.bangkoklab.service;
 
-
-public interface AuthenticationTimerService {
+/**
+ * @packageName com.bangkoklab.service
+ * @fileName TimerService
+ * @author shimjaehyuk
+ * @description 타이머 서비스 인터페이스
+ */
+public interface TimerService {
 	void getTimerProgress(String email) throws Exception;
 	int getDiffMinuteByEmail(String email) throws Exception;
 	int isExistedTimerByEncryptedEmail(String encryptedEmail) throws Exception;

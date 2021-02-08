@@ -1,6 +1,12 @@
 package com.bangkoklab.data.vo;
 
-public class AuthUsersVO {
+/**
+* @packageName com.bangkoklab.data.vo
+* @fileName AuthUsersVO
+* @author shimjaehyuk
+* @description 유저의 인증 여부 체크를 위한 엔티티 클래스
+**/
+public class UsersVO {
 	private String encryptedEmail;
 	private String isAuthenticated;
 
@@ -20,12 +26,12 @@ public class AuthUsersVO {
 		this.isAuthenticated = isAuthenticated;
 	}
 
-	public AuthUsersVO() {
+	public UsersVO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public AuthUsersVO(String encryptedEmail, String isAuthenticated) {
+	public UsersVO(String encryptedEmail, String isAuthenticated) {
 		super();
 		this.encryptedEmail = encryptedEmail;
 		this.isAuthenticated = isAuthenticated;

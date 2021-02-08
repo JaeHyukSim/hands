@@ -2,23 +2,29 @@ package com.bangkoklab.service;
 
 import java.util.List;
 
-import com.bangkoklab.data.vo.ReviewMass;
-import com.bangkoklab.data.vo.ReviewRequestMessage;
-import com.bangkoklab.data.vo.ReviewResponseMessage;
-import com.bangkoklab.data.vo.ReviewUrlVO;
+import com.bangkoklab.data.vo.Input;
 import com.bangkoklab.data.vo.ReviewVO;
 
-
+/**
+ * @packageName com.bangkoklab.service
+ * @fileName ReviewService
+ * @author shimjaehyuk
+ * @description 리뷰 서비스
+ **/
 public interface ReviewService {
-	List<ReviewResponseMessage> getReviewProgress(ReviewRequestMessage reviewRequestMessage);
-	List<ReviewVO> selectReview(String userUuid);
+	List<ReviewVO> getReview(String userUuid);
 	List<ReviewVO> getReviewByTargetUuid(String targetUuid);
-	List<ReviewUrlVO> selectReviewUrl(String reviewId);
-	void getReviewToConsole(ReviewRequestMessage reviewRequestMessage);
-	int insertReview(ReviewRequestMessage reviewRequestMessage, String targetUuid, String reviewId) throws Exception;
-	String getTargetUuid(String contractId);
-	int insertReviewProcess(ReviewRequestMessage reviewRequestMessage);
-	int isReviewDuplicated(ReviewRequestMessage reviewRequestMessage);
 	List<ReviewVO> getAllReview();
-	List<ReviewMass> getAllReviewWithImgAndUrl();
+	ReviewVO getReviewByReviewId(String reviewId);
+	
+	String getReviewIdByContractId(String contractId);
+	
+	int isReviewDuplicated(Input input);
+	
+	int insertReview(Input input, String targetUuid, String reviewId) throws Exception;
+	
+	int deleteReviewByContractId(String contractId);
+	int deleteReviewAll();
+	int deleteReviewByReviewId(String reviewId);
+	int deleteReviewByUserUuid(String userUuid);
 }

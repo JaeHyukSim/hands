@@ -10,4 +10,5 @@
 		FROM contract
 		WHERE contract_id = #{contract_id}
 	</select>
+	
 </mapper>

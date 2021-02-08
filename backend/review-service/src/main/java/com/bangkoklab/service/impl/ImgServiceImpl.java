@@ -1,7 +1,6 @@
 package com.bangkoklab.service.impl;
 
 import java.io.File;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -15,21 +14,31 @@ import org.springframework.web.multipart.MultipartFile;
 import com.bangkoklab.data.repository.mapper.ReviewImgMapper;
 import com.bangkoklab.data.vo.ImgOfOutput;
 import com.bangkoklab.data.vo.ReviewImgVO;
-import com.bangkoklab.data.vo.ReviewRequestMessage;
 import com.bangkoklab.service.ImgService;
 
 import net.coobird.thumbnailator.Thumbnails;
 
+/**
+ * @packageName com.bangkoklab.service.impl
+ * @fileName ImgServiceImpl
+ * @author shimjaehyuk
+ * @description review 내의 이미지 서비스
+ * @See ImgService
+ **/
 @Service
 public class ImgServiceImpl implements ImgService {
 
 	@Autowired
 	ReviewImgMapper reviewImgMapper;
 	
-	/**
-	 * img들을 file에 저장합니다(원본과 썸네일)
-	 */
-	public int saveToServer(ReviewRequestMessage reviewRequestMessage, List<MultipartFile> imgs, String reviewId) {
+    /**
+     * @methodName saveToServer
+     * @author shimjaehyuk
+     * @param	List<MultipartFile> imgs, String reviewId
+     * @return int
+     * @description 이미지 서버에 저장
+     **/
+	public int saveToServer(List<MultipartFile> imgs, String reviewId) {
 		Date today = new Date();
 		SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy");
 		SimpleDateFormat monthFormat = new SimpleDateFormat("MM");
@@ -46,12 +55,17 @@ public class ImgServiceImpl implements ImgService {
 			if(index != -1) {
 				ext = orgName.substring(index);
 			}
-			String path = "C:/hands/uploads/" + year + "/" + month + "/" + day;
+			
+			//윈도우 local
+//			String path = "C:/hands/uploads/" + year + "/" + month + "/" + day;
+			//리눅스 local
+			String path = "home/hands/uploads/" + year + "/" + month + "/" + day;
+			
 			String name = uuid + ext;
 			File file = new File(path, name);
 			file.mkdirs();
 			try {
-				insertImgs(reviewRequestMessage, name, path, img, reviewId);
+				insertImgs(name, path, img, reviewId);
 				img.transferTo(file);
 				if(img.getContentType().startsWith("image/")) {
 					Thumbnails.of(file) // file 파일을 기반으로 해서 만든다.
@@ -65,10 +79,15 @@ public class ImgServiceImpl implements ImgService {
 		}
 		return 1;
 	}
-	/**
-	 * db에 img를 저장합니다
-	 */
-	public int insertImgs(ReviewRequestMessage reviewRequestMessage, String name, String path, MultipartFile img, String reviewId) throws Exception{
+	
+    /**
+     * @methodName insertImgs
+     * @author shimjaehyuk
+     * @param	String name, String path, MultipartFile img, String reviewId
+     * @return int
+     * @description 디비에 이미지 저장 서비스
+     **/
+	public int insertImgs(String name, String path, MultipartFile img, String reviewId) throws Exception{
 		ReviewImgVO reviewImgVO = new ReviewImgVO();
 		reviewImgVO.setFileUuid(name);
 		reviewImgVO.setReviewId(reviewId);
@@ -80,9 +99,13 @@ public class ImgServiceImpl implements ImgService {
 		return reviewImgMapper.insertReviewImg(reviewImgVO);
 	}
 	
-	/**
-	 * review id로 img들을 가져옵니다 + 서버 메모리에서 실제 데이터를 리턴합니다
-	 */
+    /**
+     * @methodName getImgByReviewId
+     * @author shimjaehyuk
+     * @param	String reviewId
+     * @return List<ImgOfOutput>
+     * @description 리뷰에 대한 이미지들 제공 서비스
+     **/
 	public List<ImgOfOutput> getImgByReviewId(String reviewId) {
 		List<ImgOfOutput> res = new ArrayList<ImgOfOutput>();
 		List<ReviewImgVO> imgs = reviewImgMapper.getImgByReviewId(reviewId);
@@ -99,5 +122,16 @@ public class ImgServiceImpl implements ImgService {
 			res.add(imgOfOutput);
 		}
 		return res;
+	}
+	
+    /**
+     * @methodName deleteImg
+     * @author shimjaehyuk
+     * @param	String reviewId
+     * @return int
+     * @description 리뷰에 대한 이미지들 삭제 서비스
+     **/
+	public int deleteImg(String reviewId) throws Exception {
+		return reviewImgMapper.deleteImg(reviewId);
 	}
 }

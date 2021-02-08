@@ -2,7 +2,14 @@ package com.bangkoklab.data.vo;
 
 import java.sql.Timestamp;
 
-public class AuthTimersVO {
+/**
+* @packageName com.bangkoklab.data.vo
+* @fileName AuthTimersVO
+* @author shimjaehyuk
+* @description 인증 만료 시간 제공을 위한 엔티티 클래스
+**/
+
+public class TimersVO {
 	private String encryptedEmail;
 	private Timestamp startTime;
 
@@ -22,11 +29,11 @@ public class AuthTimersVO {
 		this.startTime = startTime;
 	}
 
-	public AuthTimersVO() {
+	public TimersVO() {
 		super();
 	}
 
-	public AuthTimersVO(String encryptedEmail, Timestamp startTime) {
+	public TimersVO(String encryptedEmail, Timestamp startTime) {
 		super();
 		this.encryptedEmail = encryptedEmail;
 		this.startTime = startTime;
