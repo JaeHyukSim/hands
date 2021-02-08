@@ -50,9 +50,23 @@ public class FollowServiceImpl implements FollowService {
 		if(opsHashHandy.get(FOLLOW_HANDY, handy.getMyId())==null) {
 			List<Handy> handies = new ArrayList<Handy>();
 			return handies;
-			
 		}
 		return opsHashHandy.get(FOLLOW_HANDY, handy.getMyId());
+	}
+
+	@Override
+	public void deleteFollowById(Handy handy) throws Exception {
+		List<Handy> handies = new ArrayList<Handy>();
+		handies = opsHashHandy.get(FOLLOW_HANDY, handy.getMyId());
+		
+		String delFollowId = handy.getFollowId();
+		for(int i = 0 ; i <handies.size();i++) {
+			if(handies.get(i).getFollowId().equals(delFollowId)) {
+				handies.remove(i);
+				opsHashHandy.put(FOLLOW_HANDY, handy.getMyId(), handies);
+				break;
+			}
+		}
 	}
 
 }
