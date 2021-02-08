@@ -69,4 +69,18 @@ public class FollowServiceImpl implements FollowService {
 		}
 	}
 
+	@Override
+	public boolean FindFollowById(Handy handy) throws Exception {
+		List<Handy> handies = new ArrayList<Handy>();
+		handies = opsHashHandy.get(FOLLOW_HANDY, handy.getMyId());
+		String FollowId = handy.getFollowId();
+		for(Handy temp : handies) {
+			if(temp.getFollowId().equals(FollowId)) {
+				return true;
+			}
+		}
+		return false;
+		
+	}
+
 }

@@ -22,15 +22,15 @@ public class FindFollowHandyByIdTest extends ControllerTest {
 	private ObjectMapper objectMapper;
 	
 	@Test
-	@DisplayName("팔로우 하는 특정 사람 정보 삭제")
+	@DisplayName("팔로우 하는지 여부 판단")
 	public void FindFollowHandy() throws Exception{
 		Handy handy = new Handy();
 		handy.setMyId("run6722@naver.com");
-		handy.setFollowId("winmo95@gmail.com");
+		handy.setFollowId("elvhfm@gmail.com");
 		String content = objectMapper.writeValueAsString(handy);
 		
 		mockMvc.perform(
-				get("/deleteFollowById")
+				get("/FindFollowById")
 				.content(content)
 				.contentType(MediaType.APPLICATION_JSON)
 				).andDo(print())

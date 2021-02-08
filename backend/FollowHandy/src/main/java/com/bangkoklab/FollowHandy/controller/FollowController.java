@@ -60,4 +60,26 @@ public class FollowController {
 		}
 		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}
+	
+	
+	@GetMapping("/FindFollowById")
+	public ResponseEntity<Map<String, Object>> FindFollowById(@RequestBody Handy handy) {
+		Map<String, Object> resultMap = new HashMap<>();
+		HttpStatus status = null;
+
+		try {
+			if(service.FindFollowById(handy)) {
+				resultMap.put("message", "YES");				
+			}else {
+				resultMap.put("message", "NO");				
+			}
+			status = HttpStatus.OK;
+		} catch (Exception e) {
+			e.printStackTrace();
+			resultMap.put("message", "fail");
+			status = HttpStatus.ACCEPTED;
+		}
+		return new ResponseEntity<Map<String, Object>>(resultMap, status);
+	}
+	
 }
