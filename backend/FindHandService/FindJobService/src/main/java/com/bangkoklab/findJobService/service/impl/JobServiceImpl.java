@@ -74,6 +74,11 @@ public class JobServiceImpl implements JobService{
 		mapper.deletOverDayJob();
 	}
 
+	@Override
+	public Job findJobsById(String jobId) throws Exception {
+		return Findmapper.findJobsById(jobId);
+	}
+
 	
 
 }
