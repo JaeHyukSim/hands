@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios'
 import { Link } from "react-router-dom"
 import Button from 'react-bootstrap/Button'
 
@@ -7,51 +8,46 @@ class LoginAccount extends React.Component {
     super(props);
 
     this.state = {
-      idx: null,
-      Email:'',
-      Password:'',
+      email:'',
+      password:'',
       isLogin:null
     };
   }
   onEmailHandler = e => {
     this.setState({
-      Email: e.target.value
+      email: e.target.value
     })
   }
   onPasswordHandler = e => {
-    this.setState=({
-      Password: e.target.value
+    this.setState({
+      password: e.target.value
     })
   }
   onSubmitHandler = e => {
     e.preventDefault();
 
-    let login_info = {
-      method:"POST",
-      body: JSON.stringify(this.state),
-      headers: {
-        "Content-Type": "application/json"
-      }
+    const login_info = {
+      userId:this.state.email,
+      password:this.state.password
     }
-    fetch("http://localhost:3000/home/login", login_info)
+
+    axios.post("http://i4d101.p.ssafy.io:8080/auth/login",JSON.stringify(login_info),
+    {headers:{
+      'Content-Type': 'application/json'
+    }})
     .then(res => {
-      return res.json()
+      console.log(res)
+      alert("로그인 되었습니다.")
+
+      window.localStorage.setItem('userInfo', JSON.stringify(login_info))
+      document.location.href = "/home"
     })
-    .then(json => {
-      if (json.success === true) {
-        alert("로그인 되었습니다.")
-        window.localStorage.setItem('userInfo', JSON.stringify(json))
-        this.setState({
-          idx:json.idx,
-          email: json.email,
-          isLogin:json.success
-        });
-        this.props.history.push("/home")
-      } else {
-        alert ("아이디 혹은 비밀번호를 확인하세요")
-      }
+    .catch(err => {
+      console.error(err)
+      alert ("아이디 혹은 비밀번호를 확인하세요")
     })
   }
+  
   render() {
     return (
       <div className="item" 
@@ -68,55 +64,53 @@ class LoginAccount extends React.Component {
       <div style={{
         marginTop:'50px'
       }}>
-        <form
-        onSubmit={this.onSubmitHandler}
-        >
+        <form onSubmit={this.onSubmitHandler}>
           <label for="email">이메일</label>
           <br/>
-        <input id="email" placeholder="이메일 주소" type="email" value={this.state.Email} onChange={this.onEmailHandler}
-        style={{
-          height:'40px',
-          width:'300px'
-        }}></input>
-        <br/>
-        <label for="password">비밀번호</label>
-        <br/>
-        <input id="password" placeholder="비밀번호" type="password" value={this.state.Password} onChange={this.onPasswordHandler}
-        style={{
-          height:'40px',
-          width:'300px',
-        }}></input>
-        <br/>
-        <Link to="/home/login/findAccount" 
+          <input id="email" placeholder="이메일 주소" type="email" value={this.state.email} onChange={this.onEmailHandler}
           style={{
-          marginTop:'15px',
+            height:'40px',
+            width:'300px'
+          }}></input>
+          <br/>
+          <label for="password">비밀번호</label>
+          <br/>
+          <input id="password" placeholder="비밀번호" type="password" value={this.state.password} onChange={this.onPasswordHandler}
+          style={{
+            height:'40px',
+            width:'300px',
+          }}></input>
+          <br/>
+          <Link to="/home/login/findAccount" 
+            style={{
+            marginTop:'15px',
+            color:'black'
+            
+          }}>
+            비밀번호찾기
+          </Link>
+          <Button variant="warning"
+            type="submit"
+            style={{
+              width:'300px',
+              margin:'auto',
+              marginTop:'15px'
+          }}>로그인</Button>
+          <br/>
+          <Button style={{
+            marginTop:'30px',
+            
+          }}>
+          <Link to="/home/join" 
+          style={{
+          marginTop:'10px',
           color:'black'
           
-        }}>
-          비밀번호찾기
-        </Link>
-        <Button variant="warning"
-          type="submit"
-          style={{
-            width:'300px',
-            margin:'auto',
-            marginTop:'15px'
-        }}>로그인</Button>
-        <br/>
-        <Button style={{
-          marginTop:'30px',
-          
-        }}>
-        <Link to="/home/join" 
-        style={{
-        marginTop:'10px',
-        color:'black'
-        
-        }}>
-          회원가입
-        </Link>
-        </Button>
-        <div>소셜로그인</div>
+          }}>
+            회원가입
+          </Link>
+          </Button>
+          <div>소셜로그인</div>
         </form>
       </div>
 
