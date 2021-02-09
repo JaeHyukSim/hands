@@ -3,9 +3,12 @@ package com.bangkoklab.hands.authservice.service.impl;
 import com.bangkoklab.hands.authservice.data.entity.UserProfile;
 import com.bangkoklab.hands.authservice.data.repository.AuthenticationRepository;
 import com.bangkoklab.hands.authservice.data.repository.ProfileRepository;
+import com.bangkoklab.hands.authservice.data.spec.ProfileSpecs;
 import com.bangkoklab.hands.authservice.service.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class ProfileServiceImpl implements ProfileService {
@@ -63,5 +66,26 @@ public class ProfileServiceImpl implements ProfileService {
         currentProfile.setName(newProfile.getName());
         currentProfile.setAddress(newProfile.getAddress());
         profileRepository.save(currentProfile);
+    }
+
+    /**
+    * @methodName selectHandyProfiles
+    * @author parkjaehyun
+    * @return java.util.List<com.bangkoklab.hands.authservice.data.entity.UserProfile>
+    * @description 모든 핸디 프로필 조회
+    **/
+    @Override
+    public List<UserProfile> selectHandyProfiles() {
+        return profileRepository.findAll(ProfileSpecs.withType(1));
+    }
+    /**
+     * @methodName selectHanderProfiles
+     * @author parkjaehyun
+     * @return java.util.List<com.bangkoklab.hands.authservice.data.entity.UserProfile>
+     * @description 모든 핸더 프로필 조회
+     **/
+    @Override
+    public List<UserProfile> selectHanderProfiles() {
+        return profileRepository.findAll(ProfileSpecs.withType(0));
     }
 }

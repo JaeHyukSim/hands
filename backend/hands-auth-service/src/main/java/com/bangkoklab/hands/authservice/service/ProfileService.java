@@ -2,6 +2,8 @@ package com.bangkoklab.hands.authservice.service;
 
 import com.bangkoklab.hands.authservice.data.entity.UserProfile;
 
+import java.util.List;
+
 /**
 * @packageName com.bangkoklab.hands.authservice.service
 * @fileName ProfileService
@@ -9,7 +11,7 @@ import com.bangkoklab.hands.authservice.data.entity.UserProfile;
 * @description 프로필 관련 서비스
 **/
 public interface ProfileService {
-    // 프로필 조회
+    // 프로필 조회(
     UserProfile selectProfileByUserUuid(String userUuid);
     // 다른사람의 프로필 조회
     UserProfile selectAnotherProfile(String nickname);
@@ -17,4 +19,9 @@ public interface ProfileService {
     UserProfile selectProfileIdByNameAndPhone(String name,String phone);
     // 프로필 변경
     void updateProfileByProfileId(Long profileId,UserProfile newProfile);
+    // 모든 핸디의 프로필 조회
+    List<UserProfile> selectHandyProfiles();
+    // 모든 핸더의 프로필 조회
+    List<UserProfile> selectHanderProfiles();
+
 }
