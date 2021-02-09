@@ -19,4 +19,8 @@ public interface ContractHandyService {
 	// 이미 핸디에게 요청을 보냈는지 판단 => 이미 요청을 보냈으면 true, 아니면 false;
 	public boolean isHandy(Contract contract) throws Exception;
 	
+	
+	// 거래 요청 삭제
+	public void delContractHandy(Contract contract) throws Exception;
+	
 }

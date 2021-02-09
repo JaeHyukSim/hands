@@ -1,6 +1,7 @@
 package com.bangkoklab.ContractJob;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -13,7 +14,7 @@ import com.bangkoklab.ContractJob.controller.ContractHandyController;
 import com.bangkoklab.ContractJob.dto.Contract;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class FindHandyRequestByContractTest extends ControllerTest {
+public class delContractHandyTest extends ControllerTest {
 
 	@Autowired
 	private ContractHandyController controller;
@@ -22,13 +23,15 @@ public class FindHandyRequestByContractTest extends ControllerTest {
 	private ObjectMapper objectMapper;
 	
 	@Test
-	@DisplayName("핸더에게 요청하기")
+	@DisplayName("핸디 거래 요청 취소하기")
 	public void requestToHandy() throws Exception {
 		Contract contract = new Contract();
 		contract.setContractJobId("111");
+		contract.setHandy("run6722");
+		contract.setHander("MOUSE1");
 		String content = objectMapper.writeValueAsString(contract);
 		mockMvc.perform(
-				get("/findHandyReqByCon")
+				delete("/delContractHandy")
 				.content(content)
 				.contentType(MediaType.APPLICATION_JSON)
 				).andDo(print())
