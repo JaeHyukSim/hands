@@ -17,6 +17,7 @@ import com.bangkoklab.ContractJob.service.ContractHandyService;
 public class ContractHandyServiceImpl implements ContractHandyService {
 
 	private static final String REQUEST_HANDY = "REQUEST_HANDY";
+	private static final String REQUEST_HANDER = "REQUEST_HANDER";
 	private static final String HANDY_SEND = "HANDY_SEND"; // handy 가 요청한 거래
 	private static final String HANDY_GET = "HANDY_GET"; // handy가 요청 받은 거래
 	private static final String HANDER_SEND = "HANDER_SEND"; // hander 가 요청한 거래
@@ -130,19 +131,21 @@ public class ContractHandyServiceImpl implements ContractHandyService {
 	}
 
 	public List<Contract> findHandyGet(Contract contract) throws Exception {
+		System.out.println("dddd");
 		return opsHashContract.get(HANDY_GET, contract.getHandy());
 	}
 
 	public void delHandyGet(Contract contract) throws Exception {
 		String delId = contract.getHander();
-		List<Contract> job = opsHashContract.get(REQUEST_HANDY, contract.getContractJobId());
+		List<Contract> job = new ArrayList<Contract>();
+		job = opsHashContract.get(REQUEST_HANDER, contract.getContractJobId());
 		List<Contract> id = opsHashContract.get(HANDY_GET, contract.getHandy());
 		List<Contract> get = opsHashContract.get(HANDER_SEND, contract.getHander());
 
 		for (int i = 0; i < job.size(); i++) {
 			if (job.get(i).getHander().equals(delId)) {
 				job.remove(i);
-				opsHashContract.put(REQUEST_HANDY, contract.getContractJobId(), job);
+				opsHashContract.put(REQUEST_HANDER, contract.getContractJobId(), job);
 				break;
 			}
 		}

@@ -15,12 +15,18 @@ import com.bangkoklab.ContractJob.service.ContractHanderService;
 
 @Service
 public class ContractHanderServiceImpl implements ContractHanderService {
-	
+
+	private static final String REQUEST_HANDY = "REQUEST_HANDY";
 	private static final String REQUEST_HANDER = "REQUEST_HANDER";
+	private static final String HANDY_SEND = "HANDY_SEND"; // handy 가 요청한 거래
+	private static final String HANDY_GET = "HANDY_GET"; // handy가 요청 받은 거래
+	private static final String HANDER_SEND = "HANDER_SEND"; // hander 가 요청한 거래
+	private static final String HANDER_GET = "HANDER_GET"; // hander가 요청 받은 거래
+
 	@Autowired
 	RedisTemplate<String, Object> redisTemplate;
 	private HashOperations<String, String, List<Contract>> opsHashContract;
-	
+
 	@PostConstruct
 	private void init() {
 		opsHashContract = redisTemplate.opsForHash();
@@ -28,47 +34,64 @@ public class ContractHanderServiceImpl implements ContractHanderService {
 
 	@Override
 	public void RequestToHander(Contract contract) throws Exception {
-		if(opsHashContract.get(REQUEST_HANDER, contract.getContractJobId())==null) {
+		if (opsHashContract.get(REQUEST_HANDER, contract.getContractJobId()) == null) {
 			List<Contract> contracts = new ArrayList<Contract>();
 			contracts.add(contract);
 			opsHashContract.put(REQUEST_HANDER, contract.getContractJobId(), contracts);
-		}else {
+		} else {
 			List<Contract> contracts = new ArrayList<Contract>();
 			contracts = opsHashContract.get(REQUEST_HANDER, contract.getContractJobId());
 			contracts.add(contract);
 			opsHashContract.put(REQUEST_HANDER, contract.getContractJobId(), contracts);
 		}
-		
-		List<Contract> contracts = new ArrayList<Contract>();
-		contracts = opsHashContract.get(REQUEST_HANDER, contract.getContractJobId());
-		System.out.println("------------------------");
-		for(Contract temp : contracts) {
-			System.out.println(temp.getContractId());
-			System.out.println(temp.getContractJobId());
-			System.out.println(temp.getHandy());
-			System.out.println(temp.getHander());
-			System.out.println(temp.getHandyStatus());
-			System.out.println(temp.getHanderStatus());
-			System.out.println(temp.getContractStatus());
-			System.out.println("-----------------------");
+
+		// 핸더 거래
+		if (opsHashContract.get(HANDER_SEND, contract.getHander()) == null) {
+			List<Contract> contracts = new ArrayList<Contract>();
+			contracts.add(contract);
+			opsHashContract.put(HANDER_SEND, contract.getHander(), contracts);
+		} else {
+			List<Contract> contracts = new ArrayList<Contract>();
+			contracts = opsHashContract.get(HANDER_SEND, contract.getHander());
+			contracts.add(contract);
+			System.out.println(contracts.get(0).getHandy());
+			opsHashContract.put(HANDER_SEND, contract.getHander(), contracts);
 		}
+		
+		//핸디 거래
+		if (opsHashContract.get(HANDY_GET, contract.getHandy()) == null) {
+			List<Contract> contracts = new ArrayList<Contract>();
+			contracts.add(contract);
+			opsHashContract.put(HANDY_GET, contract.getHandy(), contracts);
+		} else {
+			List<Contract> contracts = new ArrayList<Contract>();
+			contracts = opsHashContract.get(HANDY_GET, contract.getHandy());
+			contracts.add(contract);
+			opsHashContract.put(HANDY_GET, contract.getHandy(), contracts);
+		}
+
 	}
 
 	@Override
 	public boolean isHander(Contract contract) throws Exception {
-		if(opsHashContract.get(REQUEST_HANDER, contract.getContractJobId())==null) {
+		if (opsHashContract.get(REQUEST_HANDER, contract.getContractJobId()) == null) {
 			return false;
 		}
-		
+
 		List<Contract> contracts = new ArrayList<Contract>();
 		contracts = opsHashContract.get(REQUEST_HANDER, contract.getContractJobId());
 
-		for(Contract temp : contracts) {
-			if(temp.getHandy().equals(contract.getHandy())) {
+		for (Contract temp : contracts) {
+			if (temp.getHander().equals(contract.getHander())) {
 				return true;
 			}
 		}
 		return false;
+	}
+
+	@Override
+	public List<Contract> FindHanderContract(Contract contract) throws Exception {
+		return opsHashContract.get(HANDER_SEND, contract.getHander());
 	}
 
 }

@@ -1,12 +1,14 @@
 package com.bangkoklab.ContractJob.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,24 +16,22 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bangkoklab.ContractJob.dto.Contract;
 import com.bangkoklab.ContractJob.service.ContractHanderService;
 
-
 @RestController
 public class ContractHanderController {
 
-
 	@Autowired
 	ContractHanderService Handerservice;
-	
-	//handy에게 거래 요청
+
+	// handy에게 거래 요청
 	@PostMapping("/requestByHander")
-	public ResponseEntity<Map<String,Object>> requestToHander(@RequestBody Contract contract){
+	public ResponseEntity<Map<String, Object>> requestToHander(@RequestBody Contract contract) {
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status = null;
 
 		// 중복 방지를 위하여
 		try {
-			if(Handerservice.isHander(contract)) {
-				resultMap.put("message", "Exist");  //해당 핸더에게 이미 요청을 보냈다
+			if (Handerservice.isHander(contract)) {
+				resultMap.put("message", "Exist"); // 해당 핸더에게 이미 요청을 보냈다
 				status = HttpStatus.OK;
 				return new ResponseEntity<Map<String, Object>>(resultMap, status);
 			}
@@ -47,15 +47,14 @@ public class ContractHanderController {
 			resultMap.put("message", "fail");
 			status = HttpStatus.ACCEPTED;
 		}
-		
+
 		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}
-		
 
-	// hander 자신에게 온 모든 요청 조회
-	
-	// 특정 hander에게 거래요청을 했는지 판단
-	
-	// 특정  handy에게 거래요청 했는지 판단
+	// handy 자신이 요청한 모든 거래 조회
+	@GetMapping("/findHanderReq")
+	public ResponseEntity<List<Contract>> getHandy(@RequestBody Contract contract) throws Exception {
+		System.out.println(contract.getHandy());
+		return new ResponseEntity<List<Contract>>(Handerservice.FindHanderContract(contract), HttpStatus.OK);
+	}
 }
-   
