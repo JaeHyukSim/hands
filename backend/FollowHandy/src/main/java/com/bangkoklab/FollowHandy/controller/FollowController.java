@@ -23,7 +23,7 @@ public class FollowController {
 	FollowService service;
 	
 	@PostMapping("/follow")
-	public ResponseEntity<Map<String, Object>> FpllowHandy(@RequestBody Handy handy) {
+	public ResponseEntity<Map<String, Object>> FollowHandy(@RequestBody Handy handy) {
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status = null;
 
