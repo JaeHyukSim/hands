@@ -33,13 +33,35 @@ public class ImgController {
 				return new ResponseEntity<>(header, HttpStatus.NO_CONTENT);
 			}
 			
-			System.out.println("path + imgName : " + path + imgName);
 			InputStream imgStream = new FileInputStream(path + imgName);
-			System.out.println("imgStream : " + imgStream);
 			byte[] imgByteArray = IOUtils.toByteArray(imgStream);
 			imgStream.close();
 			header.add("message", "img ok");
 			return new ResponseEntity<byte[]>(imgByteArray,header,HttpStatus.OK);
+		} catch (Exception e) {
+			header.add("message", "path error");
+			header.add("content-type", "application/any");
+			return new ResponseEntity<>(header, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	@GetMapping(value = "thumb/{thumbname}")
+	public ResponseEntity<?> getThumb(@PathVariable("thumbname") String thumbName) {
+
+		MultiValueMap<String, String> header = new LinkedMultiValueMap<>();
+
+		try {
+			String path = imgService.getPath(thumbName);
+			if (path == null) {
+				header.add("message", "no thumb");
+				return new ResponseEntity<>(header, HttpStatus.NO_CONTENT);
+			}
+			
+			thumbName = "thumb_" + thumbName;
+			InputStream thumbStream = new FileInputStream(path + thumbName);
+			byte[] thumbByteArray = IOUtils.toByteArray(thumbStream);
+			thumbStream.close();
+			header.add("message", "thumb ok");
+			return new ResponseEntity<byte[]>(thumbByteArray,header,HttpStatus.OK);
 		} catch (Exception e) {
 			header.add("message", "path error");
 			header.add("content-type", "application/any");
