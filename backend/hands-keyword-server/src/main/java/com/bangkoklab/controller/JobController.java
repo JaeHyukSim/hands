@@ -118,7 +118,7 @@ public class JobController {
 	 * @author shimjaehyuk
 	 * @description 키워드를 활용한 거래들 조회
 	 */
-	@GetMapping("/jobs")
+	@PostMapping("/jobs")
 	public ResponseEntity<?> getUsersController(@RequestBody Keywords keywordsObj) {
 
 		MultiValueMap<String, Object> header = new LinkedMultiValueMap<>();
