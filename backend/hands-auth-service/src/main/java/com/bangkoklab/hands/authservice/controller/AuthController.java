@@ -37,7 +37,7 @@ public class AuthController {
     private JwtTokenProvider jwtTokenProvider;
 
     /**
-     * @param params map
+     * @param map
      * @return org.springframework.http.ResponseEntity<?>
      * @methodName join
      * @author parkjaehyun
@@ -75,7 +75,7 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody Map<String, String> params) {
         MultiValueMap<String, String> header = new LinkedMultiValueMap<>();
-        Map<String, String> body = new HashMap<>();
+        Map<String, Object> body = new HashMap<>();
         Authentication authentication = authService.findUserByUserId(params.get("userId"));
         if (authentication == null) {
             header.add("message", "없는 계정입니다.");
@@ -88,8 +88,9 @@ public class AuthController {
         header.add("message", "good");
         String token = jwtTokenProvider.createToken(authentication.getUserUuid(), authentication.getAuthorities());
         header.add("X-AUTH-TOKEN", token);
-        body.put("profileId", authentication.getUserProfile().getProfileId().toString());
-
+        body.put("userUuid",authentication.getUserUuid());
+        body.put("id",authentication.getUserId());
+        body.put("userProfile", authentication.getUserProfile());
         return new ResponseEntity<>(body, header, HttpStatus.OK);
     }
 
