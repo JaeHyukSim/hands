@@ -15,6 +15,8 @@ import com.bangkoklab.data.vo.ImgOfOutput;
 public interface ImgService {
 	List<String> getImgByReviewId(String reviewId);
 	
+	List<String> getThumbByReviewId(String reviewId);
+	
 	int insertImgs(String name, String path, MultipartFile img, String reviewId) throws Exception;
 	
 	int saveToServer(List<MultipartFile> imgs, String reviewId);
