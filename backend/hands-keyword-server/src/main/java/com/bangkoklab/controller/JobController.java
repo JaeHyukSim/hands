@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bangkoklab.data.vo.JobKeywordsVO;
-import com.bangkoklab.data.vo.UserKeywordsVO;
 import com.bangkoklab.service.JobService;
 import com.bangkoklab.service.Keywords;
 
