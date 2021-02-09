@@ -28,6 +28,11 @@ import net.coobird.thumbnailator.Thumbnails;
 @Service
 public class ImgServiceImpl implements ImgService {
 
+	// 윈도우
+	//private final String ROOT_PATH = "http://localhost:8001/review/image/";
+	// 리눅스
+	private final String ROOT_PATH = "http://i4d101.p.ssafy:8080/review/image/";
+	
 	@Autowired
 	ReviewImgMapper reviewImgMapper;
 	
@@ -57,13 +62,18 @@ public class ImgServiceImpl implements ImgService {
 			}
 			
 			//윈도우 local
-			String path = "C:/hands/uploads/" + year + "/" + month + "/" + day;
+//			String path = "c://hands/uploads/" + year + "/" + month + "/" + day + "/";
 			//리눅스 local
-//			String path = "home/hands/uploads/" + year + "/" + month + "/" + day;
+			String path = "/hands-img/uploads" + year + "/" + month + "/" + day + "/";
 			
 			String name = uuid + ext;
 			File file = new File(path, name);
-			file.mkdirs();
+			if(!file.exists()){
+
+				file.mkdirs();
+
+			}
+			
 			try {
 				insertImgs(name, path, img, reviewId);
 				img.transferTo(file);
@@ -104,22 +114,17 @@ public class ImgServiceImpl implements ImgService {
      * @author shimjaehyuk
      * @param	String reviewId
      * @return List<ImgOfOutput>
-     * @description 리뷰에 대한 이미지들 제공 서비스
+     * @description 리뷰에 대한 이미지의 경로 제공 서비스
      **/
-	public List<ImgOfOutput> getImgByReviewId(String reviewId) {
-		List<ImgOfOutput> res = new ArrayList<ImgOfOutput>();
+	public List<String> getImgByReviewId(String reviewId) {
+		List<String> res = new ArrayList<String>();
 		List<ReviewImgVO> imgs = reviewImgMapper.getImgByReviewId(reviewId);
 		if(imgs == null) return null;
 		
 		for(ReviewImgVO img : imgs) {
-			File originImg = new File(img.getPath(),img.getFileUuid());
-			File thumbnail = new File(img.getPath(),"thumb_" + img.getFileUuid());
-			String name = img.getFname();
-			long fileSize = img.getFsize();
-			String fileType= img.getFtype();
-			
-			ImgOfOutput imgOfOutput = new ImgOfOutput(originImg,thumbnail,name,reviewId,fileSize,fileType);
-			res.add(imgOfOutput);
+			String path = img.getFileUuid();
+			System.out.println(ROOT_PATH + path);
+			res.add(ROOT_PATH + path);
 		}
 		return res;
 	}
@@ -133,5 +138,37 @@ public class ImgServiceImpl implements ImgService {
      **/
 	public int deleteImg(String reviewId) throws Exception {
 		return reviewImgMapper.deleteImg(reviewId);
+	}
+	
+    /**
+     * @methodName getPath
+     * @author shimjaehyuk
+     * @param	String imgName
+     * @return String
+     * @description 파일이 저장된 로컬 path를 반환
+     **/
+	public String getPath(String imgName) throws Exception {
+		try {
+			return reviewImgMapper.getPathByFileUuid(imgName);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+    /**
+     * @methodName getPath
+     * @author shimjaehyuk
+     * @param	String imgName
+     * @return String
+     * @description 파일이 저장된 로컬 path를 반환
+     **/
+	public String getPatht(String imgName) throws Exception {
+		try {
+			return reviewImgMapper.getPathByFileUuid(imgName);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 }

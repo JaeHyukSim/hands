@@ -38,4 +38,10 @@
 		DELETE FROM review_img
 		WHERE review_id = #{reviewId}
 	</delete>
+	
+	<select id="getPathByFileUuid" parameterType="String" resultType="String">
+		SELECT path
+		FROM review_img
+		WHERE file_uuid=#{fileUuid}
+	</select>
 </mapper>

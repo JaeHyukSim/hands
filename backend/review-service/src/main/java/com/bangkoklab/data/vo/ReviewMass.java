@@ -4,7 +4,7 @@ import java.util.List;
 
 public class ReviewMass {
 	private ReviewVO reviewVO;
-	private List<ImgOfOutput> imgs;
+	private List<String> imgs;
 	private List<ReviewUrlVO> urls;
 
 	public ReviewVO getReviewVO() {
@@ -15,11 +15,11 @@ public class ReviewMass {
 		this.reviewVO = reviewVO;
 	}
 
-	public List<ImgOfOutput> getImgs() {
+	public List<String> getImgs() {
 		return imgs;
 	}
 
-	public void setImgs(List<ImgOfOutput> imgs) {
+	public void setImgs(List<String> imgs) {
 		this.imgs = imgs;
 	}
 
@@ -36,7 +36,7 @@ public class ReviewMass {
 		// TODO Auto-generated constructor stub
 	}
 
-	public ReviewMass(ReviewVO reviewVO, List<ImgOfOutput> imgs, List<ReviewUrlVO> urls) {
+	public ReviewMass(ReviewVO reviewVO, List<String> imgs, List<ReviewUrlVO> urls) {
 		super();
 		this.reviewVO = reviewVO;
 		this.imgs = imgs;
