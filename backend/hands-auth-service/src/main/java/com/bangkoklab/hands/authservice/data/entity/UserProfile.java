@@ -3,10 +3,7 @@ package com.bangkoklab.hands.authservice.data.entity;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Map;
 
 /**
@@ -23,7 +20,7 @@ public class UserProfile {
     @GeneratedValue
     @Column(name = "profile_id")
     private Long profileId;
-
+    private String userUuid;
     private String email;
     private String name;
     private String phone;
@@ -31,7 +28,7 @@ public class UserProfile {
     private String gender;
     private String description;
     private String nickname;
-
+    private int type;
     public void setProfileByParams(Map<String, String> params){
         this.setEmail(params.get("email"));
         this.setName(params.get("name"));
@@ -40,5 +37,6 @@ public class UserProfile {
         this.setGender(params.get("gender"));
         this.setDescription(params.get("description"));
         this.setNickname(params.get("nickname"));
+        this.setType(Integer.parseInt(params.get("type")));
     }
 }

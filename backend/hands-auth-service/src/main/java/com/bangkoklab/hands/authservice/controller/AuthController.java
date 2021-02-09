@@ -37,7 +37,7 @@ public class AuthController {
     private JwtTokenProvider jwtTokenProvider;
 
     /**
-     * @param 필요한 params map
+     * @param params map
      * @return org.springframework.http.ResponseEntity<?>
      * @methodName join
      * @author parkjaehyun
@@ -47,11 +47,13 @@ public class AuthController {
     public ResponseEntity<?> join(@RequestBody Map<String, String> param) {
         Authentication auth = new Authentication();
         MultiValueMap<String, String> header = new LinkedMultiValueMap<>();
+        String createdUserUuid=UUID.randomUUID().toString().replace("-", "");
         UserProfile profile = new UserProfile();
         profile.setProfileByParams(param);
+        profile.setUserUuid(createdUserUuid);
         auth.setUserId(param.get("userId"));
         auth.setPassword(passwordEncoder.encode(param.get("password")));
-        auth.setUserUuid(UUID.randomUUID().toString().replace("-", ""));
+        auth.setUserUuid(createdUserUuid);
         auth.addAuthorities("ROLE_USER");
         auth.setUserProfile(profile);
         if (null != authService.join(auth)) {
