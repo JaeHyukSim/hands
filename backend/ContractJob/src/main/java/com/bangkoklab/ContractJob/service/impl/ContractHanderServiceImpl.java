@@ -11,12 +11,11 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import com.bangkoklab.ContractJob.dto.Contract;
-import com.bangkoklab.ContractJob.service.ContractService;
+import com.bangkoklab.ContractJob.service.ContractHanderService;
 
 @Service
-public class ContractServiceImpl implements ContractService {
+public class ContractHanderServiceImpl implements ContractHanderService {
 	
-	private static final String REQUEST_HANDY = "REQUEST_HANDY";
 	private static final String REQUEST_HANDER = "REQUEST_HANDER";
 	@Autowired
 	RedisTemplate<String, Object> redisTemplate;
@@ -28,20 +27,20 @@ public class ContractServiceImpl implements ContractService {
 	}
 
 	@Override
-	public void RequestToHandy(Contract contract) throws Exception {
-		if(opsHashContract.get(REQUEST_HANDY, contract.getContractJobId())==null) {
+	public void RequestToHander(Contract contract) throws Exception {
+		if(opsHashContract.get(REQUEST_HANDER, contract.getContractJobId())==null) {
 			List<Contract> contracts = new ArrayList<Contract>();
 			contracts.add(contract);
-			opsHashContract.put(REQUEST_HANDY, contract.getContractJobId(), contracts);
+			opsHashContract.put(REQUEST_HANDER, contract.getContractJobId(), contracts);
 		}else {
 			List<Contract> contracts = new ArrayList<Contract>();
-			contracts = opsHashContract.get(REQUEST_HANDY, contract.getContractJobId());
+			contracts = opsHashContract.get(REQUEST_HANDER, contract.getContractJobId());
 			contracts.add(contract);
-			opsHashContract.put(REQUEST_HANDY, contract.getContractJobId(), contracts);
+			opsHashContract.put(REQUEST_HANDER, contract.getContractJobId(), contracts);
 		}
 		
 		List<Contract> contracts = new ArrayList<Contract>();
-		contracts = opsHashContract.get(REQUEST_HANDY, contract.getContractJobId());
+		contracts = opsHashContract.get(REQUEST_HANDER, contract.getContractJobId());
 		System.out.println("------------------------");
 		for(Contract temp : contracts) {
 			System.out.println(temp.getContractId());
@@ -56,13 +55,13 @@ public class ContractServiceImpl implements ContractService {
 	}
 
 	@Override
-	public boolean isHandy(Contract contract) throws Exception {
-		if(opsHashContract.get(REQUEST_HANDY, contract.getContractJobId())==null) {
+	public boolean isHander(Contract contract) throws Exception {
+		if(opsHashContract.get(REQUEST_HANDER, contract.getContractJobId())==null) {
 			return false;
 		}
 		
 		List<Contract> contracts = new ArrayList<Contract>();
-		contracts = opsHashContract.get(REQUEST_HANDY, contract.getContractJobId());
+		contracts = opsHashContract.get(REQUEST_HANDER, contract.getContractJobId());
 
 		for(Contract temp : contracts) {
 			if(temp.getHandy().equals(contract.getHandy())) {
@@ -71,7 +70,5 @@ public class ContractServiceImpl implements ContractService {
 		}
 		return false;
 	}
-	
-	
 
 }

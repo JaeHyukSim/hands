@@ -22,7 +22,6 @@ public class FollowController {
 	@Autowired
 	FollowService service;
 	
-	@PostMapping("/follow")
 	public ResponseEntity<Map<String, Object>> FollowHandy(@RequestBody Handy handy) {
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status = null;

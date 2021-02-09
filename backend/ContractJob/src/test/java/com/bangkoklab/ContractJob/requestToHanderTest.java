@@ -9,28 +9,28 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 
-import com.bangkoklab.ContractJob.controller.ContractHandyController;
+import com.bangkoklab.ContractJob.controller.ContractHanderController;
 import com.bangkoklab.ContractJob.dto.Contract;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class requestToHandyTest extends ControllerTest {
+public class requestToHanderTest extends ControllerTest {
 
 	@Autowired
-	private ContractHandyController controller;
+	private ContractHanderController controller;
 	
 	@Autowired
 	private ObjectMapper objectMapper;
 	
 	@Test
 	@DisplayName("핸디에게 요청하기")
-	public void requestToHandy() throws Exception {
+	public void requestToHander() throws Exception {
 		Contract contract = new Contract();
-		contract.setContractJobId("111");
+		contract.setContractJobId("777");
 		contract.setHandy("run6722");
-		contract.setHander("MOUSE1");
+		contract.setHander("MOUSE21");
 		String content = objectMapper.writeValueAsString(contract);
 		mockMvc.perform(
-				post("/requestToHandy")
+				post("/requestToHander")
 				.content(content)
 				.contentType(MediaType.APPLICATION_JSON)
 				).andDo(print())
