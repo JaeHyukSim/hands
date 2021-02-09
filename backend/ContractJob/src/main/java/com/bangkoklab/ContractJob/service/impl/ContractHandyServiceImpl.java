@@ -132,7 +132,6 @@ public class ContractHandyServiceImpl implements ContractHandyService {
 	}
 
 	public List<Contract> findHandyGet(Contract contract) throws Exception {
-		System.out.println("dddd");
 		return opsHashContract.get(HANDY_GET, contract.getHandy());
 	}
 

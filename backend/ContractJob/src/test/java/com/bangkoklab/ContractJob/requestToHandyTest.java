@@ -25,8 +25,8 @@ public class requestToHandyTest extends ControllerTest {
 	@DisplayName("핸디에게 요청하기")
 	public void requestToHandy() throws Exception {
 		Contract contract = new Contract();
-		contract.setContractJobId("111");
-		contract.setHandy("run6722");
+		contract.setContractJobId("777");
+		contract.setHandy("elvhfm");
 		contract.setHander("MOUSE1");
 		String content = objectMapper.writeValueAsString(contract);
 		mockMvc.perform(

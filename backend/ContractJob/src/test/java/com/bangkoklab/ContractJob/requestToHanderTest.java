@@ -27,7 +27,7 @@ public class requestToHanderTest extends ControllerTest {
 		Contract contract = new Contract();
 		contract.setContractJobId("777");
 		contract.setHandy("run6722");
-		contract.setHander("M");
+		contract.setHander("MOUSE1");
 		String content = objectMapper.writeValueAsString(contract);
 		mockMvc.perform(
 				post("/requestByHander")

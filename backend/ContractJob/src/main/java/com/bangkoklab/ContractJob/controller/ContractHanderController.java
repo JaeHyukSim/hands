@@ -77,4 +77,10 @@ public class ContractHanderController {
 
 		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}
+
+	// 요청 받은 거래
+	@GetMapping("/findHanderGet")
+	public ResponseEntity<List<Contract>> findHandyGet(@RequestBody Contract contract) throws Exception {
+		return new ResponseEntity<List<Contract>>(Handerservice.findHanderGet(contract), HttpStatus.OK);
+	}
 }

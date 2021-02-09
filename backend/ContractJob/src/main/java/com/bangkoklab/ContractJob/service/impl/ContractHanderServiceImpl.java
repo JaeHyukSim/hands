@@ -130,4 +130,9 @@ public class ContractHanderServiceImpl implements ContractHanderService {
 		}
 	}
 
+	@Override
+	public List<Contract> findHanderGet(Contract contract) throws Exception {
+		return opsHashContract.get(HANDER_GET, contract.getHander());
+	}
+
 }
