@@ -35,12 +35,12 @@ public class UrlServiceImpl implements UrlService{
 		ReviewUrlVO reviewUrlVO = new ReviewUrlVO();
 		
 		String urlId = UUID.randomUUID().toString();
-		
+		if(url == null) return 0;
 		reviewUrlVO.setUrlId(urlId);
 		reviewUrlVO.setReviewId(reviewId);
 		reviewUrlVO.setUrl(url);
-		
-		return reviewUrlMapper.insertReviewUrl(reviewUrlVO);
+		reviewUrlMapper.insertReviewUrl(reviewUrlVO);
+		return 1;
 	}
 	
     /**
@@ -62,10 +62,11 @@ public class UrlServiceImpl implements UrlService{
      * @description urls 저장 서비스
      **/
 	public int inserUrls(String reviewId, List<String> urls) {
+		if(urls == null || urls.size() == 0) return 0;
 		for(String url : urls) {
 			insertUrl(reviewId, url);
 		}
-		return 0;
+		return 1;
 	}
 	
     /**

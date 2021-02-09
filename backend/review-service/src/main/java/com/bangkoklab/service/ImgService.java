@@ -13,11 +13,13 @@ import com.bangkoklab.data.vo.ImgOfOutput;
  * @description 이미지 서비스
  **/
 public interface ImgService {
-	List<ImgOfOutput> getImgByReviewId(String reviewId);
+	List<String> getImgByReviewId(String reviewId);
 	
 	int insertImgs(String name, String path, MultipartFile img, String reviewId) throws Exception;
 	
 	int saveToServer(List<MultipartFile> imgs, String reviewId);
 	
 	int deleteImg(String reviewId) throws Exception;
+	
+	String getPath(String imgName) throws Exception;
 }

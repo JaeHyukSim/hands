@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bangkoklab.data.vo.Input;
@@ -76,10 +77,10 @@ public class ReviewController {
 	 * @author shimjaehyuk
 	 * @param String userUuid
 	 * @return org.springframework.http.ResponseEntity<?>
-	 * @description review, urls, imgs 제공
+	 * @description review, urls, imgs 저장
 	 **/
 	@PostMapping("/review")
-	public ResponseEntity<?> insertReview(Input input) {
+	public ResponseEntity<?> insertReview(Input input, @RequestParam List<String> urls) {
 
 		MultiValueMap<String, String> header = new LinkedMultiValueMap<>();
 
@@ -103,12 +104,12 @@ public class ReviewController {
 		}
 
 		if (imgService.saveToServer(input.getImgs(), reviewId) == 0) {
-			header.add("message", "failed to save img");
-			return new ResponseEntity<>(header, HttpStatus.BAD_REQUEST);
+			header.add("img message", "failed to save img");
 		}
-		urlService.inserUrls(reviewId, input.getUrls());
+		if(urlService.inserUrls(reviewId, input.getUrls()) == 0) {
+			header.add("url message", "failed to save url");
+		}
 		header.add("message", "review save successed");
-
 		return new ResponseEntity<>(header, HttpStatus.OK);
 	}
 

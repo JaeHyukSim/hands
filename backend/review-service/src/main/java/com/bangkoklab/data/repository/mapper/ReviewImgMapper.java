@@ -13,4 +13,6 @@ public interface ReviewImgMapper {
 	int insertReviewImg(ReviewImgVO reviewImgVO);
 	
 	int deleteImg(String reviewId) throws Exception;
+	
+	String getPathByFileUuid(String fileUuid) throws Exception;
 }
