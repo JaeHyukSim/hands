@@ -14,4 +14,7 @@ public interface ContractHanderService {
 	
 	// 핸더가 핸디에게 요청한 거래들 조회
 	public List<Contract> FindHanderContract(Contract contract) throws Exception;
+	
+	// 거래 요청 삭제
+	public void delContractHander(Contract contract) throws Exception;
 }

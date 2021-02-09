@@ -94,4 +94,40 @@ public class ContractHanderServiceImpl implements ContractHanderService {
 		return opsHashContract.get(HANDER_SEND, contract.getHander());
 	}
 
+	@Override
+	public void delContractHander(Contract contract) throws Exception {
+		
+		String delId = contract.getHander();
+		String deljob = contract.getContractJobId();
+		List<Contract> job = opsHashContract.get(REQUEST_HANDER, contract.getContractJobId());
+		List<Contract> id = opsHashContract.get(HANDY_GET, contract.getHandy());
+		List<Contract> get = opsHashContract.get(HANDER_SEND, contract.getHander());
+		System.out.println(delId+" "+deljob);
+		for (int i = 0; i < job.size(); i++) {
+			System.out.println(job.get(i).getContractId()+" del");
+			if (job.get(i).getHander().equals(delId) && job.get(i).getContractJobId().equals(deljob)) {
+				job.remove(i);
+				opsHashContract.put(REQUEST_HANDER, contract.getContractJobId(), job);
+				break;
+			}
+		}
+
+		for (int i = 0; i < id.size(); i++) {
+			if (id.get(i).getHander().equals(delId) && id.get(i).getContractJobId().equals(deljob)) {
+				id.remove(i);
+				opsHashContract.put(HANDY_GET, contract.getHandy(), id);
+				break;
+			}
+		}
+
+		for (int i = 0; i < get.size(); i++) {
+			
+			if (get.get(i).getHander().equals(delId) && get.get(i).getContractJobId().equals(deljob)) {
+				get.remove(i);
+				opsHashContract.put(HANDER_SEND, contract.getHander(), get);
+				break;
+			}
+		}
+	}
+
 }

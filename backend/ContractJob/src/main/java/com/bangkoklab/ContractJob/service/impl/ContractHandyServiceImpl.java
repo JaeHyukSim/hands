@@ -101,12 +101,13 @@ public class ContractHandyServiceImpl implements ContractHandyService {
 	@Override
 	public void delContractHandy(Contract contract) throws Exception {
 		String delId = contract.getHander();
+		String deljob = contract.getContractJobId();
 		List<Contract> job = opsHashContract.get(REQUEST_HANDY, contract.getContractJobId());
 		List<Contract> id = opsHashContract.get(HANDY_SEND, contract.getHandy());
 		List<Contract> get = opsHashContract.get(HANDER_GET, contract.getHander());
 
 		for (int i = 0; i < job.size(); i++) {
-			if (job.get(i).getHander().equals(delId)) {
+			if (job.get(i).getHander().equals(delId) && job.get(i).getContractJobId().equals(deljob)) {
 				job.remove(i);
 				opsHashContract.put(REQUEST_HANDY, contract.getContractJobId(), job);
 				break;
@@ -114,7 +115,7 @@ public class ContractHandyServiceImpl implements ContractHandyService {
 		}
 
 		for (int i = 0; i < id.size(); i++) {
-			if (id.get(i).getHander().equals(delId)) {
+			if (id.get(i).getHander().equals(delId) && id.get(i).getContractJobId().equals(deljob) ) {
 				id.remove(i);
 				opsHashContract.put(HANDY_SEND, contract.getHandy(), id);
 				break;
@@ -122,7 +123,7 @@ public class ContractHandyServiceImpl implements ContractHandyService {
 		}
 
 		for (int i = 0; i < get.size(); i++) {
-			if (get.get(i).getHander().equals(delId)) {
+			if (get.get(i).getHander().equals(delId)  && get.get(i).getContractJobId().equals(deljob)) {
 				get.remove(i);
 				opsHashContract.put(HANDER_GET, contract.getHander(), get);
 				break;
@@ -137,13 +138,14 @@ public class ContractHandyServiceImpl implements ContractHandyService {
 
 	public void delHandyGet(Contract contract) throws Exception {
 		String delId = contract.getHander();
+		String deljob = contract.getContractJobId();
 		List<Contract> job = new ArrayList<Contract>();
 		job = opsHashContract.get(REQUEST_HANDER, contract.getContractJobId());
 		List<Contract> id = opsHashContract.get(HANDY_GET, contract.getHandy());
 		List<Contract> get = opsHashContract.get(HANDER_SEND, contract.getHander());
 
 		for (int i = 0; i < job.size(); i++) {
-			if (job.get(i).getHander().equals(delId)) {
+			if (job.get(i).getHander().equals(delId) && job.get(i).getContractJobId().equals(deljob) ) {
 				job.remove(i);
 				opsHashContract.put(REQUEST_HANDER, contract.getContractJobId(), job);
 				break;
@@ -151,7 +153,7 @@ public class ContractHandyServiceImpl implements ContractHandyService {
 		}
 
 		for (int i = 0; i < id.size(); i++) {
-			if (id.get(i).getHander().equals(delId)) {
+			if (id.get(i).getHander().equals(delId) && id.get(i).getContractJobId().equals(deljob)) {
 				id.remove(i);
 				opsHashContract.put(HANDY_GET, contract.getHandy(), id);
 				break;
@@ -159,7 +161,7 @@ public class ContractHandyServiceImpl implements ContractHandyService {
 		}
 
 		for (int i = 0; i < get.size(); i++) {
-			if (get.get(i).getHander().equals(delId)) {
+			if (get.get(i).getHander().equals(delId) && get.get(i).getContractJobId().equals(deljob)) {
 				get.remove(i);
 				opsHashContract.put(HANDER_SEND, contract.getHander(), get);
 				break;

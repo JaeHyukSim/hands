@@ -8,6 +8,7 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -56,5 +57,24 @@ public class ContractHanderController {
 	public ResponseEntity<List<Contract>> getHandy(@RequestBody Contract contract) throws Exception {
 		System.out.println(contract.getHandy());
 		return new ResponseEntity<List<Contract>>(Handerservice.FindHanderContract(contract), HttpStatus.OK);
+	}
+
+	// 거래 요청 삭제
+	@DeleteMapping("/delContractHander")
+	public ResponseEntity<Map<String, Object>> delContractHandy(@RequestBody Contract contract) {
+		Map<String, Object> resultMap = new HashMap<>();
+		HttpStatus status = null;
+
+		try {
+			Handerservice.delContractHander(contract);
+			resultMap.put("message", "success");
+			status = HttpStatus.OK;
+		} catch (Exception e) {
+			e.printStackTrace();
+			resultMap.put("message", "fail");
+			status = HttpStatus.ACCEPTED;
+		}
+
+		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}
 }
