@@ -57,9 +57,9 @@ public class ImgServiceImpl implements ImgService {
 			}
 			
 			//윈도우 local
-//			String path = "C:/hands/uploads/" + year + "/" + month + "/" + day;
+			String path = "C:/hands/uploads/" + year + "/" + month + "/" + day;
 			//리눅스 local
-			String path = "home/hands/uploads/" + year + "/" + month + "/" + day;
+//			String path = "home/hands/uploads/" + year + "/" + month + "/" + day;
 			
 			String name = uuid + ext;
 			File file = new File(path, name);
