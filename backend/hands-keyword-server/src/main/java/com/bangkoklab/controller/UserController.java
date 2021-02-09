@@ -1,8 +1,5 @@
 package com.bangkoklab.controller;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bangkoklab.data.vo.UserKeywordsVO;
 import com.bangkoklab.service.Keywords;
 import com.bangkoklab.service.UserService;
-import com.google.gson.JsonArray;
 
 /**
  * @packageName com.bangkoklab.controller
