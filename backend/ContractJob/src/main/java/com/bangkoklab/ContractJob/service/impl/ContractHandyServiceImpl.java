@@ -115,7 +115,7 @@ public class ContractHandyServiceImpl implements ContractHandyService {
 		}
 
 		for (int i = 0; i < id.size(); i++) {
-			if (id.get(i).getHander().equals(delId) && id.get(i).getContractJobId().equals(deljob) ) {
+			if (id.get(i).getHander().equals(delId) && id.get(i).getContractJobId().equals(deljob)) {
 				id.remove(i);
 				opsHashContract.put(HANDY_SEND, contract.getHandy(), id);
 				break;
@@ -123,7 +123,7 @@ public class ContractHandyServiceImpl implements ContractHandyService {
 		}
 
 		for (int i = 0; i < get.size(); i++) {
-			if (get.get(i).getHander().equals(delId)  && get.get(i).getContractJobId().equals(deljob)) {
+			if (get.get(i).getHander().equals(delId) && get.get(i).getContractJobId().equals(deljob)) {
 				get.remove(i);
 				opsHashContract.put(HANDER_GET, contract.getHander(), get);
 				break;
@@ -144,7 +144,7 @@ public class ContractHandyServiceImpl implements ContractHandyService {
 		List<Contract> get = opsHashContract.get(HANDER_SEND, contract.getHander());
 
 		for (int i = 0; i < job.size(); i++) {
-			if (job.get(i).getHander().equals(delId) && job.get(i).getContractJobId().equals(deljob) ) {
+			if (job.get(i).getHander().equals(delId) && job.get(i).getContractJobId().equals(deljob)) {
 				job.remove(i);
 				opsHashContract.put(REQUEST_HANDER, contract.getContractJobId(), job);
 				break;
@@ -166,6 +166,38 @@ public class ContractHandyServiceImpl implements ContractHandyService {
 				break;
 			}
 		}
+	}
+
+	@Override
+	public void AcceptedByHandy(Contract contract) throws Exception {
+		System.out.println(contract.getContractJobId()+" "+contract.getHandy()+" "+contract.getHander());
+		
+		//hander
+		List<Contract> jober = new ArrayList<Contract>();
+		jober = opsHashContract.get(REQUEST_HANDY, contract.getContractJobId());
+		jober.clear();
+		jober.add(contract);
+		opsHashContract.put(REQUEST_HANDY, contract.getContractJobId(), jober);
+
+		List<Contract> ider = opsHashContract.get(HANDY_SEND, contract.getHandy());
+		List<Contract> temp_id = new ArrayList<Contract>();
+		for(int i =0;i <ider.size();i++) {
+			if(! ider.get(i).getContractJobId().equals(contract.getContractJobId())) {
+				temp_id.add(ider.get(i));
+			}
+		}
+		temp_id.add(contract);
+		opsHashContract.put(HANDY_SEND, contract.getHandy(),temp_id);
+
+		List<Contract> geter = opsHashContract.get(HANDER_GET, contract.getHander());
+		List<Contract> temp_get = new ArrayList<Contract>();
+		for(int i =0;i <geter.size();i++) {
+			if( ! geter.get(i).getContractJobId().equals(contract.getContractJobId())) {
+				temp_get.add(geter.get(i));
+			}
+		}
+		temp_get.add(contract);
+		opsHashContract.put(HANDER_GET, contract.getHander(),temp_get);
 	}
 
 }

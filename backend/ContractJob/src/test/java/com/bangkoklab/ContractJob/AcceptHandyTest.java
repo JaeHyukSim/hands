@@ -1,6 +1,6 @@
 package com.bangkoklab.ContractJob;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -13,7 +13,7 @@ import com.bangkoklab.ContractJob.controller.ContractHandyController;
 import com.bangkoklab.ContractJob.dto.Contract;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class FindHandyRequestTest extends ControllerTest {
+public class AcceptHandyTest extends ControllerTest {
 
 	@Autowired
 	private ContractHandyController controller;
@@ -22,14 +22,15 @@ public class FindHandyRequestTest extends ControllerTest {
 	private ObjectMapper objectMapper;
 	
 	@Test
-	@DisplayName("핸더에게 요청하기")
+	@DisplayName("핸디에게 요청하기")
 	public void requestToHandy() throws Exception {
 		Contract contract = new Contract();
 		contract.setContractJobId("777");
 		contract.setHandy("elvhfm");
+		contract.setHander("MOUSE1");
 		String content = objectMapper.writeValueAsString(contract);
 		mockMvc.perform(
-				get("/findHandyReq")
+				post("/acceptedByHandy")
 				.content(content)
 				.contentType(MediaType.APPLICATION_JSON)
 				).andDo(print())

@@ -22,4 +22,6 @@ public interface ContractHanderService {
 
 	// 받은 거래 요청 취소
 	public void delHanderGet(Contract contract) throws Exception;
+	
+	public void AcceptedByHander(Contract contract) throws Exception;
 }

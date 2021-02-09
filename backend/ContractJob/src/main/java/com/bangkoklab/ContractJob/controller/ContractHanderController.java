@@ -101,4 +101,25 @@ public class ContractHanderController {
 		
 		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}
+	
+	@PostMapping("/acceptedByHander")
+	public ResponseEntity<Map<String,Object>> AcceptedByHandy(@RequestBody Contract contract){
+		Map<String, Object> resultMap = new HashMap<>();
+		HttpStatus status = null;
+		// 중복 방지를 위하여
+		try {
+			contract.setHandyStatus("YES");
+			contract.setHanderStatus("YES");
+			contract.setContractStatus("TRADING");
+			Handerservice.AcceptedByHander(contract);
+			resultMap.put("message", "success");
+			status = HttpStatus.OK;
+		} catch (Exception e) {
+			e.printStackTrace();
+			resultMap.put("message", "fail");
+			status = HttpStatus.ACCEPTED;
+		}
+		
+		return new ResponseEntity<Map<String, Object>>(resultMap, status);
+	}
 }

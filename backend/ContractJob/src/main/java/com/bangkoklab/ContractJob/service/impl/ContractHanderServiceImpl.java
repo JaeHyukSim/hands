@@ -168,5 +168,36 @@ public class ContractHanderServiceImpl implements ContractHanderService {
 			}
 		}
 	}
+	
+	@Override
+	public void AcceptedByHander(Contract contract) throws Exception {
+		System.out.println(contract.getContractJobId()+" "+contract.getHandy()+" "+contract.getHander());
+			
+		List<Contract> jober = new ArrayList<Contract>();
+		jober = opsHashContract.get(REQUEST_HANDER, contract.getContractJobId());
+		jober.clear();
+		jober.add(contract);
+		opsHashContract.put(REQUEST_HANDER, contract.getContractJobId(), jober);
+
+		List<Contract> ider = opsHashContract.get(HANDY_GET, contract.getHandy());
+		List<Contract> temp_id = new ArrayList<Contract>();
+		for(int i =0;i <ider.size();i++) {
+			if(! ider.get(i).getContractJobId().equals(contract.getContractJobId())) {
+				temp_id.add(ider.get(i));
+			}
+		}
+		temp_id.add(contract);
+		opsHashContract.put(HANDY_GET, contract.getHandy(),temp_id);
+
+		List<Contract> geter = opsHashContract.get(HANDER_SEND, contract.getHander());
+		List<Contract> temp_get = new ArrayList<Contract>();
+		for(int i =0;i <geter.size();i++) {
+			if( ! geter.get(i).getContractJobId().equals(contract.getContractJobId())) {
+				temp_get.add(geter.get(i));
+			}
+		}
+		temp_get.add(contract);
+		opsHashContract.put(HANDER_SEND, contract.getHander(),temp_get);
+	}
 
 }

@@ -7,6 +7,8 @@ import com.bangkoklab.ContractJob.dto.Contract;
 public interface ContractHandyService {
 
 	public void RequestToHandy(Contract contract) throws Exception;
+	// 거래 요청 승인
+	public void AcceptedByHandy(Contract contract) throws Exception;
 	
 	// 핸디 자신의 모든 거래 요청 조회
 	public List<Contract> findHandyReq(Contract contract) throws Exception;
