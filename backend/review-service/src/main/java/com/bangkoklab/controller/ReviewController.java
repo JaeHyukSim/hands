@@ -46,7 +46,7 @@ public class ReviewController {
 	 * @author shimjaehyuk
 	 * @param String userUuid
 	 * @return org.springframework.http.ResponseEntity<?>
-	 * @description review, urls, imgs 제공
+	 * @description review, urls, imgs, thumbs 제공
 	 **/
 	@GetMapping("/review/userUuid")
 	public ResponseEntity<?> getReview(String userUuid) {
@@ -65,6 +65,7 @@ public class ReviewController {
 			reviewMass.setReviewVO(review);
 			reviewMass.setImgs(imgService.getImgByReviewId(review.getReviewId()));
 			reviewMass.setUrls(urlService.getUrlsByReviewId(review.getReviewId()));
+			reviewMass.setThumbs(imgService.getThumbByReviewId(review.getReviewId()));
 			reviewList.add(reviewMass);
 		}
 
@@ -118,7 +119,7 @@ public class ReviewController {
 	 * @author shimjaehyuk
 	 * @param String targetUuid
 	 * @return org.springframework.http.ResponseEntity<?>
-	 * @description review, urls, imgs 제공
+	 * @description review, urls, imgs thumbs제공
 	 **/
 	@GetMapping("/review/targetUuid")
 	public ResponseEntity<?> getReviewListByTarget(String targetUuid) {
@@ -137,6 +138,7 @@ public class ReviewController {
 			reviewMass.setReviewVO(review);
 			reviewMass.setImgs(imgService.getImgByReviewId(review.getReviewId()));
 			reviewMass.setUrls(urlService.getUrlsByReviewId(review.getReviewId()));
+			reviewMass.setThumbs(imgService.getThumbByReviewId(review.getReviewId()));
 			reviewList.add(reviewMass);
 		}
 
@@ -149,7 +151,7 @@ public class ReviewController {
 	 * @author shimjaehyuk
 	 * @param String reviewId
 	 * @return org.springframework.http.ResponseEntity<?>
-	 * @description review, urls, imgs 제공
+	 * @description review, urls, imgs, thumbs 제공
 	 **/
 	@GetMapping("/review/reviewId")
 	public ResponseEntity<?> getReviewListByReviewId(String reviewId) {
@@ -167,6 +169,7 @@ public class ReviewController {
 		reviewMass.setReviewVO(vo);
 		reviewMass.setImgs(imgService.getImgByReviewId(vo.getReviewId()));
 		reviewMass.setUrls(urlService.getUrlsByReviewId(vo.getReviewId()));
+		reviewMass.setThumbs(imgService.getThumbByReviewId(vo.getReviewId()));
 		reviewList.add(reviewMass);
 
 		header.add("message", "get review successed");
@@ -178,7 +181,7 @@ public class ReviewController {
 	 * @author shimjaehyuk
 	 * @param String targetUuid
 	 * @return org.springframework.http.ResponseEntity<?>
-	 * @description review, urls, imgs 제공
+	 * @description review, urls, imgs, thumbs 제공
 	 **/
 	@GetMapping("/review/all")
 	public ResponseEntity<?> getAllReview() {
@@ -198,6 +201,7 @@ public class ReviewController {
 			reviewMass.setReviewVO(review);
 			reviewMass.setImgs(imgService.getImgByReviewId(review.getReviewId()));
 			reviewMass.setUrls(urlService.getUrlsByReviewId(review.getReviewId()));
+			reviewMass.setThumbs(imgService.getThumbByReviewId(review.getReviewId()));
 			reviewList.add(reviewMass);
 		}
 

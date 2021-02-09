@@ -130,6 +130,26 @@ public class ImgServiceImpl implements ImgService {
 	}
 	
     /**
+     * @methodName getImgByReviewId
+     * @author shimjaehyuk
+     * @param	String reviewId
+     * @return List<ImgOfOutput>
+     * @description 리뷰에 대한 썸네일의 경로 제공 서비스
+     **/
+	public List<String> getThumbByReviewId(String reviewId) {
+		List<String> res = new ArrayList<String>();
+		List<ReviewImgVO> imgs = reviewImgMapper.getImgByReviewId(reviewId);
+		if(imgs == null) return null;
+		
+		for(ReviewImgVO img : imgs) {
+			String path = "thumbs_" + img.getFileUuid();
+			System.out.println(ROOT_PATH + path);
+			res.add(ROOT_PATH + path);
+		}
+		return res;
+	}
+	
+    /**
      * @methodName deleteImg
      * @author shimjaehyuk
      * @param	String reviewId
@@ -156,19 +176,4 @@ public class ImgServiceImpl implements ImgService {
 		}
 	}
 	
-    /**
-     * @methodName getPath
-     * @author shimjaehyuk
-     * @param	String imgName
-     * @return String
-     * @description 파일이 저장된 로컬 path를 반환
-     **/
-	public String getPatht(String imgName) throws Exception {
-		try {
-			return reviewImgMapper.getPathByFileUuid(imgName);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
 }

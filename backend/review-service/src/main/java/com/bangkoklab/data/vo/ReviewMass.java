@@ -6,6 +6,7 @@ public class ReviewMass {
 	private ReviewVO reviewVO;
 	private List<String> imgs;
 	private List<ReviewUrlVO> urls;
+	private List<String> thumbs;
 
 	public ReviewVO getReviewVO() {
 		return reviewVO;
@@ -31,21 +32,30 @@ public class ReviewMass {
 		this.urls = urls;
 	}
 
+	public List<String> getThumbs() {
+		return thumbs;
+	}
+
+	public void setThumbs(List<String> thumbs) {
+		this.thumbs = thumbs;
+	}
+
 	public ReviewMass() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public ReviewMass(ReviewVO reviewVO, List<String> imgs, List<ReviewUrlVO> urls) {
+	public ReviewMass(ReviewVO reviewVO, List<String> imgs, List<ReviewUrlVO> urls, List<String> thumbs) {
 		super();
 		this.reviewVO = reviewVO;
 		this.imgs = imgs;
 		this.urls = urls;
+		this.thumbs = thumbs;
 	}
 
 	@Override
 	public String toString() {
-		return "ReviewMass [reviewVO=" + reviewVO + ", imgs=" + imgs + ", urls=" + urls + "]";
+		return "ReviewMass [reviewVO=" + reviewVO + ", imgs=" + imgs + ", urls=" + urls + ", thumbs=" + thumbs + "]";
 	}
 
 }
