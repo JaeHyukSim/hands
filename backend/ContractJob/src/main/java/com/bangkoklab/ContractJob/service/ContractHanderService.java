@@ -21,5 +21,5 @@ public interface ContractHanderService {
 	public List<Contract> findHanderGet(Contract contract) throws Exception;
 
 	// 받은 거래 요청 취소
-	public void delHandyGet(Contract contract) throws Exception;
+	public void delHanderGet(Contract contract) throws Exception;
 }

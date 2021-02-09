@@ -83,4 +83,22 @@ public class ContractHanderController {
 	public ResponseEntity<List<Contract>> findHandyGet(@RequestBody Contract contract) throws Exception {
 		return new ResponseEntity<List<Contract>>(Handerservice.findHanderGet(contract), HttpStatus.OK);
 	}
+	
+	@DeleteMapping("/delHanderGet")
+	public ResponseEntity<Map<String,Object>> delHandyGet(@RequestBody Contract contract){
+		Map<String, Object> resultMap = new HashMap<>();
+		HttpStatus status = null;
+
+		try {
+			Handerservice.delHanderGet(contract);
+			resultMap.put("message", "success");
+			status = HttpStatus.OK;
+		} catch (Exception e) {
+			e.printStackTrace();
+			resultMap.put("message", "fail");
+			status = HttpStatus.ACCEPTED;
+		}
+		
+		return new ResponseEntity<Map<String, Object>>(resultMap, status);
+	}
 }
