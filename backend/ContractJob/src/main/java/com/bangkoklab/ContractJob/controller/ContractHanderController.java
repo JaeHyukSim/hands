@@ -22,8 +22,8 @@ public class ContractHanderController {
 	@Autowired
 	ContractHanderService Handerservice;
 	
-	//hander에게 거래 요청
-	@PostMapping("/requestToHander")
+	//handy에게 거래 요청
+	@PostMapping("/requestByHander")
 	public ResponseEntity<Map<String,Object>> requestToHander(@RequestBody Contract contract){
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status = null;

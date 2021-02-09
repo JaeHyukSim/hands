@@ -24,8 +24,8 @@ public class ContractHandyController {
 	@Autowired
 	ContractHandyService Handyservice;
 
-	// handy에게 거래 요청
-	@PostMapping("/requestToHandy")
+	// hander에게 거래 요청
+	@PostMapping("/requestByHandy")
 	public ResponseEntity<Map<String,Object>> RequestToHandy(@RequestBody Contract contract){
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status = null;
@@ -85,5 +85,31 @@ public class ContractHandyController {
 		
 		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}
+	
+	
+	//요청 받은 거래 
+	@GetMapping("/findHandyGet")
+	public ResponseEntity<List<Contract>> findHandyGet(@RequestBody Contract contract) throws Exception{
+		return new ResponseEntity<List<Contract>>(Handyservice.findHandyGet(contract),HttpStatus.OK);
+	}
+	
+	@DeleteMapping("/delHandyGet")
+	public ResponseEntity<Map<String,Object>> delHandyGet(@RequestBody Contract contract){
+		Map<String, Object> resultMap = new HashMap<>();
+		HttpStatus status = null;
+
+		try {
+			Handyservice.delHandyGet(contract);
+			resultMap.put("message", "success");
+			status = HttpStatus.OK;
+		} catch (Exception e) {
+			e.printStackTrace();
+			resultMap.put("message", "fail");
+			status = HttpStatus.ACCEPTED;
+		}
+		
+		return new ResponseEntity<Map<String, Object>>(resultMap, status);
+	}
+	
 }
    

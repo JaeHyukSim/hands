@@ -30,7 +30,7 @@ public class requestToHanderTest extends ControllerTest {
 		contract.setHander("MOUSE21");
 		String content = objectMapper.writeValueAsString(contract);
 		mockMvc.perform(
-				post("/requestToHander")
+				post("/requestByHander")
 				.content(content)
 				.contentType(MediaType.APPLICATION_JSON)
 				).andDo(print())

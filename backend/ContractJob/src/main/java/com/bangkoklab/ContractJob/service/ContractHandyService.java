@@ -23,4 +23,10 @@ public interface ContractHandyService {
 	// 거래 요청 삭제
 	public void delContractHandy(Contract contract) throws Exception;
 	
+	// 요청 받음
+	public List<Contract> findHandyGet(Contract contract) throws Exception;
+	
+	
+	//요청 취소
+	public void delHandyGet(Contract contract) throws Exception;
 }
