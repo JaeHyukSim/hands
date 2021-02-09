@@ -4,6 +4,34 @@ import { Link } from "react-router-dom"
 
 
 class FindAccount extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      name:'',
+      phone:'',
+    }
+
+  }
+
+  onNameHandler = e =>{
+    this.setState({
+      name: e.target.value
+    })
+  }
+
+  onPhoneHandler = e =>{
+    this.setState({
+      phone: e.target.value
+    })
+  }
+
+  onSubmitHandler = e => {
+    e.preventDefault()
+
+    console.log("submit")
+  }
+
   render() {
     return (
       <div className="item" 
@@ -20,33 +48,30 @@ class FindAccount extends React.Component {
       <div style={{
         marginTop:'50px'
       }}>
-        <input placeholder="이름" style={{
-          height:'40px',
-          width:'300px'
-        }}></input>
-        <br/>
-        <input placeholder="전화번호 ( '-' 빼고 입력해주세요.)" style={{
-          height:'40px',
-          width:'300px',
-          marginTop:'25px'
-        }}></input>
+        <form onSubmit={this.onSubmitHandler}>
+          <input placeholder="이름" value={this.state.name} onChange={this.onNameHandler} style={{
+            height:'40px',
+            width:'300px'
+          }}></input>
+          <br/>
+          <input placeholder="전화번호 ( '-' 빼고 입력해주세요.)" value={this.state.phone} onChange={this.onPhoneHandler} style={{
+            height:'40px',
+            width:'300px',
+            marginTop:'25px'
+          }}></input>
 
-        
-        <Button variant="secondary"
-        style={{
-          marginTop:'20px',
-          marginLeft:'155px'
-        }}
-        >
-        <Link to="/home/login/findAccountSuccess" 
-        style={{
-        marginTop:'10px',
-        color:'black'
-        }}>
-          이메일확인하기
-        </Link>
-        </Button>
-        <br/>
+          
+          <Button variant="secondary"
+          type="submit"
+          style={{
+            marginTop:'20px',
+            marginLeft:'155px'
+          }}
+          >
+            이메일확인하기
+          </Button>
+          <br/>
+        </form>
       </div>
 
 
