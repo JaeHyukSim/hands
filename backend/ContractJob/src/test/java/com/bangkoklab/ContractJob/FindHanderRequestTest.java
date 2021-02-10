@@ -1,6 +1,6 @@
 package com.bangkoklab.ContractJob;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -29,7 +29,7 @@ public class FindHanderRequestTest extends ControllerTest {
 		contract.setHander("MOUSE1");
 		String content = objectMapper.writeValueAsString(contract);
 		mockMvc.perform(
-				get("/findHanderReq")
+				post("/findHanderReq")
 				.content(content)
 				.contentType(MediaType.APPLICATION_JSON)
 				).andDo(print())

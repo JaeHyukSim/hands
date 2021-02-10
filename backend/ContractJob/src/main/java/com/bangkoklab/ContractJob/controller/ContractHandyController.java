@@ -54,14 +54,14 @@ public class ContractHandyController {
 	}
 			
 	// handy 자신이 요청한 모든 거래 조회
-	@GetMapping("/findHandyReq")
+	@PostMapping("/findHandyReq")
 	public ResponseEntity<List<Contract>> getHandy(@RequestBody Contract contract) throws Exception{
 		System.out.println(contract.getHandy());
 		return new ResponseEntity<List<Contract>>(Handyservice.findHandyReq(contract),HttpStatus.OK);
 	}
 	
 	// 특정 게시글에서 요청한 모든 거래 조회
-	@GetMapping("/findHandyReqByCon")
+	@PostMapping("/findHandyReqByCon")
 	public ResponseEntity<List<Contract>> FindHandyContract(@RequestBody Contract contract) throws Exception{
 		return new ResponseEntity<List<Contract>>(Handyservice.FindHandyContract(contract),HttpStatus.OK);
 	}
@@ -88,7 +88,7 @@ public class ContractHandyController {
 	
 	
 	//요청 받은 거래 
-	@GetMapping("/findHandyGet")
+	@PostMapping("/findHandyGet")
 	public ResponseEntity<List<Contract>> findHandyGet(@RequestBody Contract contract) throws Exception{
 		return new ResponseEntity<List<Contract>>(Handyservice.findHandyGet(contract),HttpStatus.OK);
 	}
