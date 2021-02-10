@@ -53,7 +53,7 @@ public class ContractHanderController {
 	}
 
 	// handy 자신이 요청한 모든 거래 조회
-	@GetMapping("/findHanderReq")
+	@PostMapping("/findHanderReq")
 	public ResponseEntity<List<Contract>> getHandy(@RequestBody Contract contract) throws Exception {
 		System.out.println(contract.getHandy());
 		return new ResponseEntity<List<Contract>>(Handerservice.FindHanderContract(contract), HttpStatus.OK);
@@ -79,7 +79,7 @@ public class ContractHanderController {
 	}
 
 	// 요청 받은 거래
-	@GetMapping("/findHanderGet")
+	@PostMapping("/findHanderGet")
 	public ResponseEntity<List<Contract>> findHandyGet(@RequestBody Contract contract) throws Exception {
 		return new ResponseEntity<List<Contract>>(Handerservice.findHanderGet(contract), HttpStatus.OK);
 	}
