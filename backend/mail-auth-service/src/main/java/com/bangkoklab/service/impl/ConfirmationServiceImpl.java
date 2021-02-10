@@ -46,8 +46,15 @@ public class ConfirmationServiceImpl implements ConfirmationService {
 			if (authenticationCheckService.isAuthenticated(encryptedEmail) != 0) {
 				return 409;
 			}
-			String host = "http://localhost:8000";
-			String contextPath = "/mail-auth";
+			
+			//로컬
+//			String host = "http://localhost:8000";
+//			String contextPath = "/mail-auth";
+			
+			//배포
+			String host = "http://i4d101.p.ssafy.io:8080";
+			String contextPath = "/mail";
+			
 			String url = "/verify";
 			String param = "?encryptedEmail=" + encryptedEmail;
 
