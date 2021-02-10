@@ -3,19 +3,19 @@ package com.bangkoklab.FollowHandy.dto;
 import java.io.Serializable;
 
 public class Handy implements Serializable {
-	private String MyId;
-	private String FollowId;
+	private String myId;
+	private String followId;
 	public String getMyId() {
-		return MyId;
+		return myId;
 	}
 	public void setMyId(String myId) {
-		MyId = myId;
+		this.myId = myId;
 	}
 	public String getFollowId() {
-		return FollowId;
+		return followId;
 	}
 	public void setFollowId(String followId) {
-		FollowId = followId;
+		this.followId = followId;
 	}
 
 		

@@ -41,8 +41,8 @@ public class FollowController {
 		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}
 	
-	@GetMapping("/findFollow/{MyId}")
-	public ResponseEntity<List<Handy>> FindFollow(@PathVariable String MyId) throws Exception{
+	@PostMapping("/findFollow")
+	public ResponseEntity<List<Handy>> FindFollow(@RequestBody Handy handy) throws Exception{
 		return new ResponseEntity<List<Handy>>(service.FindFollowHandy(handy), HttpStatus.OK);
 	}
 	
@@ -64,7 +64,7 @@ public class FollowController {
 	}
 	
 	
-	@GetMapping("/FindFollowById")
+	@PostMapping("/FindFollowById")
 	public ResponseEntity<Map<String, Object>> FindFollowById(@RequestBody Handy handy) {
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status = null;
