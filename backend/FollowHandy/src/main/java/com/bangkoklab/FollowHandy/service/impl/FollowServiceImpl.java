@@ -46,12 +46,12 @@ public class FollowServiceImpl implements FollowService {
 	}
 
 	@Override
-	public List<Handy> FindFollowHandy(Handy handy) throws Exception {
-		if(opsHashHandy.get(FOLLOW_HANDY, handy.getMyId())==null) {
+	public List<Handy> FindFollowHandy(String MyId) throws Exception {
+		if(opsHashHandy.get(FOLLOW_HANDY, MyId)==null) {
 			List<Handy> handies = new ArrayList<Handy>();
 			return handies;
 		}
-		return opsHashHandy.get(FOLLOW_HANDY, handy.getMyId());
+		return opsHashHandy.get(FOLLOW_HANDY, MyId);
 	}
 
 	@Override

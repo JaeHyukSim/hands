@@ -18,20 +18,15 @@ public class FindFollowHandyTest extends ControllerTest {
 	
 	@Autowired
 	private FollowController followController;
-	@Autowired
-	private ObjectMapper objectMapper;
+
 	
 	@Test
 	@DisplayName("팔로우 하는 사람 모두 찾기")
 	public void FindFollowHandy() throws Exception{
-		Handy handy = new Handy();
-		handy.setMyId("run6722@naver.com");
-		String content = objectMapper.writeValueAsString(handy);
 		
 		mockMvc.perform(
 				get("/findFollow")
-				.content(content)
-				.contentType(MediaType.APPLICATION_JSON)
+				.param("MyId","run6722@naver.com")
 				).andDo(print())
 				.andExpect(status().isOk());
 	}
