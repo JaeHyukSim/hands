@@ -28,6 +28,10 @@ zuul:
       path: /social/**
       url: http://i4d101.p.ssafy.io:8052/
       sensitiveHeaders: Cookie,Set-Cookie
+    hands-contract-service:
+        path: /contract/**
+        url: http://i4d101.p.ssafy.io:8053/
+        sensitiveHeaders: Cookie,Set-Cookie
     hands-mail-auth-service:
       path: /mail/**
       url: http://i4d101.p.ssafy.io:8000/mail-auth
