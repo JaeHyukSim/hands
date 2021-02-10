@@ -66,6 +66,11 @@ public class ContractHandyController {
 		return new ResponseEntity<List<Contract>>(Handyservice.FindHandyContract(contract),HttpStatus.OK);
 	}
 	
+	// 특정 게시글에서 요청한 모든 거래 조회
+		@PostMapping("/findHandyGetReqByCon")
+		public ResponseEntity<List<Contract>> FindHandyGetContract(@RequestBody Contract contract) throws Exception{
+			return new ResponseEntity<List<Contract>>(Handyservice.FindHandyGetContract(contract),HttpStatus.OK);
+		}
 	
 	// 거래 요청 삭제
 	@DeleteMapping("/delContractHandy")

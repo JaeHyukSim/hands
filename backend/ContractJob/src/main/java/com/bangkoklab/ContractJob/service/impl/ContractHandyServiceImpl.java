@@ -97,6 +97,11 @@ public class ContractHandyServiceImpl implements ContractHandyService {
 	public List<Contract> FindHandyContract(Contract contract) throws Exception {
 		return opsHashContract.get(REQUEST_HANDY, contract.getContractJobId());
 	}
+	
+	@Override
+	public List<Contract> FindHandyGetContract(Contract contract) throws Exception {
+		return opsHashContract.get(REQUEST_HANDER, contract.getContractJobId());
+	}
 
 	@Override
 	public void delContractHandy(Contract contract) throws Exception {
@@ -199,5 +204,7 @@ public class ContractHandyServiceImpl implements ContractHandyService {
 		temp_get.add(contract);
 		opsHashContract.put(HANDER_GET, contract.getHander(),temp_get);
 	}
+
+	
 
 }
