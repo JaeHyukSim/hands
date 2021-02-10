@@ -10,9 +10,9 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.bangkoklab</groupId>
-	<artifactId>mail-auth-service</artifactId>
+	<artifactId>hands-mail.service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>mail-auth-service</name>
+	<name>hands-mail-service</name>
 	<description>handy - mail-auth-service</description>
 	<properties>
 		<java.version>1.8</java.version>
