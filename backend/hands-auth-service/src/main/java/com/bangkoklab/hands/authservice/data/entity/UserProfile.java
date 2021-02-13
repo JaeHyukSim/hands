@@ -29,6 +29,7 @@ public class UserProfile {
     private String description;
     private String nickname;
     private int type;
+
     public void setProfileByParams(Map<String, String> params){
         if(params.get("email")!=null){
             this.setEmail(params.get("email"));
