@@ -41,7 +41,7 @@ public class VerifyServiceImpl implements VerifyService {
 				return 4002;
 			}
 			int endTimer = authenticationTimerService.getDiffMinuteByEmail(encryptedEmail);
-			if(Configuration.timerMinuteLimit <= endTimer) {
+			if(Configuration.TIMER_MINUTE_LIMIT <= endTimer) {
 				return 4001;
 			}
 

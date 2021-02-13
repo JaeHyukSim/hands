@@ -7,5 +7,5 @@ package com.bangkoklab.data.config;
  * @description 만료 시간 설정
  */
 public class Configuration {
-	public static int timerMinuteLimit = 30;
+	public static int TIMER_MINUTE_LIMIT = 30;
 }	
