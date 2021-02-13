@@ -30,13 +30,26 @@ public class UserProfile {
     private String nickname;
     private int type;
     public void setProfileByParams(Map<String, String> params){
-        this.setEmail(params.get("email"));
-        this.setName(params.get("name"));
-        this.setPhone(params.get("phone"));
-        this.setAddress(params.get("address"));
-        this.setGender(params.get("gender"));
-        this.setDescription(params.get("description"));
-        this.setNickname(params.get("nickname"));
-        this.setType(Integer.parseInt(params.get("type")));
+        if(params.get("email")!=null){
+            this.setEmail(params.get("email"));
+        }
+        if(params.get("name")!=null){
+            this.setName(params.get("name"));
+        }
+        if(params.get("phone")!=null){
+            this.setPhone(params.get("phone"));
+        }
+        if(params.get("address")!=null){
+            this.setAddress(params.get("address"));
+        }
+        if(params.get("gender")!=null){
+            this.setGender(params.get("gender"));
+        }
+        if(params.get("description")!=null){
+            this.setDescription(params.get("description"));
+        }
+        if(params.get("nickname")!=null){
+            this.setNickname(params.get("nickname"));
+        }
     }
 }

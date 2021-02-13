@@ -57,16 +57,30 @@ public class ProfileServiceImpl implements ProfileService {
     * @description 프로필 수정
     **/
     @Override
-    public void updateProfileByProfileId(Long profileId, UserProfile newProfile) {
+    public UserProfile updateProfileByProfileId(Long profileId, UserProfile newProfile) {
         UserProfile currentProfile=profileRepository.findByProfileId(profileId);
-        currentProfile.setDescription(newProfile.getDescription());
-        currentProfile.setGender(newProfile.getGender());
-        currentProfile.setNickname(newProfile.getNickname());
-        currentProfile.setPhone(newProfile.getPhone());
-        currentProfile.setName(newProfile.getName());
-        currentProfile.setAddress(newProfile.getAddress());
+        if(newProfile.getDescription()!=null){
+            currentProfile.setDescription(newProfile.getDescription());
+        }
+        if(newProfile.getGender()!=null){
+            currentProfile.setGender(newProfile.getGender());
+        }
+        if(newProfile.getNickname()!=null){
+            currentProfile.setNickname(newProfile.getNickname());
+        }
+        if(newProfile.getPhone()!=null){
+            currentProfile.setPhone(newProfile.getPhone());
+        }
+        if(newProfile.getName()!=null){
+            currentProfile.setName(newProfile.getName());
+        }
+        if(newProfile.getAddress()!=null) {
+            currentProfile.setAddress(newProfile.getAddress());
+        }
         profileRepository.save(currentProfile);
+        return profileRepository.findByProfileId(profileId);
     }
+
 
     /**
     * @methodName selectHandyProfiles
@@ -87,5 +101,20 @@ public class ProfileServiceImpl implements ProfileService {
     @Override
     public List<UserProfile> selectHanderProfiles() {
         return profileRepository.findAll(ProfileSpecs.withType(0));
+    }
+
+
+    @Override
+    /**
+    * @methodName updateType
+    * @author parkjaehyun
+    * @return com.bangkoklab.hands.authservice.data.entity.UserProfile
+    * @description 타입 업데이트
+    **/
+    public UserProfile updateType(Long profileId, String type) {
+        UserProfile p =profileRepository.findByProfileId(profileId);
+        p.setType(Integer.parseInt(type));
+        profileRepository.save(p);
+        return  profileRepository.save(p);
     }
 }
