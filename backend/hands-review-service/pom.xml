@@ -12,7 +12,7 @@
 	<groupId>com.bangkoklab</groupId>
 	<artifactId>review-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>review-service</name>
+	<name>hands-review-service</name>
 	<description>handy - review-service</description>
 	<properties>
 		<java.version>1.8</java.version>
