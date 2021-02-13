@@ -19,12 +19,12 @@ public class findJobsByIdTest extends ControllerTest{
 	private JobController handController;
 
 	@Test
-	@DisplayName("동 별 일거리 게시글 가져옿기")
+	@DisplayName("상세정보")
 	public void simple() throws Exception {
 
 		mockMvc.perform(
 				get("/Jobs/jobInfo")
-				.param("jobId","d1844881-373b-4e2c-8061-f3554695cdfd")
+				.param("jobId","f007a349-909a-4884-9eb1-992835998fe5")
 				).andDo(print())
 				.andExpect(status().isOk());
 		// assertTrue("H".equals(handController.HandDeals()));

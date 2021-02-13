@@ -13,7 +13,17 @@ public class Job {
 	private String workingDate;
 	private String workingAddress;
 	private String status;
+	private String jobName;
+	private long dday;
 	
+	private String userAddress;
+	private String userEmail;
+	private String userGender;
+	private String userName;
+	private String userNickname;
+	private String userPhone;
+	
+
 	public String getJobId() {
 		return jobId;
 	}
@@ -74,6 +84,55 @@ public class Job {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	public String getJobName() {
+		return jobName;
+	}
+	public void setJobName(String jobName) {
+		this.jobName = jobName;
+	}
+	public long getDday() {
+		return dday;
+	}
+	public void setDday(long dday) {
+		this.dday = dday;
+	}
+	public String getUserAddress() {
+		return userAddress;
+	}
+	public void setUserAddress(String userAddress) {
+		this.userAddress = userAddress;
+	}
+	public String getUserEmail() {
+		return userEmail;
+	}
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
+	}
+	public String getUserGender() {
+		return userGender;
+	}
+	public void setUserGender(String userGender) {
+		this.userGender = userGender;
+	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	public String getUserNickname() {
+		return userNickname;
+	}
+	public void setUserNickname(String userNickname) {
+		this.userNickname = userNickname;
+	}
+	public String getUserPhone() {
+		return userPhone;
+	}
+	public void setUserPhone(String userPhone) {
+		this.userPhone = userPhone;
+	}
+	
 	
 	
 }

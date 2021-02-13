@@ -27,9 +27,9 @@ public class InsertJobTest extends ControllerTest {
 	@DisplayName("일거리 게시글 넣기")
 	public void insertHandDealTest() throws Exception {
 		Job hand = new Job();
-		hand.setJobId("777");
-		hand.setJobUserUUid("9ba6669baa834e9fb7708498db120cb7");
-		hand.setCategoryId("맡기기");
+		hand.setJobId("123123");
+		hand.setJobUserUUid("af0ba8e1ed614e809d967c718f11913f");
+		hand.setCategoryId("job test");
 		hand.setContent("택배 수령해서 내장고에 보관해주세요");
 		SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy-MM-dd HH:mm:ss");
 		Date time = new Date();
@@ -38,9 +38,10 @@ public class InsertJobTest extends ControllerTest {
 		hand.setJobRegdate(time);
 		hand.setWorkingHour("5");
 		hand.setJobCredit("3000");
-		hand.setWorkingDate("2021-01-24");
-		hand.setWorkingAddress("진장길");
+		hand.setWorkingDate("2021-02-24");
+		hand.setWorkingAddress("구미 진장길");
 		hand.setStatus("거래중");
+		hand.setJobName("profile test");
 		String content = objectMapper.writeValueAsString(hand);
 		
 		mockMvc.perform(

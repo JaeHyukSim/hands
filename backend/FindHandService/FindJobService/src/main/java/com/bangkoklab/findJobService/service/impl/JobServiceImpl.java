@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.bangkoklab.findJobService.data.dto.Credit;
+import com.bangkoklab.findJobService.data.dto.Profile;
 import com.bangkoklab.findJobService.data.dto.Job;
 import com.bangkoklab.findJobService.data.mapper.FindJobMapper;
 import com.bangkoklab.findJobService.data.mapper.JobMapper;
@@ -60,8 +60,8 @@ public class JobServiceImpl implements JobService{
 	}
 
 	@Override
-	public List<Job> findByCreditJobs(Credit credit) throws Exception {
-		return Findmapper.findByCredit(credit);
+	public Profile findProfile(String uuid) throws Exception {
+		return mapper.findProfile(uuid);
 	}
 
 	@Override
@@ -76,6 +76,7 @@ public class JobServiceImpl implements JobService{
 
 	@Override
 	public Job findJobsById(String jobId) throws Exception {
+		System.out.println(jobId+" 123");
 		return Findmapper.findJobsById(jobId);
 	}
 
