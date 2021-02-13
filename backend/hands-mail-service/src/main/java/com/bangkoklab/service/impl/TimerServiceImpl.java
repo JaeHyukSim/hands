@@ -122,7 +122,7 @@ public class TimerServiceImpl implements TimerService {
 				return 1;
 			String encryptedEmail = SHA256.getSHA256(email, Key.key);
 			int endTimer = getDiffMinuteByEmail(encryptedEmail);
-			if (Configuration.timerMinuteLimit <= endTimer) {
+			if (Configuration.TIMER_MINUTE_LIMIT <= endTimer) {
 				return 1;
 			}
 		} catch (Exception e) {
@@ -173,7 +173,7 @@ public class TimerServiceImpl implements TimerService {
 	 **/
 	public int deleteAllByExpiredEmail() {
 		try {
-			return authTimerMapper.deleteAllByExpiredEmail(Configuration.timerMinuteLimit);
+			return authTimerMapper.deleteAllByExpiredEmail(Configuration.TIMER_MINUTE_LIMIT);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
