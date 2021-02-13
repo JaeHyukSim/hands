@@ -13,6 +13,18 @@ public class Job {
 	private String workingDate;
 	private String workingAddress;
 	private String status;
+	private String jobName;
+	private long dday;
+	
+	
+	
+	public long getDday() {
+		return dday;
+	}
+	public void setDday(long dday) {
+		this.dday = dday;
+	}
+	
 	
 	public String getJobId() {
 		return jobId;
@@ -74,6 +86,11 @@ public class Job {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	
+	public String getJobName() {
+		return jobName;
+	}
+	public void setJobName(String jobName) {
+		this.jobName = jobName;
+	}
 	
 }

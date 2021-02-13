@@ -14,6 +14,7 @@
 		<result column="working_date" property="workingDate"/>
 		<result column="working_address" property="workingAddress"/>
 		<result column="status" property="status"/>
+		<result column="job_name" property="jobName"/>
 	</resultMap>
 	
 	<select id="findJobs" resultMap="jobResult">

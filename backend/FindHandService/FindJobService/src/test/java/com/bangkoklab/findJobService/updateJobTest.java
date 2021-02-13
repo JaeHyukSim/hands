@@ -28,7 +28,7 @@ public class updateJobTest extends ControllerTest {
 	public void insertHandDealTest() throws Exception {
 		Job hand = new Job();
 		hand.setJobId("777");
-		hand.setJobUserUUid("9ba6669baa834e9fb7708498db120cb7");
+		hand.setJobUserUUid("542ef396c97b49299fed7719db2bcb48");
 		hand.setCategoryId("배달");
 		hand.setContent("택배 수령해서 내장고에 보관해주세요");
 		SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy-MM-dd HH:mm:ss");
@@ -41,6 +41,7 @@ public class updateJobTest extends ControllerTest {
 		hand.setWorkingDate("2021-01-25");
 		hand.setWorkingAddress("언양 진장길");
 		hand.setStatus("거래중");
+		hand.setJobName("택배 보관");
 		String content = objectMapper.writeValueAsString(hand);
 		
 		mockMvc.perform(

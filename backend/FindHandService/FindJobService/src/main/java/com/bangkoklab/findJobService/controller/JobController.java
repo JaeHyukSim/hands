@@ -1,6 +1,8 @@
 package com.bangkoklab.findJobService.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bangkoklab.findJobService.data.dto.Credit;
 import com.bangkoklab.findJobService.data.dto.Job;
 import com.bangkoklab.findJobService.service.JobService;
 
@@ -55,40 +56,87 @@ public class JobController {
 		}
 		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}
-	
+
 	@GetMapping("/jobInfo")
-	public ResponseEntity<Job> jobInfo(@RequestParam String jobId) throws Exception{
-		return new ResponseEntity<Job>(service.findJobsById(jobId), HttpStatus.OK);
+	public ResponseEntity<Job> jobInfo(@RequestParam String jobId) throws Exception {
+		Job temp_job = service.findJobsById(jobId);
+		String workDay = temp_job.getWorkingDate().replace("-", "");
+		SimpleDateFormat today = new SimpleDateFormat("yyyyMMdd");
+		Date time = new Date();
+		String nowDay = today.format(time);
+
+		Date firstTime = today.parse(nowDay);
+		Date secondTime = today.parse(workDay);
+
+		long calDate = secondTime.getTime() - firstTime.getTime();
+		long calDays = calDate / (24 * 60 * 60 * 1000);
+		temp_job.setDday(calDays);
+		
+		return new ResponseEntity<Job>(temp_job, HttpStatus.OK);
 	}
 
 	// 일거리 조회
 	@GetMapping("/findJobs")
 	public ResponseEntity<List<Job>> findJobs() throws Exception {
-		return new ResponseEntity<List<Job>>(service.findJobs(), HttpStatus.OK);
+		List<Job> temp = service.findJobs();
+		for (int i = 0; i < temp.size(); i++) {
+			String workDay = temp.get(i).getWorkingDate().replace("-", "");
+			SimpleDateFormat today = new SimpleDateFormat("yyyyMMdd");
+			Date time = new Date();
+			String nowDay = today.format(time);
+
+			Date firstTime = today.parse(nowDay);
+			Date secondTime = today.parse(workDay);
+
+			long calDate = secondTime.getTime() - firstTime.getTime();
+			long calDays = calDate / (24 * 60 * 60 * 1000);
+			temp.get(i).setDday(calDays);
+
+		}
+
+		return new ResponseEntity<List<Job>>(temp, HttpStatus.OK);
 	}
 
 	// 카테고리 별 일거리 조회
 	@GetMapping("/findJobsByCategory")
 	public ResponseEntity<List<Job>> findByCategory(@RequestParam String category) throws Exception {
-		try {
-			service.findByCategoryJobs(category);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		List<Job> temp = service.findByCategoryJobs(category);
+		for (int i = 0; i < temp.size(); i++) {
+			String workDay = temp.get(i).getWorkingDate().replace("-", "");
+			SimpleDateFormat today = new SimpleDateFormat("yyyyMMdd");
+			Date time = new Date();
+			String nowDay = today.format(time);
 
-		return new ResponseEntity<List<Job>>(service.findByCategoryJobs(category), HttpStatus.OK);
+			Date firstTime = today.parse(nowDay);
+			Date secondTime = today.parse(workDay);
+
+			long calDate = secondTime.getTime() - firstTime.getTime();
+			long calDays = calDate / (24 * 60 * 60 * 1000);
+			temp.get(i).setDday(calDays);
+
+		}
+		return new ResponseEntity<List<Job>>(temp, HttpStatus.OK);
 	}
 
 	// 동별 일거리 조회
 	@GetMapping("/findJobsByDong")
-	public ResponseEntity<List<Job>> findByDong(@RequestParam String dong) throws Exception {
-		try {
-			service.findByDong(dong);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	public ResponseEntity<List<Job>> findByDong(@RequestParam String dong) throws Exception {	
+		List<Job> temp = service.findByDong(dong);
+		for (int i = 0; i < temp.size(); i++) {
+			String workDay = temp.get(i).getWorkingDate().replace("-", "");
+			SimpleDateFormat today = new SimpleDateFormat("yyyyMMdd");
+			Date time = new Date();
+			String nowDay = today.format(time);
 
-		return new ResponseEntity<List<Job>>(service.findByDong(dong), HttpStatus.OK);
+			Date firstTime = today.parse(nowDay);
+			Date secondTime = today.parse(workDay);
+
+			long calDate = secondTime.getTime() - firstTime.getTime();
+			long calDays = calDate / (24 * 60 * 60 * 1000);
+			temp.get(i).setDday(calDays);
+
+		}
+		return new ResponseEntity<List<Job>>(temp, HttpStatus.OK);
 	}
 
 	// 크레딧 기준 정렬
@@ -100,37 +148,80 @@ public class JobController {
 		} else if (order.equals("Up")) {
 			list = service.upCredit();
 		}
+		for (int i = 0; i < list.size(); i++) {
+			String workDay = list.get(i).getWorkingDate().replace("-", "");
+			SimpleDateFormat today = new SimpleDateFormat("yyyyMMdd");
+			Date time = new Date();
+			String nowDay = today.format(time);
+
+			Date firstTime = today.parse(nowDay);
+			Date secondTime = today.parse(workDay);
+
+			long calDate = secondTime.getTime() - firstTime.getTime();
+			long calDays = calDate / (24 * 60 * 60 * 1000);
+			list.get(i).setDday(calDays);
+
+		}
 		return new ResponseEntity<List<Job>>(list, HttpStatus.OK);
 	}
 
 	// 크레딧 기준 정렬
 	// 수정 필요
 	@GetMapping("/findJobsByCredit")
-	public ResponseEntity<List<Job>> findJobsByCredit(@RequestParam String minValue,@RequestParam String maxValue) throws Exception {
-	
+	public ResponseEntity<List<Job>> findJobsByCredit(@RequestParam String minValue, @RequestParam String maxValue)
+			throws Exception {
+
 		List<Job> list = new ArrayList<Job>();
 		List<Job> temp = service.findJobs();
 		int min = Integer.parseInt(minValue);
 		int max = Integer.parseInt(maxValue);
-		for(Job s : temp) {
+		for (Job s : temp) {
 			int cur = Integer.parseInt(s.getJobCredit());
-			if(cur >= min && cur < max) {
+			if (cur >= min && cur < max) {
 				list.add(s);
 			}
 		}
-		
+
 //		try {
 //			List<Hand> h = service.findByCreditHands(credit);
 //		} catch (Exception e) {
 //			e.printStackTrace();
 //		}
+		for (int i = 0; i < list.size(); i++) {
+			String workDay = list.get(i).getWorkingDate().replace("-", "");
+			SimpleDateFormat today = new SimpleDateFormat("yyyyMMdd");
+			Date time = new Date();
+			String nowDay = today.format(time);
 
+			Date firstTime = today.parse(nowDay);
+			Date secondTime = today.parse(workDay);
+
+			long calDate = secondTime.getTime() - firstTime.getTime();
+			long calDays = calDate / (24 * 60 * 60 * 1000);
+			list.get(i).setDday(calDays);
+
+		}
 		return new ResponseEntity<List<Job>>(list, HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/findByTimeJob")
-	public ResponseEntity<List<Job>> findByTimeJob(int day) throws Exception{
-		return new ResponseEntity<List<Job>>(service.findByTimeJob(day), HttpStatus.OK);
+	public ResponseEntity<List<Job>> findByTimeJob(int day) throws Exception {
+		List<Job> temp = service.findByTimeJob(day);
+		for (int i = 0; i < temp.size(); i++) {
+			String workDay = temp.get(i).getWorkingDate().replace("-", "");
+			SimpleDateFormat today = new SimpleDateFormat("yyyyMMdd");
+			Date time = new Date();
+			String nowDay = today.format(time);
+
+			Date firstTime = today.parse(nowDay);
+			Date secondTime = today.parse(workDay);
+
+			long calDate = secondTime.getTime() - firstTime.getTime();
+			long calDays = calDate / (24 * 60 * 60 * 1000);
+			temp.get(i).setDday(calDays);
+
+		}
+		return new ResponseEntity<List<Job>>(temp, HttpStatus.OK);
 	}
 
 	// 일거리 삭제
@@ -166,6 +257,7 @@ public class JobController {
 		}
 		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}
+
 	// 일거리 수정
 	@PutMapping("/updateJob")
 	public ResponseEntity<Map<String, Object>> UpdateJob(@RequestBody Job job) {

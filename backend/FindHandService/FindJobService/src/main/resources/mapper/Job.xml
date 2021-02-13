@@ -14,6 +14,7 @@
 		<result column="working_date" property="workingDate"/>
 		<result column="working_address" property="workingAddress"/>
 		<result column="status" property="status"/>
+		<result column="job_name" property="jobName"/>
 	</resultMap>
 	
 	<insert id="insertJob" parameterType="job">
@@ -27,7 +28,8 @@
 			job_credit,
 			working_date,
 			working_address,
-			status
+			status,
+			job_name
 		)values(
 			#{jobId},
 			#{jobUserUUid},
@@ -38,7 +40,8 @@
 			#{jobCredit},
 			#{workingDate},
 			#{workingAddress},
-			#{status}
+			#{status},
+			#{jobName}
 		)
 	</insert>
 	
