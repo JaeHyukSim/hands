@@ -15,6 +15,12 @@
 		<result column="working_address" property="workingAddress"/>
 		<result column="status" property="status"/>
 		<result column="job_name" property="jobName"/>
+		<result column="userAddress" property="userAddress"/>
+		<result column="userEmail" property="userEmail"/>
+		<result column="userGender" property="userGender"/>
+		<result column="userName" property="userName"/>
+		<result column="userNickname" property="userNickname"/>
+		<result column="userPhone" property="userPhone"/>
 	</resultMap>
 	
 	<insert id="insertJob" parameterType="job">
@@ -29,7 +35,13 @@
 			working_date,
 			working_address,
 			status,
-			job_name
+			job_name,
+			userAddress,
+			userEmail,
+			userGender,
+			userName,
+			userNickname,
+			userPhone
 		)values(
 			#{jobId},
 			#{jobUserUUid},
@@ -41,7 +53,13 @@
 			#{workingDate},
 			#{workingAddress},
 			#{status},
-			#{jobName}
+			#{jobName},
+			#{userAddress},
+			#{userEmail},
+			#{userGender},
+			#{userName},
+			#{userNickname},
+			#{userPhone}
 		)
 	</insert>
 	
@@ -74,6 +92,13 @@
 			job_id = #{jobId}
 	</update>
 	
-
+	<select id="findProfile" parameterType="String" resultType="Profile">
+		select 
+			address,email,gender,name,nickname,phone
+		from
+			user_profile 
+		where 
+			profile_id = (select profile_id from authentication where user_uuid =#{uuid})
+	</select>
 	
 </mapper>

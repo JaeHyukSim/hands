@@ -15,6 +15,13 @@
 		<result column="working_address" property="workingAddress"/>
 		<result column="status" property="status"/>
 		<result column="job_name" property="jobName"/>
+		<result column="userAddress" property="userAddress"/>
+		<result column="userEmail" property="userEmail"/>
+		<result column="userGender" property="userGender"/>
+		<result column="userName" property="userName"/>
+		<result column="userNickname" property="userNickname"/>
+		<result column="userPhone" property="userPhone"/>
+		
 	</resultMap>
 	
 	<select id="findJobs" resultMap="jobResult">
@@ -52,16 +59,7 @@
 		WHERE 
 			working_address like CONCAT('%',#{dong},'%')
 	</select>
-	
-	<select id="findByCredit" parameterType="Credit" resultMap="jobResult">
-		SELECT
-		 * 
-		FROM 
-		 	job 
-		WHERE 
-			job_credit &gt;= #{minCredit} AND job_credit  &lt; #{maxCredit}
-	</select>
-	
+		
 	<!-- 크레딧 기준 정렬 -->
 	<select id="downCredit" resultMap="jobResult">
 		SELECT * FROM job order by job_credit desc

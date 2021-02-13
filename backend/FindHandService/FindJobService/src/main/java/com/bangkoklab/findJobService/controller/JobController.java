@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bangkoklab.findJobService.data.dto.Job;
+import com.bangkoklab.findJobService.data.dto.Profile;
 import com.bangkoklab.findJobService.service.JobService;
 
 @RestController
@@ -46,6 +47,13 @@ public class JobController {
 
 		try {
 			job.setJobId(UUID.randomUUID().toString());
+			Profile profile = service.findProfile(job.getJobUserUUid());
+			job.setUserAddress(profile.getAddress());
+			job.setUserEmail(profile.getEmail());
+			job.setUserGender(profile.getGender());
+			job.setUserName(profile.getName());
+			job.setUserNickname(profile.getNickname());
+			job.setUserPhone(profile.getPhone());
 			service.insertJob(job);
 			resultMap.put("message", "success");
 			status = HttpStatus.OK;
@@ -59,6 +67,7 @@ public class JobController {
 
 	@GetMapping("/jobInfo")
 	public ResponseEntity<Job> jobInfo(@RequestParam String jobId) throws Exception {
+		System.out.println(jobId);
 		Job temp_job = service.findJobsById(jobId);
 		String workDay = temp_job.getWorkingDate().replace("-", "");
 		SimpleDateFormat today = new SimpleDateFormat("yyyyMMdd");
