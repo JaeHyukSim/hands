@@ -46,6 +46,7 @@ public class GatewaySecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/social/**").hasRole("USER")
                 .antMatchers("/mail/**").permitAll()
                 .antMatchers("/contract/**").hasRole("USER")
-                .antMatchers("/review/**").permitAll();
+                .antMatchers("/review/**").permitAll()
+                .antMatchers("/keyword/**").permitAll();
     }
 }
