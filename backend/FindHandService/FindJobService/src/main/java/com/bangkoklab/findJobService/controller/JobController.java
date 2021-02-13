@@ -35,7 +35,7 @@ public class JobController {
 	JobService service;
 
 	@PostMapping("/totalSearch")
-	public ResponseEntity<List<Job>> totalSearcg(@RequestBody TotalSearch totalSearch) throws Exception{
+	public ResponseEntity<List<Job>> totalSearch(@RequestBody TotalSearch totalSearch) throws Exception{
 		List<Job> JobList = new ArrayList<Job>();
 		
 		int minCredit = Integer.parseInt(totalSearch.getMinCredit());
@@ -59,6 +59,7 @@ public class JobController {
 				long calDate = secondTime.getTime() - firstTime.getTime();
 				long calDays = calDate / (24 * 60 * 60 * 1000);
 				if(calDays >= totalSearch.getDday()) {
+					job.setDday(calDays);
 					System.out.println(calDays+" 1 "+totalSearch.getDday());
 					System.out.println(totalSearch.getCategory());
 					System.out.println(job.getCategoryId());
