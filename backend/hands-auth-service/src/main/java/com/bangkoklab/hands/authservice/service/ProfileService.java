@@ -18,10 +18,11 @@ public interface ProfileService {
     // 이름과 번호로 프로필 아이디 찾기
     UserProfile selectProfileIdByNameAndPhone(String name,String phone);
     // 프로필 변경
-    void updateProfileByProfileId(Long profileId,UserProfile newProfile);
+    UserProfile updateProfileByProfileId(Long profileId,UserProfile newProfile);
     // 모든 핸디의 프로필 조회
     List<UserProfile> selectHandyProfiles();
-    // 모든 핸더의 프로필 조회
+    // 모든 핸더의 프로필 조
     List<UserProfile> selectHanderProfiles();
-
+    // 핸디로 타입 변경
+    UserProfile updateType(Long profileId,String type);
 }
