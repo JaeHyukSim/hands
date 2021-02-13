@@ -56,9 +56,10 @@ public class AuthController {
         auth.setUserUuid(createdUserUuid);
         auth.addAuthorities("ROLE_USER");
         auth.setUserProfile(profile);
-        if (null != authService.join(auth)) {
+        Authentication joinAuth=authService.join(auth);
+        if (null !=joinAuth) {
             header.add("message", "회원가입성공");
-            return new ResponseEntity<>(header, HttpStatus.OK);
+            return new ResponseEntity<>(joinAuth.getUserUuid(),header, HttpStatus.OK);
         } else {
             header.add("message", "회원가입 실패");
             return new ResponseEntity<>(header, HttpStatus.BAD_REQUEST);
