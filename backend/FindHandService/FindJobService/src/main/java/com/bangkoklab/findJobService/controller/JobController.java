@@ -22,7 +22,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bangkoklab.findJobService.data.dto.Job;
 import com.bangkoklab.findJobService.data.dto.Profile;
+import com.bangkoklab.findJobService.data.dto.TotalSearch;
 import com.bangkoklab.findJobService.service.JobService;
+
+import io.swagger.models.auth.In;
 
 @RestController
 @RequestMapping("/Jobs")
@@ -31,6 +34,49 @@ public class JobController {
 	@Autowired
 	JobService service;
 
+	@PostMapping("/totalSearch")
+	public ResponseEntity<List<Job>> totalSearcg(@RequestBody TotalSearch totalSearch) throws Exception{
+		List<Job> JobList = new ArrayList<Job>();
+		
+		int minCredit = Integer.parseInt(totalSearch.getMinCredit());
+		int maxCredit = Integer.parseInt(totalSearch.getMaxCredit());
+	
+		String[] dong = totalSearch.getDong().split(" ");
+		List<Job> tmp = service.findByDong(dong[2]);
+		System.out.println(tmp.size());
+		for(int i = 0; i< tmp.size();i++) {
+			Job job = tmp.get(i);
+			int credit =Integer.parseInt(job.getJobCredit());
+			if(minCredit<= credit && credit < maxCredit) {
+				String workDay = job.getWorkingDate().replace("-", "");
+				SimpleDateFormat today = new SimpleDateFormat("yyyyMMdd");
+				Date time = new Date();
+				String nowDay = today.format(time);
+
+				Date firstTime = today.parse(nowDay);
+				Date secondTime = today.parse(workDay);
+
+				long calDate = secondTime.getTime() - firstTime.getTime();
+				long calDays = calDate / (24 * 60 * 60 * 1000);
+				if(calDays >= totalSearch.getDday()) {
+					System.out.println(calDays+" 1 "+totalSearch.getDday());
+					System.out.println(totalSearch.getCategory());
+					System.out.println(job.getCategoryId());
+					System.out.println(totalSearch.getCategory().equals(job.getCategoryId())); 
+					if(totalSearch.getCategory().equals("전체")) {
+						JobList.add(job);
+					}else {
+						if(totalSearch.getCategory().equals(job.getCategoryId())) {
+							JobList.add(job);							
+						}
+					}
+				}
+			}
+			
+			
+		}
+		return new ResponseEntity<List<Job>>(JobList, HttpStatus.OK);
+	}
 //	입력후 리스트 출력
 //	@PostMapping("/insertHand")
 //	public ResponseEntity<List<Hand>> insertHand(@RequestBody Hand hand) throws Exception{
