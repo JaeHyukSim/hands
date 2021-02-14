@@ -30,6 +30,7 @@ public class JwtTokenAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest req, HttpServletResponse rsp, FilterChain filterChain)
             throws ServletException, IOException {
         String token = req.getHeader("X-AUTH-TOKEN");
+
         if (token != null) {
             try {
                 Claims claims = Jwts.parser()
