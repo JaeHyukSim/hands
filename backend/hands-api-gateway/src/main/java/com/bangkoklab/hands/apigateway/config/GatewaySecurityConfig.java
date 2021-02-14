@@ -6,6 +6,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsUtils;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -36,6 +37,7 @@ public class GatewaySecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilterAfter(new JwtTokenAuthenticationFilter(),
                         UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
+                .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
                 .antMatchers("/auth/user/**").hasRole("USER")
                 .antMatchers("/auth/**").permitAll()
                 .antMatchers("/auth/profile/").hasRole("USER")
