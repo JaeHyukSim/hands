@@ -19,17 +19,21 @@ import com.bangkoklab.data.vo.JobKeywordsVO;
 import com.bangkoklab.service.JobService;
 import com.bangkoklab.service.Keywords;
 
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+
 /**
  * @packageName com.bangkoklab.controller
  * @author shimjaehyuk
  * @description 거래 키워드 컨트롤러
  */
+
 @RestController
 @RequestMapping("/job")
+@RequiredArgsConstructor
 public class JobController {
 
-	@Autowired
-	JobService jobService;
+	@NonNull private JobService jobService;
 
 	/**
 	 * @param JobKeywordsVO
